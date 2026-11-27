@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gravity Games — Play Free Online HTML5 Browser Games</title>
+  <meta name="description" content="Play the best free instant HTML5 browser games on Gravity Games (gravitygamez.fun). High-speed action, 3D reflex dodgers, rage platformers, and mind-bending puzzle games with zero downloads or logins.">
+  <meta name="keywords" content="free online games, browser games, html5 games, unblocked games, play games online, crazy games, poki games, gravity games">
+  <link rel="canonical" href="https://gravitygamez.fun/">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gravitygamez.fun/">
+  <meta property="og:title" content="Gravity Games — Play Free Online Browser Games">
+  <meta property="og:description" content="Instant play free online HTML5 games. Action, rage platformers, 3D racers, and brain teasers. No downloads, no logins.">
+  <meta property="og:image" content="https://gravitygamez.fun/favicon.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://gravitygamez.fun/">
+  <meta name="twitter:title" content="Gravity Games — Free Online HTML5 Browser Games">
+  <meta name="twitter:description" content="Instant play free online HTML5 games. Action, rage platformers, 3D racers, and brain teasers.">
+  <meta name="twitter:image" content="https://gravitygamez.fun/favicon.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Structured Data / JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Gravity Games",
+    "url": "https://gravitygamez.fun/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://gravitygamez.fun/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- 1. TOP NAVIGATION BAR (60px) -->
+  <header class="site-header">
+    <div class="brand-group">
+      <a href="index.html" class="brand-link" title="Gravity Games">
+        <img src="logo.png" alt="Gravity Games" class="brand-logo-img">
+      </a>
+    </div>
+
+    <!-- Instant Live Search Bar -->
+    <div class="search-container">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search 17+ games by title, genre, or tag..." autocomplete="off" aria-label="Search games">
+        <svg id="searchClear" class="search-clear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Quick Filter Pills -->
+    <nav class="header-actions" aria-label="Quick filters">
+      <button class="filter-pill active" data-category="all" type="button">All Games</button>
+      <button class="filter-pill" data-category="trending" type="button">Trending</button>
+      <button class="filter-pill" data-category="favorites" type="button">Favorites</button>
+      <a href="blog.html" class="filter-pill pill-action">Guides & Blog</a>
+    </nav>
+  </header>
+
+  <!-- 2. MAIN APPLICATION CONTAINER -->
+  <div class="app-container">
+
+    <!-- Main Viewport Content -->
+    <main class="main-viewport">
+      
+      <!-- Category Filter Strip -->
+      <nav class="category-strip" aria-label="Game categories">
+        <button class="filter-pill active" data-category="all" type="button">All Games</button>
+        <button class="filter-pill" data-category="Action" type="button">Action</button>
+        <button class="filter-pill" data-category="Arcade" type="button">Arcade</button>
+        <button class="filter-pill" data-category="Puzzle" type="button">Puzzle</button>
+        <button class="filter-pill" data-category="Skill" type="button">Skill</button>
+        <button class="filter-pill" data-category="Adventure" type="button">Adventure</button>
+        <button class="filter-pill" data-category="trending" type="button">Trending</button>
+        <button class="filter-pill" data-category="favorites" type="button">Favorites</button>
+      </nav>
+
+      <!-- AdSense Ready: Top Leaderboard (728x90) -->
+      <section class="ad-slot-container ad-leaderboard" id="adHomeTopLeaderboard" aria-label="Advertisement"></section>
+
+      <!-- Active Filter / Search Banner (Shown when filtering/searching) -->
+      <div id="filterBanner" class="section-header hidden">
+        <div class="section-title-group">
+          <span class="section-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+          </span>
+          <h1 class="section-title" id="filterTitle">Filtered Games</h1>
+          <span class="section-counter" id="filterCounter">0 Games</span>
+        </div>
+        <button id="clearFilterBtn" class="filter-pill" type="button">Reset Filters</button>
+      </div>
+
+      <!-- Filtered Results Grid (Hidden by default, displayed when searching or filtering) -->
+      <section id="filteredSection" class="hidden">
+        <div class="covers-grid" id="filteredGrid"></div>
+      </section>
+
+      <!-- DEFAULT HOMEPAGE SHELVES (Hidden when search/filter active) -->
+      <div id="defaultHomeContent">
+        
+        <!-- Continue Playing Shelf (Dynamically rendered from localStorage) -->
+        <section id="recentShelf" class="hidden">
+          <div class="section-header">
+            <div class="section-title-group">
+              <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <h2 class="section-title">Continue Playing</h2>
+              <span class="section-counter" id="recentCounter">0</span>
+            </div>
+          </div>
+          <div class="icons-grid" id="recentGrid"></div>
+        </section>
+
+        <!-- Hero Featured Asymmetric Bento Grid / Carousel -->
+        <section class="hero-bento-grid" id="heroBentoGrid">
+          <!-- Populated dynamically via JS using banner.jpg and cover.jpg -->
+        </section>
+
+        <!-- Trending & Highly Rated Shelf (3:4 Cover Cards) -->
+        <section style="margin-top: 10px;">
+          <div class="section-header">
+            <div class="section-title-group">
+              <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+              </svg>
+              <h2 class="section-title">Trending & Featured Hits</h2>
+              <span class="section-counter" id="trendingCounter">Games</span>
+            </div>
+          </div>
+          <div class="covers-grid" id="trendingGrid"></div>
+        </section>
+
+        <!-- In-Feed Banner Ad Slot (Max 1000x120) -->
+        <section class="ad-slot-container ad-in-feed" id="adHomeInFeed" aria-label="Advertisement" style="margin: 20px auto;"></section>
+
+        <!-- Action & Rage Platformers Shelf -->
+        <section>
+          <div class="section-header">
+            <div class="section-title-group">
+              <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+              <h2 class="section-title">Rage Platformers & Action Challenges</h2>
+              <span class="section-counter">High Intensity</span>
+            </div>
+          </div>
+          <div class="covers-grid" id="actionGrid"></div>
+        </section>
+
+        <!-- Arcade, 3D & Skill Grid (Compact Icons) -->
+        <section style="margin-top: 10px;">
+          <div class="section-header">
+            <div class="section-title-group">
+              <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                <circle cx="8" cy="12" r="2"></circle>
+                <path d="M15 9v6"></path>
+                <path d="M12 12h6"></path>
+              </svg>
+              <h2 class="section-title">Arcade, 3D & Skill Mastery</h2>
+              <span class="section-counter">Quick Play</span>
+            </div>
+          </div>
+          <div class="icons-grid" id="arcadeGrid"></div>
+        </section>
+
+        <!-- Puzzle, Logic & Strategy Grid -->
+        <section style="margin-top: 10px;">
+          <div class="section-header">
+            <div class="section-title-group">
+              <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19.439 7.85c0-1.571-1.274-2.85-2.846-2.85a2.85 2.85 0 0 0-2.846 2.85v.57a2.85 2.85 0 0 1-2.847 2.85h-.569a2.85 2.85 0 0 0-2.847 2.85c0 1.571 1.274 2.85 2.847 2.85h.57a2.85 2.85 0 0 1 2.846 2.85v.57a2.85 2.85 0 0 0 2.846 2.85 2.85 2.85 0 0 0 2.846-2.85v-.57a2.85 2.85 0 0 1 2.846-2.85h.57a2.85 2.85 0 0 0 2.846-2.85 2.85 2.85 0 0 0-2.846-2.85h-.57a2.85 2.85 0 0 1-2.846-2.85z"></path>
+              </svg>
+              <h2 class="section-title">Puzzle, Chess & Strategy</h2>
+              <span class="section-counter">Tactical</span>
+            </div>
+          </div>
+          <div class="covers-grid" id="puzzleGrid"></div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- 3. GLOBAL FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand-col">
+        <a href="index.html">
+          <img src="logo.png" alt="Gravity Games" class="footer-logo-img">
+        </a>
+        <p class="footer-desc">
+          Gravity Games (gravitygamez.fun) is your premier destination for free, high-performance HTML5 browser games. Instant play on desktop and mobile with zero downloads or logins.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="footer-col-title">Game Genres</h3>
+        <ul class="footer-nav-list">
+          <li><a href="#" class="footer-nav-link" data-category="Action">Action & Rage Games</a></li>
+          <li><a href="#" class="footer-nav-link" data-category="Arcade">Arcade & Speedrunners</a></li>
+          <li><a href="#" class="footer-nav-link" data-category="Puzzle">Puzzle & Chess</a></li>
+          <li><a href="#" class="footer-nav-link" data-category="Skill">Skill & One Button</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="footer-col-title">Community & Guides</h3>
+        <ul class="footer-nav-list">
+          <li><a href="blog.html" class="footer-nav-link">Gaming Blog & Guides</a></li>
+          <li><a href="about.html" class="footer-nav-link">About Gravity Games</a></li>
+          <li><a href="contact.html" class="footer-nav-link">Developer Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="footer-col-title">Legal & Privacy</h3>
+        <ul class="footer-nav-list">
+          <li><a href="privacy.html" class="footer-nav-link">Privacy Policy</a></li>
+          <li><a href="terms.html" class="footer-nav-link">Terms of Service</a></li>
+          <li><a href="privacy.html#cookies" class="footer-nav-link">Cookie Preferences</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; 2026 Gravity Games (gravitygamez.fun). All rights reserved.</span>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="games-data.js"></script>
+  <script src="ads-config.js"></script>
+  <script src="app-core.js"></script>
+  <script src="home.js"></script>
+</body>
+</html>

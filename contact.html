@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — Gravity Games</title>
+  <meta name="description" content="Get in touch with the Gravity Games developer and editorial team. Submit game suggestions, bug reports, and partnership inquiries.">
+  <link rel="canonical" href="https://gravitygamez.fun/contact.html">
+
+  <meta property="og:image" content="https://gravitygamez.fun/favicon.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image" content="https://gravitygamez.fun/favicon.png">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="site-header">
+    <div class="brand-group">
+      <a href="index.html" class="brand-link" title="Gravity Games">
+        <img src="logo.png" alt="Gravity Games" class="brand-logo-img">
+      </a>
+    </div>
+
+    <nav class="header-actions">
+      <a href="index.html" class="filter-pill">Play Games</a>
+      <a href="blog.html" class="filter-pill">Blog</a>
+    </nav>
+  </header>
+
+  <div class="app-container">
+
+    <!-- Main Viewport -->
+    <main class="main-viewport">
+      <div class="legal-card">
+        <h1 class="legal-title">Contact Gravity Games</h1>
+
+        <section class="legal-section">
+          <p>
+            Have a game suggestion, feedback on level design, or interested in publishing your HTML5 game on <strong>gravitygamez.fun</strong>? We'd love to hear from you.
+          </p>
+        </section>
+
+        <!-- Direct Contact Info Badges -->
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 10px;">
+          <div class="control-item-badge">
+            <span class="control-key-label">General & Support</span>
+            <span class="control-key-desc">support@gravitygamez.fun</span>
+          </div>
+          <div class="control-item-badge">
+            <span class="control-key-label">Game Developers & Submissions</span>
+            <span class="control-key-desc">dev@gravitygamez.fun</span>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <form class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label for="contactName" class="form-label">Your Name</label>
+            <input type="text" id="contactName" class="form-input" placeholder="e.g. Alex Mercer" required>
+          </div>
+
+          <div class="form-group">
+            <label for="contactEmail" class="form-label">Your Email</label>
+            <input type="email" id="contactEmail" class="form-input" placeholder="alex@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="contactSubject" class="form-label">Subject</label>
+            <input type="text" id="contactSubject" class="form-input" placeholder="Feedback, bug report, or business inquiry" required>
+          </div>
+
+          <div class="form-group">
+            <label for="contactMessage" class="form-label">Message</label>
+            <textarea id="contactMessage" class="form-textarea" placeholder="Tell us what's on your mind..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit" id="btnSubmitContact">
+            Send Message
+          </button>
+        </form>
+
+        <div id="contactSuccessMsg" class="hidden" style="background: rgba(184, 255, 54, 0.1); border: 1px solid var(--accent-action); border-radius: var(--radius-sm); padding: 16px; color: #FFFFFF; font-size: 0.9rem;">
+          <strong style="color: var(--accent-action);">Thank you!</strong> Your message has been received. Our team will get back to you shortly.
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand-col">
+        <a href="index.html">
+          <img src="logo.png" alt="Gravity Games" class="footer-logo-img">
+        </a>
+        <p class="footer-desc">
+          Gravity Games (gravitygamez.fun) delivers lightning-fast, high-framerate HTML5 gaming directly to your browser.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="footer-col-title">Navigation</h3>
+        <ul class="footer-nav-list">
+          <li><a href="index.html" class="footer-nav-link">Home</a></li>
+          <li><a href="blog.html" class="footer-nav-link">Guides & Blog</a></li>
+          <li><a href="about.html" class="footer-nav-link">About Us</a></li>
+          <li><a href="contact.html" class="footer-nav-link">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="footer-col-title">Legal & Privacy</h3>
+        <ul class="footer-nav-list">
+          <li><a href="privacy.html" class="footer-nav-link">Privacy Policy</a></li>
+          <li><a href="terms.html" class="footer-nav-link">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; 2026 Gravity Games (gravitygamez.fun). All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script src="app-core.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("contactForm");
+      const successMsg = document.getElementById("contactSuccessMsg");
+      const btnSubmit = document.getElementById("btnSubmitContact");
+
+      if (form) {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          btnSubmit.disabled = true;
+          btnSubmit.textContent = "Sending...";
+
+          setTimeout(() => {
+            form.classList.add("hidden");
+            successMsg.classList.remove("hidden");
+            showToast("Your message was sent successfully!", "success");
+          }, 600);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

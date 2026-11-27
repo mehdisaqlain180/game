@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="articlePageTitle">Gaming Guide — Gravity Games</title>
+  <meta name="description" id="articleMetaDesc" content="In-depth browser gaming guides, mechanics breakdowns, and speedrun strategies on Gravity Games.">
+  <link rel="canonical" href="https://gravitygamez.fun/article.html">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://gravitygamez.fun/article.html">
+  <meta property="og:image" content="https://gravitygamez.fun/favicon.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image" content="https://gravitygamez.fun/favicon.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+
+  <!-- Fonts & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="site-header">
+    <div class="brand-group">
+      <a href="index.html" class="brand-link" title="Gravity Games">
+        <img src="logo.png" alt="Gravity Games" class="brand-logo-img">
+      </a>
+    </div>
+
+    <!-- Quick Navigation -->
+    <nav class="header-actions">
+      <a href="index.html" class="filter-pill">Play Games</a>
+      <a href="blog.html" class="filter-pill">All Guides</a>
+    </nav>
+  </header>
+
+  <!-- Main Container -->
+  <div class="app-container">
+
+    <!-- Main Viewport (Article Body) -->
+    <main class="main-viewport">
+      <article class="article-container" id="articleRoot">
+        
+        <header class="article-header">
+          <a href="blog.html" style="color: var(--accent-action); font-size: 0.85rem; font-weight: 700; margin-bottom: 12px; display: inline-flex; align-items: center; gap: 4px;">
+            &larr; Back to Guides Hub
+          </a>
+          <h1 class="article-title" id="articleHeading">Loading Guide...</h1>
+          <div class="article-meta">
+            <span id="articleCategory" style="color: var(--accent-action); font-weight: 700;">STRATEGY GUIDE</span>
+            <span>•</span>
+            <span id="articleDate">November 2026</span>
+            <span>•</span>
+            <span id="articleReadTime">4 min read</span>
+          </div>
+        </header>
+
+        <img id="articleBannerImg" src="favicon.png" alt="" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:var(--radius-md); margin-bottom:24px; border:var(--border-subtle);">
+
+        <!-- Dynamic Article Content -->
+        <div class="article-prose" id="articleBody"></div>
+
+        <!-- In-Article AdSense Slot -->
+        <div class="ad-slot-container ad-in-feed" id="adArticleInContent" aria-label="Advertisement" style="margin: 32px 0;"></div>
+
+        <div id="articleFollowUp" class="article-prose"></div>
+
+        <!-- Call to Action Banner -->
+        <div style="background: var(--bg-surface-elevated); border: var(--border-subtle); border-radius: var(--radius-md); padding: 24px; margin-top: 36px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+          <div>
+            <h3 style="font-family: var(--font-heading); font-size: 1.15rem; color: #FFFFFF;">Ready to test your skills?</h3>
+            <p style="color: var(--text-secondary); font-size: 0.85rem;">Jump into action right now with zero installs.</p>
+          </div>
+          <a id="articlePlayCta" href="index.html" class="bento-play-btn" style="margin-top: 0;">Play Now &rarr;</a>
+        </div>
+
+      </article>
+    </main>
+  </div>
+
+  <!-- Global Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand-col">
+        <a href="index.html">
+          <img src="logo.png" alt="Gravity Games" class="footer-logo-img">
+        </a>
+        <p class="footer-desc">
+          High-performance HTML5 browser games on gravitygamez.fun.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="footer-col-title">Navigation</h3>
+        <ul class="footer-nav-list">
+          <li><a href="index.html" class="footer-nav-link">Home</a></li>
+          <li><a href="blog.html" class="footer-nav-link">Guides & Blog</a></li>
+          <li><a href="about.html" class="footer-nav-link">About Us</a></li>
+          <li><a href="contact.html" class="footer-nav-link">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="footer-col-title">Legal & Privacy</h3>
+        <ul class="footer-nav-list">
+          <li><a href="privacy.html" class="footer-nav-link">Privacy Policy</a></li>
+          <li><a href="terms.html" class="footer-nav-link">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; 2026 Gravity Games (gravitygamez.fun). All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script src="blog-data.js"></script>
+  <script src="ads-config.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const articleId = urlParams.get("id") || "dont-trust-the-floor-guide";
+      const articles = window.BLOG_ARTICLES || [];
+      const data = articles.find(a => a.id === articleId) || articles[0];
+
+      if (data) {
+        document.getElementById("articlePageTitle").textContent = `${data.title} — Gravity Games`;
+        document.getElementById("articleMetaDesc").setAttribute("content", data.meta);
+        document.getElementById("articleHeading").textContent = data.title;
+        document.getElementById("articleCategory").textContent = data.category;
+        document.getElementById("articleDate").textContent = data.date;
+        document.getElementById("articleReadTime").textContent = data.readTime || "4 min read";
+        
+        const bannerImg = document.getElementById("articleBannerImg");
+        bannerImg.src = data.banner;
+        bannerImg.alt = data.title;
+
+        document.getElementById("articleBody").innerHTML = data.body;
+        document.getElementById("articleFollowUp").innerHTML = data.followUp;
+
+        const playCta = document.getElementById("articlePlayCta");
+        if (playCta && data.gameSlug) {
+          playCta.href = `play.html?game=${data.gameSlug}`;
+          playCta.textContent = "Play This Game Now →";
+        }
+      }
+
+      // AdSense In-Article Slot
+      if (window.AdManager) {
+        AdManager.init();
+        AdManager.renderSlot("adArticleInContent", "blogInArticle", "horizontal");
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+# Cloudflare Pages Redirects / Rewrites for Gravity Games
+# Maps clean URLs and internal game assets to their respective paths with 200 rewrite status
+
+/online-games-for-free /online-games-for-free.html 200
+
+/assets/index-D9VmC681.js /Don't-Trust-The-Floor/assets/index-D9VmC681.js 200
+
+/assets/index-DidBH2Kp.css /Don't-Trust-The-Floor/assets/index-DidBH2Kp.css 200
+
+/assets/index-BMwqUhe3.css /Neon-Wave-Legends/assets/index-BMwqUhe3.css 200
+/assets/index-B_S9MjvE.js /Neon-Wave-Legends/assets/index-B_S9MjvE.js 200
+
+/assets/index-Cd68nujF.css /One-Button-Hell/assets/index-Cd68nujF.css 200
+/assets/index-KVZgtUt5.js /One-Button-Hell/assets/index-KVZgtUt5.js 200
+
+/assets/index-CRz3fB4t.js /Prism-Rush/assets/index-CRz3fB4t.js 200
+/assets/index-DvnoxroI.css /Prism-Rush/assets/index-DvnoxroI.css 200
+
+/assets/index-jV_uEiAw.js /Reality-Changes/assets/index-jV_uEiAw.js 200
+/assets/index-WJD7Bop8.css /Reality-Changes/assets/index-WJD7Bop8.css 200
+
+/assets/index-BGY81bhI.js /Savannah-Sovereign/assets/index-BGY81bhI.js 200
+/assets/index-D2o2slNE.css /Savannah-Sovereign/assets/index-D2o2slNE.css 200
+
+/assets/index-ChNP0ICl.css /swingline/assets/index-ChNP0ICl.css 200
+/assets/index-D-MpTOUe.js /swingline/assets/index-D-MpTOUe.js 200
+
+/assets/door-icon.svg /the-fake-exit/assets/door-icon.svg 200
+/assets/index-BT-Kubhw.js /the-fake-exit/assets/index-BT-Kubhw.js 200
+/assets/index-DdEPpUf8.css /the-fake-exit/assets/index-DdEPpUf8.css 200
+/assets/logo-CmA8_L1Q.svg /the-fake-exit/assets/logo-CmA8_L1Q.svg 200
+/assets/logo.svg /the-fake-exit/assets/logo.svg 200
+/assets/skull-icon.svg /the-fake-exit/assets/skull-icon.svg 200
+
+/assets/index-0mv6DrIp.css /threshold-shift/assets/index-0mv6DrIp.css 200
+/assets/index-DhbKtyPW.js /threshold-shift/assets/index-DhbKtyPW.js 200
+
+/assets/index-BOB8fjTq.css /trust-issues/assets/index-BOB8fjTq.css 200
+/assets/index-DbnShG_P.js /trust-issues/assets/index-DbnShG_P.js 200
+
+/assets/index-A_vNoe2W.js /vector-flip/assets/index-A_vNoe2W.js 200
+/assets/index-B7YF1nYG.css /vector-flip/assets/index-B7YF1nYG.css 200
+
+/free-browser-games-like-minecraft /free-browser-games-like-minecraft.html 200

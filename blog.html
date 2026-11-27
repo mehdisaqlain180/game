@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gaming Guides & Articles — Gravity Games</title>
+  <meta name="description" content="Explore expert gaming guides, tips, and strategies for all 17 HTML5 browser games on Gravity Games.">
+  <link rel="canonical" href="https://gravitygamez.fun/blog.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gravitygamez.fun/blog.html">
+  <meta property="og:title" content="Gaming Guides & Articles — Gravity Games">
+  <meta property="og:description" content="Expert strategy guides and walkthroughs for every game on Gravity Games.">
+  <meta property="og:image" content="https://gravitygamez.fun/favicon.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image" content="https://gravitygamez.fun/favicon.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+
+  <!-- Fonts & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="site-header">
+    <div class="brand-group">
+      <a href="index.html" class="brand-link" title="Gravity Games">
+        <img src="logo.png" alt="Gravity Games" class="brand-logo-img">
+      </a>
+    </div>
+
+    <!-- Quick Navigation -->
+    <nav class="header-actions">
+      <a href="index.html" class="filter-pill">Play Games</a>
+      <a href="index.html?cat=trending" class="filter-pill">Trending</a>
+      <a href="blog.html" class="filter-pill active">Guides & Blog</a>
+    </nav>
+  </header>
+
+  <!-- Main Container -->
+  <div class="app-container">
+
+    <!-- Main Viewport -->
+    <main class="main-viewport">
+      
+      <!-- Hero Banner -->
+      <section class="blog-hero">
+        <h1 class="blog-heading">Gravity Games Guides & Insights</h1>
+        <p class="blog-subheading">
+          Dedicated strategy guides, mechanics breakdowns, and high-score tips for every single game on Gravity Games.
+        </p>
+      </section>
+
+      <!-- Blog Articles Grid (All 17 Game Guides) -->
+      <section class="blog-grid" id="blogGrid"></section>
+
+      <!-- Bottom Ad Slot -->
+      <section class="ad-slot-container ad-in-feed" id="adBlogBottom" aria-label="Advertisement"></section>
+
+    </main>
+  </div>
+
+  <!-- Global Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand-col">
+        <a href="index.html">
+          <img src="logo.png" alt="Gravity Games" class="footer-logo-img">
+        </a>
+        <p class="footer-desc">
+          Gravity Games (gravitygamez.fun) delivers curated browser games with zero downloads or logins.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="footer-col-title">Navigation</h3>
+        <ul class="footer-nav-list">
+          <li><a href="index.html" class="footer-nav-link">Home</a></li>
+          <li><a href="blog.html" class="footer-nav-link">Guides & Blog</a></li>
+          <li><a href="about.html" class="footer-nav-link">About Us</a></li>
+          <li><a href="contact.html" class="footer-nav-link">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="footer-col-title">Legal & Privacy</h3>
+        <ul class="footer-nav-list">
+          <li><a href="privacy.html" class="footer-nav-link">Privacy Policy</a></li>
+          <li><a href="terms.html" class="footer-nav-link">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; 2026 Gravity Games (gravitygamez.fun). All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script src="games-data.js"></script>
+  <script src="blog-data.js"></script>
+  <script src="ads-config.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const blogGrid = document.getElementById("blogGrid");
+      if (blogGrid && window.BLOG_ARTICLES) {
+        blogGrid.innerHTML = window.BLOG_ARTICLES.map(article => {
+          const articleUrl = article.customUrl || `article.html?id=${article.id}`;
+          return `
+          <article class="blog-card">
+            <img src="${article.banner}" alt="${article.title}" class="blog-card-thumb" loading="lazy">
+            <div class="blog-card-content">
+              <span class="blog-card-date">${article.date.toUpperCase()} • ${article.category}</span>
+              <h2 class="blog-card-title">
+                <a href="${articleUrl}">${article.title}</a>
+              </h2>
+              <p class="blog-card-excerpt">${article.excerpt}</p>
+              <div style="display:flex; gap:8px; margin-top:auto; flex-wrap:wrap;">
+                <a href="${articleUrl}" class="filter-pill pill-action">Read Guide &rarr;</a>
+                <a href="play.html?game=${article.gameSlug}" class="filter-pill">Play Game</a>
+              </div>
+            </div>
+          </article>
+        `;
+        }).join("");
+      }
+
+      if (window.AdManager) {
+        AdManager.init();
+        AdManager.renderSlot("adBlogBottom", "homeInFeedBanner", "horizontal");
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Play Game — Gravity Games</title>
+  <meta name="description" content="Play high-performance HTML5 browser games online on Gravity Games with instant loading, full screen mode, and no downloads.">
+  <link rel="canonical" href="https://gravitygamez.fun/play.html">
+
+  <!-- Favicon -->
+  <meta property="og:image" content="https://gravitygamez.fun/favicon.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image" content="https://gravitygamez.fun/favicon.png">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- 1. TOP NAVIGATION BAR -->
+  <header class="site-header">
+    <div class="brand-group">
+      <a href="index.html" class="brand-link" title="Gravity Games">
+        <img src="logo.png" alt="Gravity Games" class="brand-logo-img">
+      </a>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search other games..." autocomplete="off">
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <nav class="header-actions">
+      <a href="index.html" class="filter-pill">All Games</a>
+      <a href="index.html?cat=trending" class="filter-pill">Trending</a>
+      <a href="blog.html" class="filter-pill pill-action">Guides & Blog</a>
+    </nav>
+  </header>
+
+  <!-- 2. MAIN APPLICATION CONTAINER -->
+  <div class="app-container">
+
+    <!-- Main Player Area (3 Columns Layout) -->
+    <main class="main-viewport">
+      <div class="player-page-layout">
+        
+        <!-- LEFT COLUMN: Vertical Skyscraper Ad Slot + Recommended Games -->
+        <aside class="player-column player-left-col" aria-label="Sidebar Recommendations">
+          <!-- Skyscraper Ad Slot (160x600) -->
+          <div class="ad-slot-container ad-skyscraper" id="adPlayerLeftSkyscraper" aria-label="Advertisement"></div>
+
+          <!-- Quick Recommendations List -->
+          <div style="margin-top: 10px;">
+            <div class="section-header" style="margin-bottom: 8px;">
+              <h3 style="font-size: 0.88rem; font-weight: 700; color: #FFFFFF;">Recommended</h3>
+            </div>
+            <div class="sidebar-game-list" id="playerLeftList"></div>
+          </div>
+        </aside>
+
+        <!-- CENTER COLUMN: Main Stage -->
+        <div class="player-main-stage">
+          
+          <!-- Game Viewport Container (16:9 Adaptive Stage) -->
+          <div class="game-stage-container" id="gameStageContainer">
+            
+            <!-- Mandatory 2-Second Pre-Game Loading Splash Overlay -->
+            <div class="game-splash-overlay" id="gameSplashOverlay">
+              <img src="loading.gif" alt="Loading animation" class="splash-gif">
+              <h2 class="splash-game-title" id="splashGameTitle">Loading Game...</h2>
+              <div class="splash-progress-track">
+                <div class="splash-progress-bar" id="splashProgressBar"></div>
+              </div>
+              <span class="splash-tip">gravitygamez.fun • Instant Browser Play</span>
+            </div>
+
+            <!-- Live Game Iframe -->
+            <iframe id="gameIframe" class="game-iframe" title="Game Frame" allow="fullscreen; autoplay; gamepad" allowfullscreen></iframe>
+          </div>
+
+          <!-- Player Control Bar Directly Below Game Frame -->
+          <div class="player-control-bar">
+            <div class="control-left-meta">
+              <img id="gameThumbIcon" src="favicon.png" alt="Game Icon" class="player-thumb-icon">
+              <div class="player-info-text">
+                <h1 class="player-game-title" id="gameDisplayTitle">Game Title</h1>
+                <span class="player-game-tagline" id="gameDisplayTagline">Game Subtitle</span>
+              </div>
+            </div>
+
+            <div class="control-actions-group">
+              <!-- Fullscreen Button -->
+              <button id="btnFullscreen" class="control-btn btn-action-primary" type="button" title="Toggle Fullscreen">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                </svg>
+                <span>Fullscreen</span>
+              </button>
+
+              <!-- Theater Mode Toggle -->
+              <button id="btnTheater" class="control-btn" type="button" title="Expand Viewport / Theater Mode">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                  <line x1="10" y1="4" x2="10" y2="20"></line>
+                </svg>
+                <span id="theaterLabel">Theater</span>
+              </button>
+
+              <!-- Restart Game Button -->
+              <button id="btnRestart" class="control-btn" type="button" title="Restart Game">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M23 4v6h-6"></path>
+                  <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                </svg>
+                <span>Restart</span>
+              </button>
+
+              <!-- Favorite / Heart Button -->
+              <button id="btnFavorite" class="control-btn" type="button" title="Save to Favorites">
+                <svg id="favIconSvg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                <span id="favLabel">Favorite</span>
+              </button>
+
+              <!-- Share Link Button -->
+              <button id="btnShare" class="control-btn" type="button" title="Share Game Link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="18" cy="5" r="3"></circle>
+                  <circle cx="6" cy="12" r="3"></circle>
+                  <circle cx="18" cy="19" r="3"></circle>
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                </svg>
+                <span>Share</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Bottom Banner Ad Slot (Max 1000x120) -->
+          <div class="ad-slot-container ad-in-feed" id="adPlayerBottomBanner" aria-label="Advertisement" style="margin: 4px 0;"></div>
+
+          <!-- SEO-Rich Game Details & How to Play Guide -->
+          <div class="game-details-card">
+            <div>
+              <h2 class="game-description-heading">About This Game</h2>
+              <p class="game-description-body" id="gameDescriptionText">Game description...</p>
+            </div>
+
+            <div>
+              <h2 class="game-description-heading">How to Play & Controls</h2>
+              <div class="controls-guide-grid" id="gameControlsGrid">
+                <!-- Populated via JS -->
+              </div>
+            </div>
+
+            <div class="game-meta-pills" id="gameTagsContainer">
+              <!-- Tags rendered here -->
+            </div>
+          </div>
+
+          <!-- Related Games Grid (3:4 Cover Cards) -->
+          <div style="margin-top: 14px;">
+            <div class="section-header">
+              <div class="section-title-group">
+                <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+                <h2 class="section-title">Similar & Related Games</h2>
+              </div>
+            </div>
+            <div class="covers-grid" id="playerRelatedGrid"></div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: Rectangular Ad Slot + More Games Grid -->
+        <aside class="player-column player-right-col" aria-label="Sidebar More Games">
+          <!-- Rectangular Ad Slot (300x250) -->
+          <div class="ad-slot-container ad-rectangle" id="adPlayerRightRectangle" aria-label="Advertisement"></div>
+
+          <!-- More Games List -->
+          <div style="margin-top: 10px;">
+            <div class="section-header" style="margin-bottom: 8px;">
+              <h3 style="font-size: 0.88rem; font-weight: 700; color: #FFFFFF;">More Games</h3>
+            </div>
+            <div class="sidebar-game-list" id="playerRightList"></div>
+          </div>
+        </aside>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- 3. GLOBAL FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand-col">
+        <a href="index.html">
+          <img src="logo.png" alt="Gravity Games" class="footer-logo-img">
+        </a>
+        <p class="footer-desc">
+          Gravity Games (gravitygamez.fun) delivers lightning-fast, high-framerate HTML5 gaming directly to your browser.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="footer-col-title">Navigation</h3>
+        <ul class="footer-nav-list">
+          <li><a href="index.html" class="footer-nav-link">Home</a></li>
+          <li><a href="blog.html" class="footer-nav-link">Guides & Blog</a></li>
+          <li><a href="about.html" class="footer-nav-link">About Us</a></li>
+          <li><a href="contact.html" class="footer-nav-link">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="footer-col-title">Legal & Privacy</h3>
+        <ul class="footer-nav-list">
+          <li><a href="privacy.html" class="footer-nav-link">Privacy Policy</a></li>
+          <li><a href="terms.html" class="footer-nav-link">Terms of Service</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="footer-col-title">Game Hub</h3>
+        <ul class="footer-nav-list">
+          <li><a href="index.html?cat=trending" class="footer-nav-link">Top Rated</a></li>
+          <li><a href="index.html?cat=Action" class="footer-nav-link">Rage Platformers</a></li>
+          <li><a href="index.html?cat=Skill" class="footer-nav-link">Skill Challenges</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; 2026 Gravity Games (gravitygamez.fun). All rights reserved.</span>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="games-data.js"></script>
+  <script src="ads-config.js"></script>
+  <script src="app-core.js"></script>
+  <script src="play.js"></script>
+</body>
+</html>
