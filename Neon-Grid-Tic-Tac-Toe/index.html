@@ -1,0 +1,1330 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Neon Grid Tic-Tac-Toe</title>
+  <meta name="description" content="Single-file HTML5 neon Tic-Tac-Toe game with Unbeatable Minimax AI, Infinite 3-Piece mode, Web Audio synth, and AdSense hooks." />
+  <meta property="og:title" content="Neon Grid Tic-Tac-Toe" />
+  <meta property="og:description" content="Single-file HTML5 neon Tic-Tac-Toe game with Unbeatable Minimax AI, Infinite 3-Piece mode, Web Audio synth, and AdSense hooks." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <style>:root{--bg-canvas:#0e1016;--bg-surface:#151822;--bg-elevated:#1c202e;--bg-cell:#191d2a;--bg-cell-hover:#212637;--border-subtle:#ffffff14;--border-strong:#ffffff29;--text-primary:#f1f5f9;--text-secondary:#94a3b8;--text-muted:#64748b;--x-color:#22d3ee;--x-glow:#22d3ee6b;--o-color:#fb7185;--o-glow:#fb71856b;--radius-lg:14px;--radius-md:10px;--radius-sm:8px;--font-sans:"SF Pro Display", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;--font-mono:"SF Mono", "Cascadia Code", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;--ease-out:cubic-bezier(.16, 1, .3, 1)}*,:before,:after{box-sizing:border-box;margin:0;padding:0}html,body{background-color:var(--bg-canvas);width:100%;height:100%;color:var(--text-primary);font-family:var(--font-sans);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;line-height:1.4;overflow:hidden}body{background-image:radial-gradient(circle at 25% 20%,#22d3ee0f,#0000 45%),radial-gradient(circle at 75% 80%,#fb71850d,#0000 45%);justify-content:center;align-items:center;padding:10px;display:flex}button{color:inherit;cursor:pointer;background:0 0;border:none;font-family:inherit}button:focus-visible{outline:2px solid var(--x-color);outline-offset:2px}button:disabled{cursor:not-allowed;opacity:.42}.tabular-nums{font-variant-numeric:tabular-nums}.hidden{display:none!important}#confetti-canvas{pointer-events:none;z-index:40;width:100%;height:100%;position:fixed;inset:0}.game-stage{flex-direction:column;align-items:stretch;gap:10px;width:min(100%,420px);max-height:100%;display:flex}.game-stage.shake{animation:.4s cubic-bezier(.36,.07,.19,.97) both screen-shake}@keyframes screen-shake{0%,to{transform:translate(0,0)}18%{transform:translate(-4px,2px)}36%{transform:translate(4px,-3px)}54%{transform:translate(-3px,-2px)}72%{transform:translate(3px,2px)}90%{transform:translate(-1px,1px)}}.hud-top{align-items:stretch;gap:8px;display:flex}.score-strip{flex:1;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;display:grid}.score-box{border-radius:var(--radius-sm);background-color:var(--bg-surface);border:1px solid var(--border-subtle);transition:border-color .16s var(--ease-out), background-color .16s var(--ease-out);flex-direction:column;justify-content:center;align-items:center;gap:1px;padding:6px 8px;display:flex;position:relative}.score-box.is-active-x{border-color:var(--x-color);background-color:#22d3ee14}.score-box.is-active-o{border-color:var(--o-color);background-color:#fb718514}.score-lbl{color:var(--text-secondary);white-space:nowrap;text-overflow:ellipsis;max-width:100%;font-size:.6875rem;font-weight:600;overflow:hidden}.score-num{font-family:var(--font-mono);color:var(--text-primary);font-size:1.125rem;font-weight:700;line-height:1.1}.hud-icons{flex-direction:column;flex-shrink:0;gap:6px;display:flex}.icon-btn{border-radius:var(--radius-sm);background-color:var(--bg-surface);border:1px solid var(--border-subtle);width:38px;height:26px;color:var(--text-secondary);transition:background-color .15s var(--ease-out), color .15s var(--ease-out), border-color .15s var(--ease-out);flex:1;justify-content:center;align-items:center;display:inline-flex}.icon-btn:hover{background-color:var(--bg-elevated);color:var(--text-primary);border-color:var(--border-strong)}.icon-btn svg{width:15px;height:15px}.controls-compact{flex-direction:column;gap:6px;display:flex}.control-row{align-items:center;gap:6px;display:flex}.segmented{border-radius:var(--radius-sm);background-color:var(--bg-surface);border:1px solid var(--border-subtle);flex:1;grid-auto-columns:1fr;grid-auto-flow:column;gap:3px;padding:3px;display:grid}.seg-btn{min-height:30px;color:var(--text-secondary);white-space:nowrap;text-overflow:ellipsis;transition:background-color .14s var(--ease-out), color .14s var(--ease-out);border-radius:6px;padding:4px 6px;font-size:.75rem;font-weight:600;overflow:hidden}.seg-btn:hover:not(.is-selected){color:var(--text-primary)}.seg-btn.is-selected{background-color:var(--bg-elevated);color:var(--text-primary);box-shadow:0 1px 3px #00000059}.color-bar{border-radius:var(--radius-sm);background-color:var(--bg-surface);border:1px solid var(--border-subtle);justify-content:space-between;align-items:center;gap:8px;padding:5px 10px;display:flex}.color-side{align-items:center;gap:6px;display:flex}.color-side-lbl{color:var(--text-secondary);font-size:.75rem;font-weight:600}.swatch-btn{width:18px;height:18px;transition:transform .13s var(--ease-out), border-color .13s var(--ease-out);border:2px solid #0000;border-radius:50%}.swatch-btn.is-selected{border-color:#fff;transform:scale(1.15)}.status-bar{justify-content:space-between;align-items:center;gap:8px;min-height:26px;padding:0 2px;display:flex}.turn-readout{color:var(--text-primary);white-space:nowrap;align-items:center;gap:8px;font-size:.9375rem;font-weight:600;display:flex}.turn-glyph{flex-shrink:0;justify-content:center;align-items:center;width:18px;height:18px;display:inline-flex}.round-meta{color:var(--text-muted);white-space:nowrap;font-size:.75rem}.board-wrap{justify-content:center;align-items:center;display:flex}.board-housing{aspect-ratio:1;border-radius:var(--radius-lg);background-color:var(--bg-surface);border:1px solid var(--border-subtle);width:min(100%,380px,50dvh);padding:12px;position:relative;box-shadow:0 18px 46px #00000073}.board-grid{grid-template-rows:repeat(3,1fr);grid-template-columns:repeat(3,1fr);gap:9px;width:100%;height:100%;display:grid;position:relative}.cell-btn{border-radius:var(--radius-md);background-color:var(--bg-cell);transition:background-color .15s var(--ease-out), border-color .15s var(--ease-out), transform .12s var(--ease-out);border:1px solid #ffffff0d;justify-content:center;align-items:center;display:flex;position:relative}.cell-btn:hover:not(:disabled):not(.is-occupied){background-color:var(--bg-cell-hover);border-color:var(--border-strong)}.cell-btn:active:not(:disabled):not(.is-occupied){transform:scale(.96)}.cell-btn.is-winning{background-color:#ffffff0f;border-color:#ffffff3d}.cell-btn.is-fading .mark-svg{opacity:.34;animation:1.25s ease-in-out infinite pulse-fade}.cell-btn.is-fading:after{content:"NEXT OUT";letter-spacing:.05em;color:var(--text-muted);pointer-events:none;font-size:.5625rem;font-weight:700;position:absolute;bottom:4px}@keyframes pulse-fade{0%,to{opacity:.28;transform:scale(.93)}50%{opacity:.54;transform:scale(.98)}}.ghost-svg{opacity:0;pointer-events:none;width:56%;height:56%;transition:opacity .14s var(--ease-out);position:absolute}.cell-btn:hover:not(:disabled):not(.is-occupied) .ghost-svg,.cell-btn:focus-visible:not(:disabled):not(.is-occupied) .ghost-svg{opacity:.22}.mark-svg{width:60%;height:60%;overflow:visible}.mark-svg.mark-x{color:var(--x-color);filter:drop-shadow(0 0 9px var(--x-glow))}.mark-svg.mark-o{color:var(--o-color);filter:drop-shadow(0 0 9px var(--o-glow))}.mark-svg.is-entering .stroke-line-1{stroke-dasharray:90;stroke-dashoffset:90px;animation:draw-stroke .18s var(--ease-out) forwards}.mark-svg.is-entering .stroke-line-2{stroke-dasharray:90;stroke-dashoffset:90px;animation:draw-stroke .18s var(--ease-out) 90ms forwards}.mark-svg.is-entering .stroke-circle{stroke-dasharray:215;stroke-dashoffset:215px;animation:draw-stroke .25s var(--ease-out) forwards}@keyframes draw-stroke{to{stroke-dashoffset:0}}.laser-overlay{pointer-events:none;z-index:10;width:100%;height:100%;position:absolute;inset:0}.laser-line{stroke-linecap:round;stroke-width:6px;fill:none;opacity:0}.laser-line.is-active{opacity:1;animation:draw-laser .3s var(--ease-out) forwards}@keyframes draw-laser{to{stroke-dashoffset:0}}.actions-row{gap:8px;display:flex}.btn-primary{border-radius:var(--radius-sm);background-color:var(--x-color);color:#081018;white-space:nowrap;min-height:40px;transition:filter .14s var(--ease-out), transform .12s var(--ease-out);flex:1;justify-content:center;align-items:center;gap:6px;padding:8px 14px;font-size:.84rem;font-weight:700;display:inline-flex;box-shadow:0 0 18px #22d3ee33}.btn-primary:hover:not(:disabled){filter:brightness(1.08)}.btn-primary:active:not(:disabled){transform:scale(.98)}.btn-secondary{border-radius:var(--radius-sm);background-color:var(--bg-elevated);border:1px solid var(--border-strong);min-height:40px;color:var(--text-primary);white-space:nowrap;transition:background-color .14s var(--ease-out), border-color .14s var(--ease-out), transform .12s var(--ease-out);flex:1.25;justify-content:center;align-items:center;gap:6px;padding:8px 12px;font-size:.78rem;font-weight:600;display:inline-flex}.btn-secondary:hover:not(:disabled){background-color:#252a3c;border-color:#ffffff47}.btn-secondary:active:not(:disabled){transform:scale(.98)}.btn-primary svg,.btn-secondary svg{flex-shrink:0;width:14px;height:14px}@media (width>=700px) and (height<=540px){.game-stage{grid-template-rows:auto auto auto auto;grid-template-columns:auto 1fr;align-items:center;gap:8px 20px;width:min(100%,760px);display:grid}.board-wrap{grid-area:1/1/5}.board-housing{width:min(76dvh,340px)}.hud-top,.controls-compact,.status-bar,.actions-row{grid-column:2}}.ad-backdrop{-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);z-index:60;background-color:#080a0fe0;justify-content:center;align-items:center;padding:16px;display:none;position:fixed;inset:0}.ad-backdrop.is-open{display:flex}.ad-modal{background-color:var(--bg-surface);border:1px solid var(--border-strong);border-radius:var(--radius-lg);flex-direction:column;gap:12px;width:100%;max-width:340px;padding:20px;display:flex;box-shadow:0 24px 60px #000000a6}.ad-kicker{color:var(--text-muted);font-size:.7rem;font-weight:600}.ad-title{color:var(--text-primary);font-size:1rem;font-weight:700}.ad-body{color:var(--text-secondary);font-size:.8125rem;line-height:1.45}.ad-progress-track{background-color:var(--bg-canvas);border-radius:999px;width:100%;height:5px;overflow:hidden}.ad-progress-fill{background-color:var(--x-color);width:0%;height:100%;transition:width 80ms linear}.ad-actions{justify-content:flex-end;gap:8px;margin-top:2px;display:flex}.btn-ghost-sm{border-radius:var(--radius-sm);background-color:var(--bg-elevated);border:1px solid var(--border-subtle);min-height:36px;color:var(--text-secondary);padding:6px 12px;font-size:.8rem;font-weight:600}.btn-ghost-sm:hover{color:var(--text-primary);border-color:var(--border-strong)}@media (prefers-reduced-motion:reduce){.game-stage.shake{animation:none}.mark-svg.is-entering .stroke-line-1,.mark-svg.is-entering .stroke-line-2,.mark-svg.is-entering .stroke-circle,.laser-line.is-active{stroke-dashoffset:0;opacity:1;animation:none}.cell-btn.is-fading .mark-svg{animation:none}}</style>
+</head>
+<body>
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+  <main class="game-stage" id="game-stage" aria-label="Tic-Tac-Toe Game">
+    <!-- Top Compact HUD -->
+    <div class="hud-top">
+      <div class="score-strip" aria-label="Scoreboard">
+        <div class="score-box is-active-x" id="score-card-x">
+          <span class="score-lbl" id="label-x">You (X)</span>
+          <span class="score-num tabular-nums" id="score-x">0</span>
+        </div>
+        <div class="score-box" id="score-card-draw">
+          <span class="score-lbl" id="label-draw">Draws</span>
+          <span class="score-num tabular-nums" id="score-draw">0</span>
+        </div>
+        <div class="score-box" id="score-card-o">
+          <span class="score-lbl" id="label-o">AI (O)</span>
+          <span class="score-num tabular-nums" id="score-o">0</span>
+        </div>
+      </div>
+
+      <div class="hud-icons">
+        <button type="button" class="icon-btn" id="mute-btn" aria-pressed="false" aria-label="Toggle Sound" title="Toggle Sound">
+          <svg id="sound-icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <svg id="sound-icon-off" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </button>
+        <button type="button" class="icon-btn" id="reset-scores-btn" aria-label="Reset Scores" title="Reset Scores">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 6h18"></path>
+            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Compact Mode & Ruleset Strip -->
+    <div class="controls-compact">
+      <div class="control-row">
+        <div class="segmented" role="radiogroup" aria-label="Game Mode">
+          <button type="button" class="seg-btn is-selected" data-mode="ai" aria-checked="true">Vs AI</button>
+          <button type="button" class="seg-btn" data-mode="local" aria-checked="false">2-Player</button>
+        </div>
+        <div class="segmented" role="radiogroup" aria-label="Ruleset Variant">
+          <button type="button" class="seg-btn is-selected" data-variant="classic" aria-checked="true">Classic 3x3</button>
+          <button type="button" class="seg-btn" data-variant="infinite" aria-checked="false">Infinite 3-Piece</button>
+        </div>
+      </div>
+
+      <div class="control-row" id="difficulty-row">
+        <div class="segmented" role="radiogroup" aria-label="AI Difficulty">
+          <button type="button" class="seg-btn" data-diff="casual" aria-checked="false">Casual</button>
+          <button type="button" class="seg-btn" data-diff="tactical" aria-checked="false">Tactical</button>
+          <button type="button" class="seg-btn is-selected" data-diff="unbeatable" aria-checked="true">Unbeatable</button>
+        </div>
+      </div>
+
+      <div class="color-bar hidden" id="badge-customizer">
+        <div class="color-side">
+          <span class="color-side-lbl">P1</span>
+          <div id="swatches-x" style="display:flex;gap:5px;" role="radiogroup" aria-label="Player 1 color"></div>
+        </div>
+        <div class="color-side">
+          <span class="color-side-lbl">P2</span>
+          <div id="swatches-o" style="display:flex;gap:5px;" role="radiogroup" aria-label="Player 2 color"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Turn / Result Status -->
+    <div class="status-bar">
+      <div class="turn-readout" aria-live="polite">
+        <span class="turn-glyph" id="status-glyph" aria-hidden="true"></span>
+        <span id="status-text">Your Turn (X)</span>
+      </div>
+      <div class="round-meta tabular-nums" id="round-meta">Round 1</div>
+    </div>
+
+    <!-- 3x3 Game Board -->
+    <div class="board-wrap">
+      <div class="board-housing" id="board-housing">
+        <div class="board-grid" id="board-grid" role="grid" aria-label="Tic-Tac-Toe 3 by 3 board"></div>
+        <svg class="laser-overlay" id="laser-overlay" aria-hidden="true">
+          <defs>
+            <filter id="laser-glow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="3.5" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          <line class="laser-line" id="laser-line" filter="url(#laser-glow)" x1="0" y1="0" x2="0" y2="0" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Bottom Game Actions -->
+    <div class="actions-row">
+      <button type="button" class="btn-primary" id="play-again-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="23 4 23 10 17 10"></polyline>
+          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+        </svg>
+        <span id="play-again-label">Restart</span>
+      </button>
+      <button type="button" class="btn-secondary" id="undo-ad-btn" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 7v6h6"></path>
+          <path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"></path>
+        </svg>
+        <span>Watch Ad to Undo Last Move</span>
+      </button>
+    </div>
+  </main>
+
+  <!-- AdSense Hook Overlay -->
+  <div class="ad-backdrop" id="ad-modal" role="dialog" aria-modal="true" aria-labelledby="ad-modal-title">
+    <div class="ad-modal">
+      <div class="ad-kicker" id="ad-modal-kicker">AdSense for Games · Interstitial</div>
+      <h2 class="ad-title" id="ad-modal-title">Sponsored Break</h2>
+      <p class="ad-body" id="ad-modal-body">Game paused and audio muted while this ad completes.</p>
+      <div class="ad-progress-track">
+        <div class="ad-progress-fill" id="ad-progress-fill"></div>
+      </div>
+      <div class="ad-actions">
+        <button type="button" class="btn-ghost-sm hidden" id="ad-dismiss-btn">Dismiss</button>
+        <button type="button" class="btn-primary" id="ad-continue-btn" style="flex:0 1 auto;" disabled>Loading...</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const STORAGE_KEY = 'neon_grid_ttt_v1';
+
+      const WIN_LINES = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+      ];
+
+      const BADGE_PALETTE = [
+        { name: 'Cyan', color: '#22D3EE', glow: 'rgba(34, 211, 238, 0.42)' },
+        { name: 'Coral', color: '#FB7185', glow: 'rgba(251, 113, 133, 0.42)' },
+        { name: 'Lime', color: '#A3E635', glow: 'rgba(163, 230, 53, 0.42)' },
+        { name: 'Amber', color: '#FBBF24', glow: 'rgba(251, 191, 36, 0.42)' },
+        { name: 'Violet', color: '#A78BFA', glow: 'rgba(167, 139, 250, 0.42)' }
+      ];
+
+      const state = {
+        mode: 'ai',
+        difficulty: 'unbeatable',
+        variant: 'classic',
+        board: Array(9).fill(''),
+        xQueue: [],
+        oQueue: [],
+        currentPlayer: 'X',
+        roundNumber: 1,
+        completedRounds: 0,
+        gameOver: false,
+        winner: null,
+        winningLine: null,
+        isThinking: false,
+        paused: false,
+        muted: false,
+        adMuted: false,
+        lastPlacedIdx: null,
+        moveHistory: [],
+        xColorIdx: 0,
+        oColorIdx: 1,
+        scores: {
+          ai: { X: 0, O: 0, DRAW: 0 },
+          local: { X: 0, O: 0, DRAW: 0 }
+        }
+      };
+
+      let aiTimerId = null;
+
+      // ---------------------------------------------------------
+      // Persistence
+      // ---------------------------------------------------------
+      function loadPersistedState() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return;
+          const parsed = JSON.parse(raw);
+          if (parsed && typeof parsed === 'object') {
+            if (parsed.mode === 'ai' || parsed.mode === 'local') state.mode = parsed.mode;
+            if (['casual', 'tactical', 'unbeatable'].includes(parsed.difficulty)) state.difficulty = parsed.difficulty;
+            if (parsed.variant === 'classic' || parsed.variant === 'infinite') state.variant = parsed.variant;
+            if (typeof parsed.muted === 'boolean') state.muted = parsed.muted;
+            if (typeof parsed.completedRounds === 'number' && parsed.completedRounds >= 0) {
+              state.completedRounds = parsed.completedRounds;
+              state.roundNumber = parsed.completedRounds + 1;
+            }
+            if (typeof parsed.xColorIdx === 'number' && BADGE_PALETTE[parsed.xColorIdx]) state.xColorIdx = parsed.xColorIdx;
+            if (typeof parsed.oColorIdx === 'number' && BADGE_PALETTE[parsed.oColorIdx]) state.oColorIdx = parsed.oColorIdx;
+            if (parsed.scores) {
+              if (parsed.scores.ai) {
+                state.scores.ai.X = Number(parsed.scores.ai.X) || 0;
+                state.scores.ai.O = Number(parsed.scores.ai.O) || 0;
+                state.scores.ai.DRAW = Number(parsed.scores.ai.DRAW) || 0;
+              }
+              if (parsed.scores.local) {
+                state.scores.local.X = Number(parsed.scores.local.X) || 0;
+                state.scores.local.O = Number(parsed.scores.local.O) || 0;
+                state.scores.local.DRAW = Number(parsed.scores.local.DRAW) || 0;
+              }
+            }
+          }
+        } catch (err) {
+          // Ignore corrupted storage
+        }
+      }
+
+      function savePersistedState() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            mode: state.mode,
+            difficulty: state.difficulty,
+            variant: state.variant,
+            muted: state.muted,
+            completedRounds: state.completedRounds,
+            xColorIdx: state.xColorIdx,
+            oColorIdx: state.oColorIdx,
+            scores: state.scores
+          }));
+        } catch (err) {
+          // Ignore storage errors
+        }
+      }
+
+      // ---------------------------------------------------------
+      // Web Audio API Synthesizer
+      // ---------------------------------------------------------
+      const sound = (function () {
+        let ctx = null;
+
+        function ensureContext() {
+          if (!ctx) {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (AudioCtx) ctx = new AudioCtx();
+          }
+          if (ctx && ctx.state === 'suspended') {
+            ctx.resume().catch(function () {});
+          }
+          return ctx;
+        }
+
+        function isEffectivelyMuted() {
+          return state.muted || state.adMuted;
+        }
+
+        function playTone(freq, duration, type, volume, delay, slideToFreq) {
+          if (isEffectivelyMuted()) return;
+          const audioCtx = ensureContext();
+          if (!audioCtx) return;
+
+          const startTime = audioCtx.currentTime + (delay || 0);
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+
+          osc.type = type || 'sine';
+          osc.frequency.setValueAtTime(freq, startTime);
+          if (slideToFreq) {
+            osc.frequency.exponentialRampToValueAtTime(slideToFreq, startTime + duration);
+          }
+
+          gain.gain.setValueAtTime(0.0001, startTime);
+          gain.gain.exponentialRampToValueAtTime(volume || 0.14, startTime + 0.015);
+          gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+
+          osc.start(startTime);
+          osc.stop(startTime + duration + 0.02);
+        }
+
+        return {
+          playMoveX() { playTone(540, 0.11, 'triangle', 0.14, 0, 760); },
+          playMoveO() { playTone(410, 0.13, 'sine', 0.15, 0, 320); },
+          playVanish() { playTone(280, 0.12, 'sine', 0.08, 0, 150); },
+          playClick() { playTone(620, 0.05, 'sine', 0.07, 0); },
+          playUndo() {
+            playTone(360, 0.09, 'triangle', 0.12, 0, 520);
+            playTone(520, 0.11, 'triangle', 0.10, 0.07, 680);
+          },
+          playWin() {
+            [523.25, 659.25, 783.99, 1046.50].forEach(function (n, i) {
+              playTone(n, 0.24, 'triangle', 0.14, i * 0.075);
+            });
+          },
+          playDraw() {
+            playTone(329.63, 0.22, 'sine', 0.11, 0);
+            playTone(293.66, 0.30, 'sine', 0.11, 0.14);
+          },
+          syncMuteState() {
+            if (ctx && isEffectivelyMuted()) {
+              ctx.suspend().catch(function () {});
+            } else if (ctx && !isEffectivelyMuted()) {
+              ctx.resume().catch(function () {});
+            }
+          }
+        };
+      })();
+
+      // ---------------------------------------------------------
+      // Confetti Particle System
+      // ---------------------------------------------------------
+      const confetti = (function () {
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let rafId = null;
+
+        function resize() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        function burst(primaryColor) {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          resize();
+          const colors = [primaryColor, '#F1F5F9', '#FBBF24', '#A3E635', '#22D3EE'];
+          const originX = canvas.width * 0.5;
+          const originY = canvas.height * 0.5;
+
+          for (let i = 0; i < 85; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const speed = 4 + Math.random() * 10;
+            particles.push({
+              x: originX + (Math.random() - 0.5) * 40,
+              y: originY + (Math.random() - 0.5) * 40,
+              vx: Math.cos(angle) * speed,
+              vy: Math.sin(angle) * speed - 4.5,
+              size: 5 + Math.random() * 5,
+              color: colors[i % colors.length],
+              alpha: 1,
+              rotation: Math.random() * 360,
+              vr: (Math.random() - 0.5) * 14
+            });
+          }
+
+          if (!rafId) rafId = requestAnimationFrame(tick);
+        }
+
+        function tick() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          particles = particles.filter(function (p) {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.28;
+            p.vx *= 0.985;
+            p.rotation += p.vr;
+            p.alpha -= 0.013;
+            if (p.alpha <= 0) return false;
+
+            ctx.save();
+            ctx.globalAlpha = Math.max(0, p.alpha);
+            ctx.translate(p.x, p.y);
+            ctx.rotate((p.rotation * Math.PI) / 180);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size * 0.55);
+            ctx.restore();
+            return true;
+          });
+
+          if (particles.length > 0) {
+            rafId = requestAnimationFrame(tick);
+          } else {
+            rafId = null;
+          }
+        }
+
+        function clear() {
+          particles = [];
+          if (rafId) {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+          }
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        return { burst: burst, clear: clear };
+      })();
+
+      // ---------------------------------------------------------
+      // AdSense Monetization Hooks (window.GameAds)
+      // ---------------------------------------------------------
+      const adModal = document.getElementById('ad-modal');
+      const adKicker = document.getElementById('ad-modal-kicker');
+      const adTitle = document.getElementById('ad-modal-title');
+      const adBody = document.getElementById('ad-modal-body');
+      const adProgressFill = document.getElementById('ad-progress-fill');
+      const adContinueBtn = document.getElementById('ad-continue-btn');
+      const adDismissBtn = document.getElementById('ad-dismiss-btn');
+
+      let activeAdTimer = null;
+
+      function closeAdOverlay() {
+        if (activeAdTimer) {
+          clearInterval(activeAdTimer);
+          activeAdTimer = null;
+        }
+        adModal.classList.remove('is-open');
+        state.paused = false;
+        state.adMuted = false;
+        sound.syncMuteState();
+        render();
+      }
+
+      window.GameAds = {
+        showInterstitial: function (onComplete) {
+          state.paused = true;
+          state.adMuted = true;
+          sound.syncMuteState();
+          console.log('[AdSense Hook] Interstitial Triggered');
+
+          adKicker.textContent = 'AdSense for Games · Interstitial';
+          adTitle.textContent = 'Round Break';
+          adBody.textContent = 'Game paused and Web Audio muted while this interstitial completes.';
+          adDismissBtn.classList.add('hidden');
+          adContinueBtn.disabled = true;
+          adContinueBtn.textContent = 'Starting Next Round...';
+          adProgressFill.style.width = '0%';
+          adModal.classList.add('is-open');
+
+          const totalMs = 1100;
+          const start = Date.now();
+
+          function finish() {
+            closeAdOverlay();
+            if (typeof onComplete === 'function') onComplete();
+          }
+
+          adContinueBtn.onclick = finish;
+
+          activeAdTimer = setInterval(function () {
+            const elapsed = Date.now() - start;
+            const pct = Math.min(100, (elapsed / totalMs) * 100);
+            adProgressFill.style.width = pct + '%';
+            if (pct >= 100) {
+              clearInterval(activeAdTimer);
+              activeAdTimer = null;
+              adContinueBtn.disabled = false;
+              adContinueBtn.textContent = 'Continue';
+              setTimeout(function () {
+                if (adModal.classList.contains('is-open')) finish();
+              }, 220);
+            }
+          }, 50);
+        },
+
+        showRewarded: function (onReward, onDismiss) {
+          state.paused = true;
+          state.adMuted = true;
+          sound.syncMuteState();
+          console.log('[AdSense Hook] Rewarded Ad Triggered');
+
+          adKicker.textContent = 'AdSense for Games · Rewarded';
+          adTitle.textContent = 'Unlock Move Undo';
+          adBody.textContent = 'Game paused and Web Audio muted. Complete the ad to rewind your last turn.';
+          adDismissBtn.classList.remove('hidden');
+          adContinueBtn.disabled = true;
+          adContinueBtn.textContent = 'Granting Reward...';
+          adProgressFill.style.width = '0%';
+          adModal.classList.add('is-open');
+
+          const totalMs = 1300;
+          const start = Date.now();
+          let settled = false;
+
+          function grant() {
+            if (settled) return;
+            settled = true;
+            closeAdOverlay();
+            if (typeof onReward === 'function') onReward();
+          }
+
+          function dismiss() {
+            if (settled) return;
+            settled = true;
+            closeAdOverlay();
+            if (typeof onDismiss === 'function') onDismiss();
+          }
+
+          adDismissBtn.onclick = dismiss;
+          adContinueBtn.onclick = grant;
+
+          activeAdTimer = setInterval(function () {
+            const elapsed = Date.now() - start;
+            const pct = Math.min(100, (elapsed / totalMs) * 100);
+            adProgressFill.style.width = pct + '%';
+            if (pct >= 100) {
+              clearInterval(activeAdTimer);
+              activeAdTimer = null;
+              adContinueBtn.disabled = false;
+              adContinueBtn.textContent = 'Claim Undo';
+              setTimeout(function () {
+                if (adModal.classList.contains('is-open') && !settled) grant();
+              }, 220);
+            }
+          }, 50);
+        }
+      };
+
+      // ---------------------------------------------------------
+      // Core Game Rules & AI Engine
+      // ---------------------------------------------------------
+      function checkWin(board) {
+        for (let i = 0; i < WIN_LINES.length; i++) {
+          const [a, b, c] = WIN_LINES[i];
+          if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+            return { winner: board[a], line: [a, b, c] };
+          }
+        }
+        return null;
+      }
+
+      function getEmptyCells(board) {
+        const res = [];
+        for (let i = 0; i < 9; i++) {
+          if (board[i] === '') res.push(i);
+        }
+        return res;
+      }
+
+      function simulateMove(board, xQueue, oQueue, idx, player, variant) {
+        const nextBoard = board.slice();
+        const nextXQ = xQueue.slice();
+        const nextOQ = oQueue.slice();
+        let vanishedIdx = null;
+
+        if (variant === 'infinite') {
+          const q = player === 'X' ? nextXQ : nextOQ;
+          if (q.length >= 3) {
+            vanishedIdx = q.shift();
+            nextBoard[vanishedIdx] = '';
+          }
+          q.push(idx);
+        }
+        nextBoard[idx] = player;
+
+        return {
+          board: nextBoard,
+          xQueue: nextXQ,
+          oQueue: nextOQ,
+          vanishedIdx: vanishedIdx
+        };
+      }
+
+      function findImmediateWin(board, xQueue, oQueue, player, variant) {
+        const empties = getEmptyCells(board);
+        for (let i = 0; i < empties.length; i++) {
+          const idx = empties[i];
+          const sim = simulateMove(board, xQueue, oQueue, idx, player, variant);
+          const win = checkWin(sim.board);
+          if (win && win.winner === player) return idx;
+        }
+        return -1;
+      }
+
+      function evaluateHeuristicInfinite(board, aiMark, humanMark) {
+        let score = 0;
+        for (let i = 0; i < WIN_LINES.length; i++) {
+          const [a, b, c] = WIN_LINES[i];
+          const vals = [board[a], board[b], board[c]];
+          const aiCount = (vals[0] === aiMark) + (vals[1] === aiMark) + (vals[2] === aiMark);
+          const huCount = (vals[0] === humanMark) + (vals[1] === humanMark) + (vals[2] === humanMark);
+          if (aiCount === 2 && huCount === 0) score += 14;
+          else if (huCount === 2 && aiCount === 0) score -= 16;
+          else if (aiCount === 1 && huCount === 0) score += 2;
+          else if (huCount === 1 && aiCount === 0) score -= 2;
+        }
+        if (board[4] === aiMark) score += 4;
+        else if (board[4] === humanMark) score -= 4;
+        return score;
+      }
+
+      function orderMoves(empties, board, xQueue, oQueue, turn, variant) {
+        const preferred = [4, 0, 2, 6, 8, 1, 3, 5, 7];
+        const sorted = empties.slice().sort(function (a, b) {
+          return preferred.indexOf(a) - preferred.indexOf(b);
+        });
+        const winIdx = findImmediateWin(board, xQueue, oQueue, turn, variant);
+        if (winIdx !== -1) {
+          const pos = sorted.indexOf(winIdx);
+          if (pos > 0) {
+            sorted.splice(pos, 1);
+            sorted.unshift(winIdx);
+          }
+        }
+        return sorted;
+      }
+
+      function minimaxClassic(board, depth, isMaximizing, alpha, beta, aiMark, humanMark) {
+        const win = checkWin(board);
+        if (win) return win.winner === aiMark ? 100 - depth : -100 + depth;
+        const empties = getEmptyCells(board);
+        if (empties.length === 0) return 0;
+
+        if (isMaximizing) {
+          let best = -Infinity;
+          for (let i = 0; i < empties.length; i++) {
+            const idx = empties[i];
+            board[idx] = aiMark;
+            const score = minimaxClassic(board, depth + 1, false, alpha, beta, aiMark, humanMark);
+            board[idx] = '';
+            if (score > best) best = score;
+            if (best > alpha) alpha = best;
+            if (beta <= alpha) break;
+          }
+          return best;
+        } else {
+          let best = Infinity;
+          for (let i = 0; i < empties.length; i++) {
+            const idx = empties[i];
+            board[idx] = humanMark;
+            const score = minimaxClassic(board, depth + 1, true, alpha, beta, aiMark, humanMark);
+            board[idx] = '';
+            if (score < best) best = score;
+            if (best < beta) beta = best;
+            if (beta <= alpha) break;
+          }
+          return best;
+        }
+      }
+
+      function minimaxInfinite(board, xQueue, oQueue, depth, maxDepth, isMaximizing, alpha, beta, aiMark, humanMark, pathSet) {
+        const win = checkWin(board);
+        if (win) return win.winner === aiMark ? 100 - depth : -100 + depth;
+        if (depth >= maxDepth) return evaluateHeuristicInfinite(board, aiMark, humanMark);
+
+        const turn = isMaximizing ? aiMark : humanMark;
+        const stateKey = board.join(',') + '|' + xQueue.join('') + '|' + oQueue.join('') + '|' + turn;
+        if (pathSet.has(stateKey)) return 0;
+        pathSet.add(stateKey);
+
+        const empties = orderMoves(getEmptyCells(board), board, xQueue, oQueue, turn, 'infinite');
+        let best = isMaximizing ? -Infinity : Infinity;
+
+        for (let i = 0; i < empties.length; i++) {
+          const idx = empties[i];
+          const sim = simulateMove(board, xQueue, oQueue, idx, turn, 'infinite');
+          const score = minimaxInfinite(
+            sim.board, sim.xQueue, sim.oQueue, depth + 1, maxDepth,
+            !isMaximizing, alpha, beta, aiMark, humanMark, pathSet
+          );
+
+          if (isMaximizing) {
+            if (score > best) best = score;
+            if (best > alpha) alpha = best;
+          } else {
+            if (score < best) best = score;
+            if (best < beta) beta = best;
+          }
+          if (beta <= alpha) break;
+        }
+
+        pathSet.delete(stateKey);
+        return best;
+      }
+
+      function chooseAIMove() {
+        const aiMark = 'O';
+        const humanMark = 'X';
+        const empties = getEmptyCells(state.board);
+        if (empties.length === 0) return -1;
+
+        if (state.difficulty === 'casual') {
+          const winIdx = findImmediateWin(state.board, state.xQueue, state.oQueue, aiMark, state.variant);
+          if (winIdx !== -1 && Math.random() < 0.45) return winIdx;
+          const blockIdx = findImmediateWin(state.board, state.xQueue, state.oQueue, humanMark, state.variant);
+          if (blockIdx !== -1 && Math.random() < 0.32) return blockIdx;
+          return empties[Math.floor(Math.random() * empties.length)];
+        }
+
+        if (state.difficulty === 'tactical') {
+          const winIdx = findImmediateWin(state.board, state.xQueue, state.oQueue, aiMark, state.variant);
+          if (winIdx !== -1) return winIdx;
+          const blockIdx = findImmediateWin(state.board, state.xQueue, state.oQueue, humanMark, state.variant);
+          if (blockIdx !== -1) return blockIdx;
+          if (state.board[4] === '') return 4;
+          const openCorners = [0, 2, 6, 8].filter(function (c) { return state.board[c] === ''; });
+          if (openCorners.length > 0) return openCorners[Math.floor(Math.random() * openCorners.length)];
+          return empties[Math.floor(Math.random() * empties.length)];
+        }
+
+        if (state.variant === 'classic') {
+          if (empties.length === 9) {
+            const openings = [0, 2, 4, 6, 8];
+            return openings[Math.floor(Math.random() * openings.length)];
+          }
+          let bestScore = -Infinity;
+          let bestMoves = [];
+          const boardCopy = state.board.slice();
+
+          for (let i = 0; i < empties.length; i++) {
+            const idx = empties[i];
+            boardCopy[idx] = aiMark;
+            const score = minimaxClassic(boardCopy, 0, false, -Infinity, Infinity, aiMark, humanMark);
+            boardCopy[idx] = '';
+            if (score > bestScore) {
+              bestScore = score;
+              bestMoves = [idx];
+            } else if (score === bestScore) {
+              bestMoves.push(idx);
+            }
+          }
+          return bestMoves[Math.floor(Math.random() * bestMoves.length)];
+        } else {
+          let bestScore = -Infinity;
+          let bestMoves = [];
+          const ordered = orderMoves(empties, state.board, state.xQueue, state.oQueue, aiMark, 'infinite');
+
+          for (let i = 0; i < ordered.length; i++) {
+            const idx = ordered[i];
+            const sim = simulateMove(state.board, state.xQueue, state.oQueue, idx, aiMark, 'infinite');
+            const pathSet = new Set();
+            const score = minimaxInfinite(
+              sim.board, sim.xQueue, sim.oQueue, 0, 6, false, -Infinity, Infinity, aiMark, humanMark, pathSet
+            );
+            if (score > bestScore) {
+              bestScore = score;
+              bestMoves = [idx];
+            } else if (score === bestScore) {
+              bestMoves.push(idx);
+            }
+          }
+          return bestMoves[Math.floor(Math.random() * bestMoves.length)];
+        }
+      }
+
+      // ---------------------------------------------------------
+      // Turn Execution, History & Undo
+      // ---------------------------------------------------------
+      function clearPendingAI() {
+        if (aiTimerId) {
+          clearTimeout(aiTimerId);
+          aiTimerId = null;
+        }
+        state.isThinking = false;
+      }
+
+      function pushHistorySnapshot() {
+        state.moveHistory.push({
+          board: state.board.slice(),
+          xQueue: state.xQueue.slice(),
+          oQueue: state.oQueue.slice(),
+          currentPlayer: state.currentPlayer,
+          lastPlacedIdx: state.lastPlacedIdx
+        });
+      }
+
+      function makeMove(idx) {
+        if (state.paused || state.gameOver) return;
+        if (state.board[idx] !== '') return;
+
+        pushHistorySnapshot();
+
+        const player = state.currentPlayer;
+        const sim = simulateMove(state.board, state.xQueue, state.oQueue, idx, player, state.variant);
+        state.board = sim.board;
+        state.xQueue = sim.xQueue;
+        state.oQueue = sim.oQueue;
+        state.lastPlacedIdx = idx;
+
+        if (sim.vanishedIdx !== null) sound.playVanish();
+        if (player === 'X') sound.playMoveX();
+        else sound.playMoveO();
+
+        const win = checkWin(state.board);
+        if (win) {
+          state.gameOver = true;
+          state.winner = win.winner;
+          state.winningLine = win.line;
+          state.scores[state.mode][win.winner] += 1;
+          state.completedRounds += 1;
+          savePersistedState();
+
+          render();
+          triggerWinCelebration(win.winner, win.line);
+          return;
+        }
+
+        if (state.variant === 'classic' && getEmptyCells(state.board).length === 0) {
+          state.gameOver = true;
+          state.winner = 'DRAW';
+          state.winningLine = null;
+          state.scores[state.mode].DRAW += 1;
+          state.completedRounds += 1;
+          savePersistedState();
+
+          sound.playDraw();
+          render();
+          return;
+        }
+
+        state.currentPlayer = player === 'X' ? 'O' : 'X';
+        render();
+
+        if (state.mode === 'ai' && state.currentPlayer === 'O' && !state.gameOver) {
+          scheduleAIMove();
+        }
+      }
+
+      function scheduleAIMove() {
+        clearPendingAI();
+        state.isThinking = true;
+        renderStatusOnly();
+
+        aiTimerId = setTimeout(function () {
+          aiTimerId = null;
+          state.isThinking = false;
+          if (state.paused || state.gameOver || state.mode !== 'ai' || state.currentPlayer !== 'O') return;
+          const idx = chooseAIMove();
+          if (idx !== -1) makeMove(idx);
+        }, 320);
+      }
+
+      function canUndoAgainstAI() {
+        if (state.mode !== 'ai' || state.isThinking || state.paused) return false;
+        for (let i = state.moveHistory.length - 1; i >= 0; i--) {
+          if (state.moveHistory[i].currentPlayer === 'X') return true;
+        }
+        return false;
+      }
+
+      function undoLastHumanTurn() {
+        if (!canUndoAgainstAI()) return;
+        clearPendingAI();
+
+        if (state.gameOver && state.winner) {
+          state.scores[state.mode][state.winner] = Math.max(0, state.scores[state.mode][state.winner] - 1);
+          state.completedRounds = Math.max(0, state.completedRounds - 1);
+        }
+
+        let targetSnap = null;
+        while (state.moveHistory.length > 0) {
+          const snap = state.moveHistory.pop();
+          if (snap.currentPlayer === 'X') {
+            targetSnap = snap;
+            break;
+          }
+        }
+
+        if (!targetSnap) return;
+
+        state.board = targetSnap.board;
+        state.xQueue = targetSnap.xQueue;
+        state.oQueue = targetSnap.oQueue;
+        state.currentPlayer = 'X';
+        state.lastPlacedIdx = null;
+        state.gameOver = false;
+        state.winner = null;
+        state.winningLine = null;
+
+        confetti.clear();
+        savePersistedState();
+        sound.playUndo();
+        render();
+      }
+
+      function startNewRound(incrementRoundDisplay) {
+        clearPendingAI();
+        confetti.clear();
+
+        state.board = Array(9).fill('');
+        state.xQueue = [];
+        state.oQueue = [];
+        state.gameOver = false;
+        state.winner = null;
+        state.winningLine = null;
+        state.lastPlacedIdx = null;
+        state.moveHistory = [];
+        state.currentPlayer = 'X';
+        if (incrementRoundDisplay) {
+          state.roundNumber = state.completedRounds + 1;
+        }
+
+        render();
+      }
+
+      function triggerWinCelebration(winner, line) {
+        sound.playWin();
+        const stage = document.getElementById('game-stage');
+        stage.classList.remove('shake');
+        void stage.offsetWidth;
+        stage.classList.add('shake');
+
+        const winColor = winner === 'X' ? getXTheme().color : getOTheme().color;
+        confetti.burst(winColor);
+        drawLaserLine(line, winColor);
+      }
+
+      // ---------------------------------------------------------
+      // Theme & SVG Helpers
+      // ---------------------------------------------------------
+      function getXTheme() {
+        return state.mode === 'local' ? (BADGE_PALETTE[state.xColorIdx] || BADGE_PALETTE[0]) : BADGE_PALETTE[0];
+      }
+
+      function getOTheme() {
+        return state.mode === 'local' ? (BADGE_PALETTE[state.oColorIdx] || BADGE_PALETTE[1]) : BADGE_PALETTE[1];
+      }
+
+      function applyThemeCSSVars() {
+        const root = document.documentElement.style;
+        const xTheme = getXTheme();
+        const oTheme = getOTheme();
+        root.setProperty('--x-color', xTheme.color);
+        root.setProperty('--x-glow', xTheme.glow);
+        root.setProperty('--o-color', oTheme.color);
+        root.setProperty('--o-glow', oTheme.glow);
+      }
+
+      function createMarkSVG(mark, extraClass) {
+        const svgNS = 'http://www.w3.org/2000/svg';
+        const svg = document.createElementNS(svgNS, 'svg');
+        svg.setAttribute('viewBox', '0 0 100 100');
+        svg.setAttribute('aria-hidden', 'true');
+        svg.setAttribute('class', (extraClass || 'mark-svg') + ' mark-' + mark.toLowerCase());
+
+        if (mark === 'X') {
+          const l1 = document.createElementNS(svgNS, 'line');
+          l1.setAttribute('x1', '20');
+          l1.setAttribute('y1', '20');
+          l1.setAttribute('x2', '80');
+          l1.setAttribute('y2', '80');
+          l1.setAttribute('stroke', 'currentColor');
+          l1.setAttribute('stroke-width', '12');
+          l1.setAttribute('stroke-linecap', 'round');
+          l1.setAttribute('class', 'stroke-line-1');
+
+          const l2 = document.createElementNS(svgNS, 'line');
+          l2.setAttribute('x1', '80');
+          l2.setAttribute('y1', '20');
+          l2.setAttribute('x2', '20');
+          l2.setAttribute('y2', '80');
+          l2.setAttribute('stroke', 'currentColor');
+          l2.setAttribute('stroke-width', '12');
+          l2.setAttribute('stroke-linecap', 'round');
+          l2.setAttribute('class', 'stroke-line-2');
+
+          svg.appendChild(l1);
+          svg.appendChild(l2);
+        } else {
+          const circle = document.createElementNS(svgNS, 'circle');
+          circle.setAttribute('cx', '50');
+          circle.setAttribute('cy', '50');
+          circle.setAttribute('r', '32');
+          circle.setAttribute('fill', 'none');
+          circle.setAttribute('stroke', 'currentColor');
+          circle.setAttribute('stroke-width', '12');
+          circle.setAttribute('stroke-linecap', 'round');
+          circle.setAttribute('transform', 'rotate(-90 50 50)');
+          circle.setAttribute('class', 'stroke-circle');
+          svg.appendChild(circle);
+        }
+        return svg;
+      }
+
+      // ---------------------------------------------------------
+      // DOM Elements & Rendering
+      // ---------------------------------------------------------
+      const boardHousingEl = document.getElementById('board-housing');
+      const boardGridEl = document.getElementById('board-grid');
+      const laserLineEl = document.getElementById('laser-line');
+      const statusGlyphEl = document.getElementById('status-glyph');
+      const statusTextEl = document.getElementById('status-text');
+      const roundMetaEl = document.getElementById('round-meta');
+
+      const playAgainBtn = document.getElementById('play-again-btn');
+      const playAgainLabel = document.getElementById('play-again-label');
+      const undoAdBtn = document.getElementById('undo-ad-btn');
+      const muteBtn = document.getElementById('mute-btn');
+      const soundIconOn = document.getElementById('sound-icon-on');
+      const soundIconOff = document.getElementById('sound-icon-off');
+      const resetScoresBtn = document.getElementById('reset-scores-btn');
+
+      const scoreCardX = document.getElementById('score-card-x');
+      const scoreCardO = document.getElementById('score-card-o');
+      const labelX = document.getElementById('label-x');
+      const labelDraw = document.getElementById('label-draw');
+      const labelO = document.getElementById('label-o');
+      const scoreXEl = document.getElementById('score-x');
+      const scoreDrawEl = document.getElementById('score-draw');
+      const scoreOEl = document.getElementById('score-o');
+
+      const difficultyRow = document.getElementById('difficulty-row');
+      const badgeCustomizer = document.getElementById('badge-customizer');
+      const swatchesX = document.getElementById('swatches-x');
+      const swatchesO = document.getElementById('swatches-o');
+
+      const cellButtons = [];
+      for (let i = 0; i < 9; i++) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'cell-btn';
+        btn.dataset.index = String(i);
+        btn.setAttribute('role', 'gridcell');
+        btn.addEventListener('click', (function (cellIndex) {
+          return function () {
+            if (state.isThinking || state.paused || state.gameOver) return;
+            if (state.mode === 'ai' && state.currentPlayer === 'O') return;
+            makeMove(cellIndex);
+          };
+        })(i));
+        boardGridEl.appendChild(btn);
+        cellButtons.push(btn);
+      }
+
+      function renderSwatches() {
+        swatchesX.innerHTML = '';
+        swatchesO.innerHTML = '';
+
+        BADGE_PALETTE.forEach(function (swatch, idx) {
+          const btnX = document.createElement('button');
+          btnX.type = 'button';
+          btnX.className = 'swatch-btn' + (state.xColorIdx === idx ? ' is-selected' : '');
+          btnX.style.backgroundColor = swatch.color;
+          btnX.setAttribute('aria-label', 'Player 1 color ' + swatch.name);
+          btnX.setAttribute('aria-checked', String(state.xColorIdx === idx));
+          btnX.addEventListener('click', function () {
+            sound.playClick();
+            state.xColorIdx = idx;
+            savePersistedState();
+            render();
+          });
+          swatchesX.appendChild(btnX);
+
+          const btnO = document.createElement('button');
+          btnO.type = 'button';
+          btnO.className = 'swatch-btn' + (state.oColorIdx === idx ? ' is-selected' : '');
+          btnO.style.backgroundColor = swatch.color;
+          btnO.setAttribute('aria-label', 'Player 2 color ' + swatch.name);
+          btnO.setAttribute('aria-checked', String(state.oColorIdx === idx));
+          btnO.addEventListener('click', function () {
+            sound.playClick();
+            state.oColorIdx = idx;
+            savePersistedState();
+            render();
+          });
+          swatchesO.appendChild(btnO);
+        });
+      }
+
+      function drawLaserLine(line, color) {
+        if (!line || line.length !== 3) {
+          laserLineEl.classList.remove('is-active');
+          laserLineEl.style.opacity = '0';
+          return;
+        }
+        const housingRect = boardHousingEl.getBoundingClientRect();
+        const startRect = cellButtons[line[0]].getBoundingClientRect();
+        const endRect = cellButtons[line[2]].getBoundingClientRect();
+
+        const x1 = startRect.left - housingRect.left + startRect.width / 2;
+        const y1 = startRect.top - housingRect.top + startRect.height / 2;
+        const x2 = endRect.left - housingRect.left + endRect.width / 2;
+        const y2 = endRect.top - housingRect.top + endRect.height / 2;
+
+        const dx = x2 - x1;
+        const dy = y2 - y1;
+        const len = Math.hypot(dx, dy) || 1;
+        const ext = 14;
+        const ux = (dx / len) * ext;
+        const uy = (dy / len) * ext;
+
+        const fx1 = x1 - ux;
+        const fy1 = y1 - uy;
+        const fx2 = x2 + ux;
+        const fy2 = y2 + uy;
+        const totalLen = Math.hypot(fx2 - fx1, fy2 - fy1);
+
+        laserLineEl.setAttribute('x1', fx1.toFixed(1));
+        laserLineEl.setAttribute('y1', fy1.toFixed(1));
+        laserLineEl.setAttribute('x2', fx2.toFixed(1));
+        laserLineEl.setAttribute('y2', fy2.toFixed(1));
+        laserLineEl.setAttribute('stroke', color);
+        laserLineEl.style.strokeDasharray = String(totalLen);
+        laserLineEl.style.strokeDashoffset = String(totalLen);
+        laserLineEl.classList.remove('is-active');
+        void laserLineEl.offsetWidth;
+        laserLineEl.classList.add('is-active');
+      }
+
+      window.addEventListener('resize', function () {
+        if (state.gameOver && state.winningLine && state.winner) {
+          const winColor = state.winner === 'X' ? getXTheme().color : getOTheme().color;
+          drawLaserLine(state.winningLine, winColor);
+        }
+      });
+
+      function renderStatusOnly() {
+        statusGlyphEl.innerHTML = '';
+
+        if (state.gameOver) {
+          if (state.winner === 'DRAW') {
+            statusTextEl.textContent = 'Draw Round';
+          } else if (state.mode === 'ai') {
+            statusGlyphEl.appendChild(createMarkSVG(state.winner, 'mark-svg'));
+            statusTextEl.textContent = state.winner === 'X' ? 'You Win' : 'AI Wins';
+          } else {
+            statusGlyphEl.appendChild(createMarkSVG(state.winner, 'mark-svg'));
+            statusTextEl.textContent = state.winner === 'X' ? 'Player 1 Wins' : 'Player 2 Wins';
+          }
+        } else {
+          statusGlyphEl.appendChild(createMarkSVG(state.currentPlayer, 'mark-svg'));
+          if (state.mode === 'ai') {
+            statusTextEl.textContent = state.isThinking
+              ? 'AI Thinking...'
+              : (state.currentPlayer === 'X' ? 'Your Turn (X)' : 'AI Turn (O)');
+          } else {
+            statusTextEl.textContent = state.currentPlayer === 'X' ? 'Player 1 (X)' : 'Player 2 (O)';
+          }
+        }
+
+        roundMetaEl.textContent = 'Round ' + state.roundNumber;
+      }
+
+      function render() {
+        applyThemeCSSVars();
+        renderStatusOnly();
+
+        let fadingIdx = -1;
+        if (!state.gameOver && state.variant === 'infinite') {
+          if (state.currentPlayer === 'X' && state.xQueue.length >= 3) fadingIdx = state.xQueue[0];
+          else if (state.currentPlayer === 'O' && state.oQueue.length >= 3) fadingIdx = state.oQueue[0];
+        }
+
+        for (let i = 0; i < 9; i++) {
+          const btn = cellButtons[i];
+          const val = state.board[i];
+          const isWinning = state.winningLine ? state.winningLine.indexOf(i) !== -1 : false;
+          const isFading = i === fadingIdx;
+
+          btn.className = 'cell-btn';
+          if (val !== '') btn.classList.add('is-occupied');
+          if (isWinning) btn.classList.add('is-winning');
+          if (isFading) btn.classList.add('is-fading');
+
+          const row = Math.floor(i / 3) + 1;
+          const col = (i % 3) + 1;
+          btn.setAttribute('aria-label', 'Row ' + row + ' Col ' + col + (val ? ' ' + val : ' Empty'));
+
+          const disableCell = state.gameOver || state.paused || state.isThinking || val !== '' || (state.mode === 'ai' && state.currentPlayer === 'O');
+          btn.disabled = disableCell;
+
+          btn.innerHTML = '';
+          if (val !== '') {
+            const cls = state.lastPlacedIdx === i ? 'mark-svg is-entering' : 'mark-svg';
+            btn.appendChild(createMarkSVG(val, cls));
+          } else if (!disableCell) {
+            btn.appendChild(createMarkSVG(state.currentPlayer, 'ghost-svg'));
+          }
+        }
+
+        if (!state.gameOver || !state.winningLine) {
+          laserLineEl.classList.remove('is-active');
+          laserLineEl.style.opacity = '0';
+        }
+
+        playAgainLabel.textContent = state.gameOver ? 'Play Again' : 'Restart';
+
+        if (state.mode === 'ai') {
+          undoAdBtn.classList.remove('hidden');
+          undoAdBtn.disabled = !canUndoAgainstAI();
+        } else {
+          undoAdBtn.classList.add('hidden');
+        }
+
+        const activeScores = state.scores[state.mode];
+        labelX.textContent = state.mode === 'ai' ? 'You (X)' : 'P1 (X)';
+        labelDraw.textContent = state.variant === 'infinite' ? 'No Draws' : 'Draws';
+        labelO.textContent = state.mode === 'ai' ? 'AI (O)' : 'P2 (O)';
+        scoreXEl.textContent = String(activeScores.X);
+        scoreDrawEl.textContent = String(activeScores.DRAW);
+        scoreOEl.textContent = String(activeScores.O);
+
+        scoreCardX.classList.toggle('is-active-x', !state.gameOver && state.currentPlayer === 'X');
+        scoreCardO.classList.toggle('is-active-o', !state.gameOver && state.currentPlayer === 'O');
+
+        difficultyRow.classList.toggle('hidden', state.mode !== 'ai');
+        if (state.mode === 'local') {
+          badgeCustomizer.classList.remove('hidden');
+          renderSwatches();
+        } else {
+          badgeCustomizer.classList.add('hidden');
+        }
+
+        document.querySelectorAll('[data-mode]').forEach(function (el) {
+          const sel = el.dataset.mode === state.mode;
+          el.classList.toggle('is-selected', sel);
+          el.setAttribute('aria-checked', String(sel));
+        });
+
+        document.querySelectorAll('[data-diff]').forEach(function (el) {
+          const sel = el.dataset.diff === state.difficulty;
+          el.classList.toggle('is-selected', sel);
+          el.setAttribute('aria-checked', String(sel));
+        });
+
+        document.querySelectorAll('[data-variant]').forEach(function (el) {
+          const sel = el.dataset.variant === state.variant;
+          el.classList.toggle('is-selected', sel);
+          el.setAttribute('aria-checked', String(sel));
+        });
+
+        muteBtn.setAttribute('aria-pressed', String(state.muted));
+        soundIconOn.classList.toggle('hidden', state.muted);
+        soundIconOff.classList.toggle('hidden', !state.muted);
+      }
+
+      // ---------------------------------------------------------
+      // Event Listeners
+      // ---------------------------------------------------------
+      playAgainBtn.addEventListener('click', function () {
+        sound.playClick();
+        if (state.gameOver && state.completedRounds > 0 && state.completedRounds % 3 === 0) {
+          window.GameAds.showInterstitial(function () {
+            startNewRound(true);
+          });
+        } else {
+          startNewRound(state.gameOver);
+        }
+      });
+
+      undoAdBtn.addEventListener('click', function () {
+        if (!canUndoAgainstAI()) return;
+        sound.playClick();
+        window.GameAds.showRewarded(
+          function onReward() { undoLastHumanTurn(); },
+          function onDismiss() {}
+        );
+      });
+
+      muteBtn.addEventListener('click', function () {
+        state.muted = !state.muted;
+        sound.syncMuteState();
+        if (!state.muted) sound.playClick();
+        savePersistedState();
+        render();
+      });
+
+      resetScoresBtn.addEventListener('click', function () {
+        sound.playClick();
+        state.scores[state.mode] = { X: 0, O: 0, DRAW: 0 };
+        state.completedRounds = 0;
+        state.roundNumber = 1;
+        savePersistedState();
+        render();
+      });
+
+      document.querySelectorAll('[data-mode]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          if (state.mode === btn.dataset.mode) return;
+          sound.playClick();
+          state.mode = btn.dataset.mode;
+          savePersistedState();
+          startNewRound(false);
+        });
+      });
+
+      document.querySelectorAll('[data-diff]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          if (state.difficulty === btn.dataset.diff) return;
+          sound.playClick();
+          state.difficulty = btn.dataset.diff;
+          savePersistedState();
+          startNewRound(false);
+        });
+      });
+
+      document.querySelectorAll('[data-variant]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          if (state.variant === btn.dataset.variant) return;
+          sound.playClick();
+          state.variant = btn.dataset.variant;
+          savePersistedState();
+          startNewRound(false);
+        });
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (state.paused || state.isThinking || state.gameOver) return;
+        if (e.key >= '1' && e.key <= '9') {
+          const idx = Number(e.key) - 1;
+          if (state.mode === 'ai' && state.currentPlayer === 'O') return;
+          if (state.board[idx] === '') makeMove(idx);
+        }
+      });
+
+      loadPersistedState();
+      startNewRound(true);
+    })();
+  </script>
+</body>
+</html>
