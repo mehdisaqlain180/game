@@ -27,7 +27,10 @@ document.addEventListener("DOMContentLoaded", () => {
     gameSlug = currentGame.slug;
   }
 
-  AppState.recordPlay(currentGame.slug);
+  const playResult = AppState.recordPlay(currentGame.slug);
+  const dailyChallenge = AppState.getDailyChallenge();
+  const isDailyChallengeGame = Boolean(dailyChallenge && dailyChallenge.game && dailyChallenge.game.slug === currentGame.slug);
+  let pendingDailyToast = Boolean(playResult && playResult.newlyCompletedDaily);
 
   // Dynamic SEO Metadata, OpenGraph, Canonical & Schema.org VideoGame JSON-LD
   const origin = window.location.origin;
@@ -85,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "@type": "BreadcrumbList",
           "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "Gravity Games", "item": `${origin}/` },
-            { "@type": "ListItem", "position": 2, "name": currentGame.category, "item": `${origin}/?cat=${encodeURIComponent(currentGame.category)}` },
+            { "@type": "ListItem", "position": 2, "name": currentGame.category, "item": `${origin}/games/${encodeURIComponent(currentGame.category.toLowerCase())}` },
             { "@type": "ListItem", "position": 3, "name": currentGame.title, "item": canonicalUrl }
           ]
         }
@@ -138,13 +141,67 @@ document.addEventListener("DOMContentLoaded", () => {
   gameDescriptionText.textContent = currentGame.description;
 
   if (gameMetaLine) {
+    const genreSlug = encodeURIComponent(currentGame.category.toLowerCase());
+    const dailyTag = isDailyChallengeGame
+      ? `<span aria-hidden="true">·</span><span style="color:var(--accent-action); font-weight:700;">Daily Challenge Completed</span>`
+      : "";
     gameMetaLine.innerHTML = `
       <strong>★ ${currentGame.rating}</strong>
       <span aria-hidden="true">·</span>
-      <span>${currentGame.category}</span>
+      <a href="/games/${genreSlug}" style="color:#C2B8FF; font-weight:600;">${currentGame.category}</a>
       <span aria-hidden="true">·</span>
       <span class="tabular-nums">${currentGame.plays} plays</span>
+      ${dailyTag}
     `;
+  }
+
+  // Interactive 5-Star Personal Rating Control
+  const ratingWidget = document.getElementById("playerRatingWidget");
+  const ratingStatusText = document.getElementById("ratingStatusText");
+  const btnClearRating = document.getElementById("btnClearRating");
+
+  function updateRatingUI(hoverVal = 0) {
+    if (!ratingWidget) return;
+    const saved = AppState.getRating(currentGame.slug);
+    const activeVal = hoverVal || saved;
+
+    ratingWidget.querySelectorAll(".rating-star-btn").forEach((btn) => {
+      const starVal = Number(btn.getAttribute("data-rating"));
+      btn.classList.toggle("is-selected", saved > 0 && starVal <= saved);
+      btn.classList.toggle("is-hovered", hoverVal > 0 && starVal <= activeVal);
+      btn.setAttribute("aria-pressed", String(saved === starVal));
+    });
+
+    if (ratingStatusText) {
+      ratingStatusText.textContent = saved > 0
+        ? `Your rating: ${saved}/5 ★`
+        : "Tap 1–5 stars to save locally";
+    }
+    if (btnClearRating) {
+      btnClearRating.classList.toggle("hidden", saved === 0);
+    }
+  }
+
+  if (ratingWidget) {
+    updateRatingUI();
+    ratingWidget.querySelectorAll(".rating-star-btn").forEach((btn) => {
+      const val = Number(btn.getAttribute("data-rating"));
+      btn.addEventListener("mouseenter", () => updateRatingUI(val));
+      btn.addEventListener("mouseleave", () => updateRatingUI(0));
+      btn.addEventListener("click", () => {
+        AppState.setRating(currentGame.slug, val);
+        updateRatingUI(0);
+        showToast(`Rated "${currentGame.title}" ${val}/5 ★`, "success");
+      });
+    });
+
+    if (btnClearRating) {
+      btnClearRating.addEventListener("click", () => {
+        AppState.clearRating(currentGame.slug);
+        updateRatingUI(0);
+        showToast(`Cleared rating for "${currentGame.title}"`);
+      });
+    }
   }
 
   if (gameGuideLink && window.BLOG_ARTICLES) {
@@ -337,6 +394,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function dismissSplash() {
     clearTimeout(splashTimer);
     gameSplashOverlay.classList.add("fade-out");
+    if (pendingDailyToast) {
+      pendingDailyToast = false;
+      const streak = playResult && playResult.stats ? playResult.stats.currentStreak : 1;
+      showToast(`Daily Challenge completed! Streak: ${streak} ${streak === 1 ? "day" : "days"}`, "success");
+    }
   }
 
   function triggerPreGameSplash() {

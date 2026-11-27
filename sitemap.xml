@@ -44,6 +44,38 @@
     <priority>0.3</priority>
   </url>
 
+  <!-- Dedicated SEO Genre Landing Pages (5 Genres) -->
+  <url>
+    <loc>https://gravitygamez.fun/games/action</loc>
+    <lastmod>2026-11-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://gravitygamez.fun/games/arcade</loc>
+    <lastmod>2026-11-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://gravitygamez.fun/games/puzzle</loc>
+    <lastmod>2026-11-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://gravitygamez.fun/games/skill</loc>
+    <lastmod>2026-11-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://gravitygamez.fun/games/adventure</loc>
+    <lastmod>2026-11-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
   <!-- Game Pages (17 Games) -->
   <url>
     <loc>https://gravitygamez.fun/play.html?game=dont-trust-the-floor</loc>

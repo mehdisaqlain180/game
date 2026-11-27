@@ -19,7 +19,7 @@ function loadBrowserRegistry(filePath) {
   return sandbox.window;
 }
 
-const { GAMES_DATA = [] } = loadBrowserRegistry(path.join(__dirname, 'games-data.js'));
+const { GAMES_DATA = [], GENRE_METADATA = [] } = loadBrowserRegistry(path.join(__dirname, 'games-data.js'));
 const { BLOG_ARTICLES = [] } = loadBrowserRegistry(path.join(__dirname, 'blog-data.js'));
 
 const playTemplate = fs.readFileSync(path.join(__dirname, 'play.html'), 'utf8');
@@ -92,7 +92,7 @@ function buildPlayHtml(gameSlug) {
             '@type': 'ListItem',
             position: 2,
             name: game.category,
-            item: `${SITE_ORIGIN}/?cat=${encodeURIComponent(game.category)}`,
+            item: `${SITE_ORIGIN}/games/${encodeURIComponent(game.category.toLowerCase())}`,
           },
           {
             '@type': 'ListItem',
@@ -304,6 +304,342 @@ function buildArticleHtml(articleId) {
   return html;
 }
 
+function buildGenreHtml(rawGenreSlug) {
+  const cleanSlug = String(rawGenreSlug || '').toLowerCase().trim();
+  const genre = GENRE_METADATA.find((g) => g.slug === cleanSlug);
+  if (!genre) return null;
+
+  const genreGames = GAMES_DATA.filter((g) => g.category.toLowerCase() === genre.slug);
+  const genreGameSlugs = new Set(genreGames.map((g) => g.slug));
+  let relatedGuides = BLOG_ARTICLES.filter((a) => a.gameSlug && genreGameSlugs.has(a.gameSlug));
+  if (relatedGuides.length === 0) {
+    relatedGuides = BLOG_ARTICLES.slice(0, 3);
+  } else {
+    relatedGuides = relatedGuides.slice(0, 3);
+  }
+
+  const canonicalUrl = `${SITE_ORIGIN}/games/${encodeURIComponent(genre.slug)}`;
+  const ogImageRel = genre.ogImage || (genreGames[0] && genreGames[0].paths.cover) || 'Images/GravityGamez.png';
+  const ogImageUrl = `${SITE_ORIGIN}/${encodeURI(ogImageRel)}`;
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        name: genre.headline,
+        description: genre.metaDescription,
+        url: canonicalUrl,
+        isPartOf: {
+          '@type': 'WebSite',
+          name: 'Gravity Games',
+          url: `${SITE_ORIGIN}/`,
+        },
+      },
+      {
+        '@type': 'ItemList',
+        name: `${genre.name} Browser Games`,
+        numberOfItems: genreGames.length,
+        itemListElement: genreGames.map((game, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          url: `${SITE_ORIGIN}/play.html?game=${encodeURIComponent(game.slug)}`,
+          name: game.title,
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Gravity Games', item: `${SITE_ORIGIN}/` },
+          { '@type': 'ListItem', position: 2, name: `${genre.name} Games`, item: canonicalUrl },
+        ],
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: (genre.faqs || []).map((faq) => ({
+          '@type': 'Question',
+          name: faq.q,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.a,
+          },
+        })),
+      },
+    ],
+  };
+
+  const switcherHtml = GENRE_METADATA.map((item) => {
+    const activeClass = item.slug === genre.slug ? ' active' : '';
+    return `<a href="/games/${escapeHtml(item.slug)}" class="filter-pill${activeClass}">${escapeHtml(item.name)}</a>`;
+  }).join('');
+
+  const gamesHtml = genreGames.map((game) => `
+    <a href="/play.html?game=${escapeHtml(game.slug)}" class="game-cover-card" data-slug="${escapeHtml(game.slug)}" title="Play ${escapeHtml(game.title)}">
+      <img src="/${encodeURI(game.paths.cover)}" alt="${escapeHtml(game.title)} cover artwork" class="cover-art" loading="lazy" referrerpolicy="no-referrer">
+      <div class="cover-overlay">
+        <div class="cover-card-header">
+          <img src="/${encodeURI(game.paths.icon)}" alt="${escapeHtml(game.title)} icon" class="cover-card-icon" loading="lazy" referrerpolicy="no-referrer">
+          <span class="cover-card-title">${escapeHtml(game.title)}</span>
+        </div>
+        <div class="cover-card-meta">
+          <span class="cover-card-category">${escapeHtml(game.category)} · ${escapeHtml(game.plays)}</span>
+          <span class="cover-card-rating tabular-nums">★ ${escapeHtml(String(game.rating))}</span>
+        </div>
+      </div>
+    </a>
+  `).join('');
+
+  const guidesHtml = relatedGuides.map((article) => {
+    const url = article.customUrl ? `/${article.customUrl}` : `/article.html?id=${encodeURIComponent(article.id)}`;
+    return `
+      <article class="blog-card">
+        <a href="${url}" title="${escapeHtml(article.title)}">
+          <img src="/${encodeURI(article.banner || 'Images/GravityGamez.png')}" alt="${escapeHtml(article.title)}" class="blog-card-thumb" loading="lazy" referrerpolicy="no-referrer">
+        </a>
+        <div class="blog-card-content">
+          <div class="blog-card-meta">
+            <span class="blog-card-cat">${escapeHtml(article.category)}</span>
+            <span aria-hidden="true">·</span>
+            <span>${escapeHtml(article.readTime || '5 min read')}</span>
+          </div>
+          <h3 class="blog-card-title"><a href="${url}">${escapeHtml(article.title)}</a></h3>
+          <p class="blog-card-excerpt">${escapeHtml(article.excerpt)}</p>
+          <div class="blog-card-actions">
+            <a href="${url}" class="blog-read-link">Read Guide &rarr;</a>
+            ${article.gameSlug ? `<a href="/play.html?game=${encodeURIComponent(article.gameSlug)}" class="blog-play-link">Play Game</a>` : ''}
+          </div>
+        </div>
+      </article>
+    `;
+  }).join('');
+
+  const faqsHtml = (genre.faqs || []).map((faq) => `
+    <div class="genre-faq-item">
+      <h3 class="genre-faq-q">${escapeHtml(faq.q)}</h3>
+      <p class="genre-faq-a">${escapeHtml(faq.a)}</p>
+    </div>
+  `).join('');
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>${escapeHtml(genre.seoTitle)}</title>
+  <meta name="description" content="${escapeHtml(genre.metaDescription)}">
+  <meta name="theme-color" content="#0E1016">
+  <link rel="canonical" href="${escapeHtml(canonicalUrl)}">
+  <link rel="manifest" href="/manifest.webmanifest">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Gravity Games">
+  <meta property="og:url" content="${escapeHtml(canonicalUrl)}">
+  <meta property="og:title" content="${escapeHtml(genre.seoTitle)}">
+  <meta property="og:description" content="${escapeHtml(genre.metaDescription)}">
+  <meta property="og:image" content="${escapeHtml(ogImageUrl)}">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="${escapeHtml(canonicalUrl)}">
+  <meta name="twitter:title" content="${escapeHtml(genre.seoTitle)}">
+  <meta name="twitter:description" content="${escapeHtml(genre.metaDescription)}">
+  <meta name="twitter:image" content="${escapeHtml(ogImageUrl)}">
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+
+  <script id="dynamicGenreSchema" type="application/ld+json">${safeJsonLd(schema)}</script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand-group">
+      <a href="/index.html" class="brand-link" title="Gravity Games Home">
+        <img src="/logo.png" alt="Gravity Games" class="brand-logo-img">
+      </a>
+    </div>
+
+    <div class="search-container">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="search" id="searchInput" class="search-input" placeholder="Search all 17 games..." autocomplete="off" aria-label="Search games">
+        <span class="search-shortcut" aria-hidden="true">/</span>
+      </div>
+    </div>
+
+    <div class="header-nav-group">
+      <nav class="header-actions" aria-label="Primary navigation">
+        <a href="/index.html" class="nav-link">All Games</a>
+        <a href="/index.html?cat=trending" class="nav-link">Trending</a>
+        <a href="/index.html?cat=favorites" class="nav-link">Favorites</a>
+        <a href="/blog.html" class="nav-link">Guides</a>
+      </nav>
+      <button type="button" class="btn-surprise js-random-game" title="Launch a random game">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="16 3 21 3 21 8"></polyline>
+          <line x1="4" y1="20" x2="21" y2="3"></line>
+          <polyline points="21 16 21 21 16 21"></polyline>
+          <line x1="15" y1="15" x2="21" y2="21"></line>
+          <line x1="4" y1="4" x2="9" y2="9"></line>
+        </svg>
+        <span>Surprise Me</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="app-container">
+    <main class="main-viewport">
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <a href="/index.html">Gravity Games</a>
+        <span aria-hidden="true">/</span>
+        <span>${escapeHtml(genre.name)} Games</span>
+      </nav>
+
+      <section class="genre-hero" aria-label="${escapeHtml(genre.name)} genre overview">
+        <div class="genre-hero-meta tabular-nums">
+          <span>${genreGames.length} ${genreGames.length === 1 ? 'Game' : 'Games'}</span>
+          <span aria-hidden="true">·</span>
+          <span>Zero Downloads</span>
+          <span aria-hidden="true">·</span>
+          <span>Mobile &amp; Desktop</span>
+        </div>
+        <h1 class="genre-hero-title">${escapeHtml(genre.headline)}</h1>
+        <p class="genre-hero-intro">${escapeHtml(genre.intro)}</p>
+      </section>
+
+      <div class="genre-switcher-strip">
+        <nav class="genre-switcher-links" aria-label="Browse genres">
+          <a href="/index.html" class="filter-pill">All 17 Games</a>
+          ${switcherHtml}
+        </nav>
+
+        <div class="sort-segmented-group" role="group" aria-label="Sort ${escapeHtml(genre.name)} games">
+          <button type="button" class="sort-btn active" data-genre-sort="featured" aria-pressed="true">Featured</button>
+          <button type="button" class="sort-btn" data-genre-sort="rating" aria-pressed="false">Top Rated</button>
+          <button type="button" class="sort-btn" data-genre-sort="plays" aria-pressed="false">Most Played</button>
+          <button type="button" class="sort-btn" data-genre-sort="alpha" aria-pressed="false">A–Z</button>
+        </div>
+      </div>
+
+      <section aria-label="${escapeHtml(genre.name)} catalog">
+        <div class="covers-grid" id="genreGamesGrid" data-genre="${escapeHtml(genre.slug)}">
+          ${gamesHtml}
+        </div>
+      </section>
+
+      <section aria-label="${escapeHtml(genre.name)} guides">
+        <div class="section-header">
+          <div class="section-title-group">
+            <h2 class="section-title">${escapeHtml(genre.name)} Strategy Guides</h2>
+          </div>
+          <a href="/blog.html" class="section-meta-link">Browse all guides &rarr;</a>
+        </div>
+        <div class="guides-home-grid">
+          ${guidesHtml}
+        </div>
+      </section>
+
+      <section class="genre-faq-section" aria-label="Frequently asked questions">
+        <h2 class="section-title">${escapeHtml(genre.name)} Games FAQ</h2>
+        <div class="genre-faq-list">
+          ${faqsHtml}
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand-col">
+        <a href="/index.html">
+          <img src="/logo.png" alt="Gravity Games" class="footer-logo-img">
+        </a>
+        <p class="footer-desc">
+          Gravity Games (gravitygamez.fun) delivers free, instant HTML5 browser games built for mobile and desktop with zero downloads or logins.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="footer-col-title">Game Genres</h3>
+        <ul class="footer-nav-list">
+          <li><a href="/games/action" class="footer-nav-link">Action &amp; Rage Games</a></li>
+          <li><a href="/games/arcade" class="footer-nav-link">Arcade &amp; 3D Sandbox</a></li>
+          <li><a href="/games/puzzle" class="footer-nav-link">Puzzle &amp; Chess</a></li>
+          <li><a href="/games/skill" class="footer-nav-link">Skill &amp; One Button</a></li>
+          <li><a href="/games/adventure" class="footer-nav-link">Adventure &amp; Simulation</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="footer-col-title">Guides &amp; Info</h3>
+        <ul class="footer-nav-list">
+          <li><a href="/blog.html" class="footer-nav-link">Gaming Blog &amp; Guides</a></li>
+          <li><a href="/online-games-for-free.html" class="footer-nav-link">Online Games for Free</a></li>
+          <li><a href="/free-browser-games-like-minecraft.html" class="footer-nav-link">Games Like Minecraft</a></li>
+          <li><a href="/about.html" class="footer-nav-link">About Gravity Games</a></li>
+          <li><a href="/contact.html" class="footer-nav-link">Developer Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="footer-col-title">Legal &amp; Privacy</h3>
+        <ul class="footer-nav-list">
+          <li><a href="/privacy.html" class="footer-nav-link">Privacy Policy</a></li>
+          <li><a href="/terms.html" class="footer-nav-link">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; 2026 Gravity Games (gravitygamez.fun). All rights reserved.</span>
+    </div>
+  </footer>
+
+  <nav class="mobile-bottom-nav" aria-label="Mobile quick navigation">
+    <a href="/index.html" class="mobile-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+        <circle cx="8" cy="12" r="2"></circle>
+        <path d="M15 9v6"></path>
+        <path d="M12 12h6"></path>
+      </svg>
+      <span>Games</span>
+    </a>
+    <a href="/index.html?cat=trending" class="mobile-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+      </svg>
+      <span>Trending</span>
+    </a>
+    <a href="/index.html?cat=favorites" class="mobile-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+      </svg>
+      <span>Saved</span>
+    </a>
+    <a href="/blog.html" class="mobile-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+      </svg>
+      <span>Guides</span>
+    </a>
+  </nav>
+
+  <script src="/games-data.js"></script>
+  <script src="/blog-data.js"></script>
+  <script src="/app-core.js"></script>
+  <script src="/genre.js"></script>
+</body>
+</html>`;
+}
+
 // Rewrite map migrated from _redirects / sw.js for game bundles referencing root /assets/*
 const ASSET_REWRITES = {
   '/assets/index-D9VmC681.js': "/Don't-Trust-The-Floor/assets/index-D9VmC681.js",
@@ -340,6 +676,18 @@ app.use((req, res, next) => {
     return res.sendFile(path.join(__dirname, rewrittenPath));
   }
   next();
+});
+
+app.get('/games', (req, res) => {
+  res.redirect('/');
+});
+
+app.get(['/games/:genre', '/games/:genre.html'], (req, res) => {
+  const html = buildGenreHtml(req.params.genre);
+  if (!html) {
+    return res.status(404).sendFile(path.join(__dirname, '404.html'));
+  }
+  res.type('html').send(html);
 });
 
 app.get(['/play', '/play.html'], (req, res) => {

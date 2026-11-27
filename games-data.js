@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Gravity Games - Central Game Registry
  * gravitygamez.fun
  * Pure Vanilla JavaScript ES6+ Data Store
@@ -16,6 +16,7 @@ const GAMES_DATA = [
     trending: true,
     rating: 4.9,
     plays: "142K",
+    dailyMission: "Clear 3 deceptive trial chambers without hitting a fake floor.",
     tags: ["Action", "Platformer", "Rage", "Pixel Art", "Gravity", "Deceptive"],
     description: "Don't Trust The Floor is a deceptive, minimalist pixel-art rage platformer spanning 50 handcrafted trial levels. Every step is a test of intuition and lightning-fast reflexes: floors vanish under your feet, collapse without warning, flip your gravity upside down, and mock your trust. Memorize hazards, outsmart devious traps, and push your platforming skills to the limit.",
     controls: {
@@ -42,6 +43,7 @@ const GAMES_DATA = [
     trending: true,
     rating: 4.8,
     plays: "98K",
+    dailyMission: "Thread through 15 neon laser corridors in a single unbroken run.",
     tags: ["Arcade", "Skill", "One Button", "Cyberpunk", "Rhythm", "High Score"],
     description: "Navigate an ultra-luminescent cyber-cavern at breakneck speeds. Neon Wave Legends challenges your cadence and micro-timing as you hold to ascend and release to swoop downward through razor-sharp geometry, kinetic laser walls, and dynamic sonic obstacles.",
     controls: {
@@ -67,6 +69,7 @@ const GAMES_DATA = [
     trending: true,
     rating: 4.9,
     plays: "215K",
+    dailyMission: "Complete 4 single-button obstacle chambers using pure jump timing.",
     tags: ["Skill", "Action", "Rage", "Hardcore", "Minimalist", "One Button"],
     description: "Stripped down to purest mechanical mastery: jump with a single input to conquer 50 sadistic obstacle chambers. With zero run controls, your velocity is fixed and your only tool is jumping at microscopic precision frames over spinning saws, phantom spikes, and collapsible platforms.",
     controls: {
@@ -93,6 +96,7 @@ const GAMES_DATA = [
     trending: true,
     rating: 4.7,
     plays: "116K",
+    dailyMission: "Survive 60 seconds inside the accelerating hyperspace tunnel.",
     tags: ["Action", "3D", "Arcade", "Tunnel Dodger", "Speed", "Split-Screen"],
     description: "Hurl through an infinite color-shifting prismatic hyperspace tunnel. Dodge procedural kinetic pillars, rotate your tunnel axis, trigger hypersonic boosts, and survive the ever-accelerating tempo. Includes local 2-player split-screen support for head-to-head racing.",
     controls: {
@@ -119,6 +123,7 @@ const GAMES_DATA = [
     trending: true,
     rating: 4.8,
     plays: "87K",
+    dailyMission: "Infiltrate a neon stronghold and score 3 silent shadow takedowns.",
     tags: ["Action", "Skill", "Stealth", "Ninja", "Top-Down", "Cyberpunk"],
     description: "Infiltrate high-security neon strongholds as a silent assassin. Dodge surveillance searchlights, eliminate patrolling guards from the shadows, throw lethal shurikens at range, and execute lightning-fast shadow dashes to bypass automated laser barriers.",
     controls: {
@@ -146,6 +151,7 @@ const GAMES_DATA = [
     trending: true,
     rating: 4.8,
     plays: "178K",
+    dailyMission: "Clear 3 ricochet physics chambers using banked shots or barrels.",
     tags: ["Action", "Puzzle", "Shooter", "Physics", "Ragdoll", "Stickman"],
     description: "Calculate bullet trajectories across 25 handcrafted physics chambers. Bank high-caliber rounds off iron girders, shatter explosive barrels, trigger falling anvils, and watch enemy stickman squads tumble with satisfying ragdoll physics.",
     controls: {
@@ -172,6 +178,7 @@ const GAMES_DATA = [
     trending: false,
     rating: 4.7,
     plays: "65K",
+    dailyMission: "Clear 2 story sectors and collect a secret orb along the upper track.",
     tags: ["Arcade", "Action", "Gravity", "Runner", "Multiplayer", "Sci-Fi"],
     description: "Gravity is merely a suggestion. Flip between ceiling and floor at supersonic speeds across 12 handcrafted story sectors. Features multi-axis dynamic camera rotation, hidden secret orbs, an endless survival track, and local 1-4 player competitive mayhem.",
     controls: {
@@ -198,6 +205,7 @@ const GAMES_DATA = [
     trending: true,
     rating: 4.8,
     plays: "92K",
+    dailyMission: "Chain 5 apex grapple releases without touching a laser floor.",
     tags: ["Arcade", "Skill", "Grapple", "Physics", "Stickman", "Platformer"],
     description: "Harness momentum and hook physics across 50 treacherous stages. Grapple onto ceiling anchor points, build pendulum momentum, release at the apex to soar over laser fields, and collect stars to unlock unique stickman suits.",
     controls: {
@@ -224,6 +232,7 @@ const GAMES_DATA = [
     trending: false,
     rating: 4.6,
     plays: "74K",
+    dailyMission: "Sculpt a hillside outpost or bridge using 3 distinct voxel block types.",
     tags: ["Arcade", "3D", "Sandbox", "Voxel", "Building", "Exploration"],
     description: "A lightweight, fully procedural 3D voxel sandbox engine running smoothly in pure WebGL. Mine distinct block types, sculpt hills, construct fortresses, toggle flight and creative modes, and experience dynamic ambient lighting.",
     controls: {
@@ -252,6 +261,7 @@ const GAMES_DATA = [
     trending: true,
     rating: 4.9,
     plays: "155K",
+    dailyMission: "Outsmart 3 decoy doors and uncover the real exit chamber.",
     tags: ["Action", "Platformer", "Puzzle", "Rage", "Brain Teaser", "Troll"],
     description: "The obvious door is almost always a death trap. Journey through 40 perplexing puzzle chambers where you must identify counterfeit exit doors, solve environmental riddles, navigate invisible platforms, and survive relentless psychological trolling.",
     controls: {
@@ -278,6 +288,7 @@ const GAMES_DATA = [
     trending: false,
     rating: 4.8,
     plays: "52K",
+    dailyMission: "Shift harmonic frequencies to clear 3 liminal corridor illusions.",
     tags: ["Skill", "3D", "Atmospheric", "Liminal", "Psychological", "First-Person"],
     description: "Built with Three.js and generative Web Audio, Threshold // Shift immerses you in endless liminal corridors where architectural reality folds upon itself. Read perspective illusions, match shifting harmonic frequencies, and outrun an encroaching void.",
     controls: {
@@ -305,6 +316,7 @@ const GAMES_DATA = [
     trending: true,
     rating: 4.9,
     plays: "189K",
+    dailyMission: "Bait hidden drop-spikes and finish 3 troll rooms with cool patience.",
     tags: ["Action", "Platformer", "Rage", "Troll", "Retro", "Trial & Error"],
     description: "Every floor tile is a suspect and every friendly signpost is misleading. Trust Issues is an unforgiving precision trial that subverts standard gaming tropes. Anticipate hidden drop-spikes, backward momentum fields, and sudden gravity inversions.",
     controls: {
@@ -331,6 +343,7 @@ const GAMES_DATA = [
     trending: true,
     rating: 4.7,
     plays: "112K",
+    dailyMission: "Stalk a herd across the plains and complete 2 successful hunts.",
     tags: ["Adventure", "3D", "Simulation", "Animal", "Survival", "Open World"],
     description: "Rule the African wilderness in this stylized low-poly 3D life simulator. Hunt grazing herds across an open savanna, defend territory against rival predators, survive dynamic day/night cycles and seasonal weather, and lead your pride to dominance.",
     controls: {
@@ -358,6 +371,7 @@ const GAMES_DATA = [
     trending: false,
     rating: 4.7,
     plays: "61K",
+    dailyMission: "Use reality pulses to navigate 3 glitch-physics platform stages.",
     tags: ["Action", "Platformer", "Gravity", "Glitch", "Puzzle", "Pixel Art"],
     description: "An unstable reality simulator where the laws of physics decompose in real time. Platforms glitch into thin air, gravity fields invert without warning, and the destination portal relocates across temporal anomalies as you sprint to the finish.",
     controls: {
@@ -385,6 +399,7 @@ const GAMES_DATA = [
     trending: false,
     rating: 4.9,
     plays: "135K",
+    dailyMission: "Castle early and win a full FIDE match against the Alpha-Beta AI.",
     tags: ["Puzzle", "Strategy", "Chess", "Board", "AI", "FIDE Rules"],
     description: "An elegant, distraction-free digital chess experience engineered for grandmasters and novices alike. Features complete FIDE rules including en passant, castling, pawn promotion, an Alpha-Beta search AI with adjustable depth, move notation history, and procedural sound effects.",
     controls: {
@@ -411,6 +426,7 @@ const GAMES_DATA = [
     trending: false,
     rating: 4.8,
     plays: "103K",
+    dailyMission: "Claim the center column and build a double-threat win vs. the AI.",
     tags: ["Puzzle", "Strategy", "Board", "Classic", "2-Player", "Casual"],
     description: "Drop colorful discs into a vertical grid and connect four of your color horizontally, vertically, or diagonally. Test your tactical foresight against a formidable Alpha-Beta minimax AI or play head-to-head with a friend in local multiplayer.",
     controls: {
@@ -437,6 +453,7 @@ const GAMES_DATA = [
     trending: false,
     rating: 4.6,
     plays: "82K",
+    dailyMission: "Win a match in Infinite 3-Piece Mode without getting forked.",
     tags: ["Puzzle", "Casual", "Neon", "Minimax", "Infinite Mode", "Retro"],
     description: "A neon-infused revival of the timeless grid duel. Challenge an mathematically unbeatable Minimax AI, challenge a friend, or engage in the chaotic 'Infinite 3-Piece' mode where your oldest mark disappears when placing your fourth piece.",
     controls: {
@@ -454,6 +471,134 @@ const GAMES_DATA = [
   }
 ];
 
+const GENRE_METADATA = [
+  {
+    slug: "action",
+    name: "Action",
+    headline: "Free Browser Action & Rage Platformer Games",
+    seoTitle: "Free Action Browser Games — Instant Play | Gravity Games",
+    metaDescription: "Play 7 free HTML5 action and rage platformer games online with instant touch controls, physics shooters, and zero downloads on Gravity Games.",
+    intro: "Test your reflexes across deceptive rage platformers, stealth infiltration missions, 3D reflex tunnels, and ricochet physics shooters built for zero-lag play.",
+    ogImage: "Don't-Trust-The-Floor/cover.jpg",
+    faqs: [
+      {
+        q: "Can I play these action browser games on mobile phones?",
+        a: "Yes. Every action game on Gravity Games includes responsive touch controls or on-screen directional pads alongside fullscreen mode."
+      },
+      {
+        q: "Do I need an account or download to save progress?",
+        a: "No sign-up or download is needed. Your favorites, play streak, and personal ratings stay saved directly in your browser."
+      },
+      {
+        q: "Which action games support quick-restart for speedruns?",
+        a: "Rage platformers like Don't Trust The Floor, The Fake Exit, Trust Issues, and Reality Changes support instant single-key or single-tap restarts."
+      }
+    ]
+  },
+  {
+    slug: "arcade",
+    name: "Arcade",
+    headline: "Free Browser Arcade, Physics & 3D Sandbox Games",
+    seoTitle: "Free Arcade Browser Games — 3D & Physics | Gravity Games",
+    metaDescription: "Play fast HTML5 arcade games, WebGL 3D voxel worlds, gravity runners, and grapple physics challenges directly in your browser with no downloads.",
+    intro: "Chase high scores through neon wave caverns, multi-axis gravity runners, pendulum grapple stages, and procedural 3D voxel sandboxes.",
+    ogImage: "Neon-Wave-Legends/cover.jpg",
+    faqs: [
+      {
+        q: "Are the 3D arcade games playable without plugins?",
+        a: "Yes. TerraVox 3D Sandbox and all WebGL arcade titles run natively inside modern desktop and mobile browsers using HTML5 and WebGL."
+      },
+      {
+        q: "Which arcade games are best for quick 2-minute sessions?",
+        a: "Neon Wave Legends and Swingline load in under two seconds and drop you straight into fast one-button or tap-and-release runs."
+      },
+      {
+        q: "Can I play arcade titles in fullscreen on iOS and Android?",
+        a: "Yes. Tap Play Fullscreen on any game stage to expand the viewport edge-to-edge with a quick Exit control."
+      }
+    ]
+  },
+  {
+    slug: "puzzle",
+    name: "Puzzle",
+    headline: "Free Browser Puzzle, Chess & Strategy Board Games",
+    seoTitle: "Free Puzzle & Chess Browser Games | Gravity Games",
+    metaDescription: "Play free HTML5 puzzle and strategy games including full FIDE chess, Connect Four with Alpha-Beta AI, and Infinite Tic-Tac-Toe right in your browser.",
+    intro: "Sharpen your tactical foresight against tuned Alpha-Beta chess and Connect Four engines or challenge a friend in local pass-and-play modes.",
+    ogImage: "Obsidian-Chess/cover.jpg",
+    faqs: [
+      {
+        q: "Does Obsidian Chess follow official FIDE rules?",
+        a: "Yes. Obsidian Chess supports castling, en passant, pawn promotion, legal-move highlighting, move notation history, and an Alpha-Beta AI opponent."
+      },
+      {
+        q: "Can two people play Connect Four or Tic-Tac-Toe on one device?",
+        a: "Yes. Both Connect Four and Neon Grid Tic-Tac-Toe include local 2-player pass-and-play modes in addition to AI difficulty levels."
+      },
+      {
+        q: "What makes Infinite 3-Piece Mode different in Tic-Tac-Toe?",
+        a: "Each player can only keep three marks on the board at once, so placing a fourth mark removes your oldest piece and eliminates stale draws."
+      }
+    ]
+  },
+  {
+    slug: "skill",
+    name: "Skill",
+    headline: "Free Browser Skill & One-Button Precision Games",
+    seoTitle: "Free Skill & Precision Browser Games | Gravity Games",
+    metaDescription: "Master frame-perfect one-button platformers and psychological 3D illusion runners online for free with instant browser controls on mobile and PC.",
+    intro: "Built for pure timing and spatial awareness, these precision skill challenges strip away clutter so every jump, frequency shift, and reaction counts.",
+    ogImage: "One-Button-Hell/cover.jpg",
+    faqs: [
+      {
+        q: "How do one-button skill games work on touchscreens?",
+        a: "In One Button Hell, forward movement is automatic so tapping anywhere on the screen executes your jump with minimal input latency."
+      },
+      {
+        q: "What is Threshold // Shift?",
+        a: "Threshold // Shift is a Three.js first-person liminal obstacle runner combining perspective illusions, harmonic frequency shifts, and procedural audio."
+      },
+      {
+        q: "How are games ranked when sorting by Top Rated?",
+        a: "Top Rated prioritizes games with the highest community scores and incorporates any personal 1-to-5 star ratings you save locally."
+      }
+    ]
+  },
+  {
+    slug: "adventure",
+    name: "Adventure",
+    headline: "Free Browser Adventure & 3D Simulation Games",
+    seoTitle: "Free Adventure & 3D Browser Games | Gravity Games",
+    metaDescription: "Explore stylized 3D wilderness survival and open-world browser adventures with dynamic weather, hunting, and zero downloads on Gravity Games.",
+    intro: "Step into open 3D environments featuring dynamic day-night cycles, territory defense, and reactive wildlife simulation directly in your browser.",
+    ogImage: "Savannah-Sovereign/cover.jpg",
+    faqs: [
+      {
+        q: "What can you do in Savannah Sovereign?",
+        a: "You stalk grazing herds across an open low-poly savanna, manage stamina during hunts, defend territory, and grow your pride across dynamic weather cycles."
+      },
+      {
+        q: "Does Savannah Sovereign work on touch devices?",
+        a: "Yes. Dual analog touch controls with sprint and pounce action pads appear automatically on touchscreens."
+      },
+      {
+        q: "Are there more 3D exploration games on Gravity Games?",
+        a: "Yes. You can also explore voxel terrain in TerraVox 3D Sandbox or first-person liminal architecture in Threshold // Shift."
+      }
+    ]
+  }
+];
+
+function parsePlaysCount(playsStr) {
+  if (typeof playsStr === "number") return playsStr;
+  const raw = String(playsStr || "").trim().toUpperCase();
+  if (!raw) return 0;
+  const num = parseFloat(raw.replace(/[^0-9.]/g, "")) || 0;
+  if (raw.endsWith("M")) return Math.round(num * 1000000);
+  if (raw.endsWith("K")) return Math.round(num * 1000);
+  return Math.round(num);
+}
+
 // Helper methods for registry access
 const GamesRegistry = {
   getAll() {
@@ -468,11 +613,41 @@ const GamesRegistry = {
     if (!category || category === "all") return GAMES_DATA;
     return GAMES_DATA.filter(g => g.category.toLowerCase() === category.toLowerCase());
   },
+  getGenres() {
+    return GENRE_METADATA;
+  },
+  getGenre(slug) {
+    if (!slug) return null;
+    const clean = String(slug).toLowerCase().trim();
+    return GENRE_METADATA.find(g => g.slug === clean) || null;
+  },
   getFeatured() {
     return GAMES_DATA.filter(g => g.featured);
   },
   getTrending() {
     return GAMES_DATA.filter(g => g.trending);
+  },
+  parsePlays(playsStr) {
+    return parsePlaysCount(playsStr);
+  },
+  sortGames(list, sortMode = "featured", personalRatings = {}) {
+    const copy = Array.isArray(list) ? [...list] : [];
+    const indexOrder = new Map(GAMES_DATA.map((g, i) => [g.slug, i]));
+    if (sortMode === "rating") {
+      return copy.sort((a, b) => {
+        const aScore = personalRatings && personalRatings[a.slug] ? Number(personalRatings[a.slug]) : a.rating;
+        const bScore = personalRatings && personalRatings[b.slug] ? Number(personalRatings[b.slug]) : b.rating;
+        if (bScore !== aScore) return bScore - aScore;
+        return parsePlaysCount(b.plays) - parsePlaysCount(a.plays);
+      });
+    }
+    if (sortMode === "plays") {
+      return copy.sort((a, b) => parsePlaysCount(b.plays) - parsePlaysCount(a.plays));
+    }
+    if (sortMode === "alpha") {
+      return copy.sort((a, b) => a.title.localeCompare(b.title));
+    }
+    return copy.sort((a, b) => (indexOrder.get(a.slug) ?? 999) - (indexOrder.get(b.slug) ?? 999));
   },
   search(query) {
     if (!query) return GAMES_DATA;
@@ -501,5 +676,6 @@ const GamesRegistry = {
 // Export to window for global browser usage
 if (typeof window !== "undefined") {
   window.GAMES_DATA = GAMES_DATA;
+  window.GENRE_METADATA = GENRE_METADATA;
   window.GamesRegistry = GamesRegistry;
 }

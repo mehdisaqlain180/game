@@ -117,17 +117,26 @@
   <div class="app-container">
     <main class="main-viewport">
 
-      <!-- Category Filter Strip -->
-      <nav class="category-strip" aria-label="Game categories">
-        <button class="filter-pill active" data-category="all" type="button">All Games</button>
-        <button class="filter-pill" data-category="Action" type="button">Action</button>
-        <button class="filter-pill" data-category="Arcade" type="button">Arcade</button>
-        <button class="filter-pill" data-category="Puzzle" type="button">Puzzle</button>
-        <button class="filter-pill" data-category="Skill" type="button">Skill</button>
-        <button class="filter-pill" data-category="Adventure" type="button">Adventure</button>
-        <button class="filter-pill" data-category="trending" type="button">Trending</button>
-        <button class="filter-pill" data-category="favorites" type="button">Favorites</button>
-      </nav>
+      <!-- Category Filter Strip & Sort Controls -->
+      <div class="discovery-controls-row">
+        <nav class="category-strip" aria-label="Game categories">
+          <button class="filter-pill active" data-category="all" type="button">All Games</button>
+          <button class="filter-pill" data-category="Action" type="button">Action</button>
+          <button class="filter-pill" data-category="Arcade" type="button">Arcade</button>
+          <button class="filter-pill" data-category="Puzzle" type="button">Puzzle</button>
+          <button class="filter-pill" data-category="Skill" type="button">Skill</button>
+          <button class="filter-pill" data-category="Adventure" type="button">Adventure</button>
+          <button class="filter-pill" data-category="trending" type="button">Trending</button>
+          <button class="filter-pill" data-category="favorites" type="button">Favorites</button>
+        </nav>
+
+        <div class="sort-segmented-group" id="sortControlBar" role="group" aria-label="Sort games">
+          <button type="button" class="sort-btn active" data-sort="featured" aria-pressed="true">Featured</button>
+          <button type="button" class="sort-btn" data-sort="rating" aria-pressed="false">Top Rated</button>
+          <button type="button" class="sort-btn" data-sort="plays" aria-pressed="false">Most Played</button>
+          <button type="button" class="sort-btn" data-sort="alpha" aria-pressed="false">A–Z</button>
+        </div>
+      </div>
 
       <!-- AdSense Ready: Top Leaderboard (Hidden when disabled) -->
       <section class="ad-slot-container ad-leaderboard ad-hidden" id="adHomeTopLeaderboard" aria-label="Advertisement"></section>
@@ -148,21 +157,41 @@
 
       <!-- DEFAULT HOMEPAGE CONTENT -->
       <div id="defaultHomeContent" style="display:flex; flex-direction:column; gap:32px;">
+        <h1 class="sr-only">Gravity Games — Free Instant HTML5 Browser Games</h1>
 
-        <!-- Hero Editorial Intro -->
-        <section class="hero-intro" aria-label="Portal overview">
-          <div class="hero-intro-copy">
-            <h1 class="hero-headline">Instant HTML5 Browser Games</h1>
-            <p class="hero-subcopy">Play handcrafted platformers, 3D reflex runners, and strategy classics right in your browser on phone or desktop.</p>
+        <!-- Hero Featured Asymmetric Bento Grid (16:9 cover.jpg) -->
+        <section class="hero-bento-grid" id="heroBentoGrid" aria-label="Featured games"></section>
+
+        <!-- Zero-Login Player Progress Strip -->
+        <section class="player-progress-strip" id="playerProgressStrip" aria-label="Your local play progress">
+          <div class="progress-metrics-row tabular-nums">
+            <span class="progress-metric">
+              <span>Streak:</span>
+              <span class="progress-metric-value" id="statStreakValue">0 days</span>
+            </span>
+            <span class="progress-sep" aria-hidden="true">·</span>
+            <span class="progress-metric">
+              <span>Explored:</span>
+              <span class="progress-metric-value" id="statExploredValue">0/17</span>
+            </span>
+            <span class="progress-sep" aria-hidden="true">·</span>
+            <span class="progress-metric">
+              <span>Daily:</span>
+              <span class="progress-metric-value" id="statDailyValue">Pending</span>
+            </span>
           </div>
-          <div class="hero-meta-line tabular-nums">
-            <span class="hero-meta-accent">17 Games</span>
-            <span aria-hidden="true">·</span>
-            <span>Zero Downloads</span>
-            <span aria-hidden="true">·</span>
-            <span>No Logins</span>
-          </div>
+          <button type="button" class="btn-stats-trigger" id="btnOpenStats">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+            <span>My Stats</span>
+          </button>
         </section>
+
+        <!-- Daily Challenge Spotlight -->
+        <section class="daily-challenge-card" id="dailyChallengeSpotlight" aria-label="Daily challenge spotlight"></section>
 
         <!-- Continue Playing Shelf (Rendered when localStorage has played games) -->
         <section id="recentShelf" class="hidden" aria-label="Continue playing">
@@ -178,9 +207,6 @@
           </div>
           <div class="icons-grid" id="recentGrid"></div>
         </section>
-
-        <!-- Hero Featured Asymmetric Bento Grid (16:9 cover.jpg) -->
-        <section class="hero-bento-grid" id="heroBentoGrid" aria-label="Featured games"></section>
 
         <!-- Trending 3:4 Portrait Posters Shelf (896x1200 banner.jpg) -->
         <section aria-label="Trending arcade posters">
@@ -209,7 +235,7 @@
               </svg>
               <h2 class="section-title">Rage Platformers &amp; Action</h2>
             </div>
-            <button type="button" class="section-meta-link" data-category="Action">All Action &rarr;</button>
+            <a href="/games/action" class="section-meta-link">Explore Action Hub &rarr;</a>
           </div>
           <div class="covers-grid" id="actionGrid"></div>
         </section>
@@ -226,7 +252,7 @@
               </svg>
               <h2 class="section-title">Arcade, 3D &amp; Quick Play</h2>
             </div>
-            <button type="button" class="section-meta-link" data-category="Arcade">All Arcade &rarr;</button>
+            <a href="/games/arcade" class="section-meta-link">Explore Arcade Hub &rarr;</a>
           </div>
           <div class="icons-grid" id="arcadeGrid"></div>
         </section>
@@ -240,7 +266,7 @@
               </svg>
               <h2 class="section-title">Puzzle, Chess &amp; Strategy</h2>
             </div>
-            <button type="button" class="section-meta-link" data-category="Puzzle">All Puzzle &rarr;</button>
+            <a href="/games/puzzle" class="section-meta-link">Explore Puzzle Hub &rarr;</a>
           </div>
           <div class="covers-grid" id="puzzleGrid"></div>
         </section>
@@ -264,6 +290,42 @@
     </main>
   </div>
 
+  <!-- Player Stats Modal / Mobile Bottom Sheet -->
+  <div class="stats-sheet-backdrop hidden" id="statsModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="statsSheetTitle">
+    <div class="stats-sheet" id="statsSheet">
+      <div class="stats-sheet-handle" aria-hidden="true"></div>
+      <div class="stats-sheet-header">
+        <div>
+          <h2 class="stats-sheet-title" id="statsSheetTitle">My Arcade Stats</h2>
+          <p style="font-size: 0.78rem; color: var(--text-secondary);">Saved locally in your browser · Zero sign-in required</p>
+        </div>
+        <button type="button" class="stats-close-btn" id="btnCloseStats" aria-label="Close stats">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="stats-kpi-grid tabular-nums" id="statsModalKpis"></div>
+
+      <div>
+        <h3 class="stats-section-heading">Last 7 Days Activity</h3>
+        <div class="stats-week-strip tabular-nums" id="statsWeekStrip"></div>
+      </div>
+
+      <div>
+        <h3 class="stats-section-heading">Genre Exploration</h3>
+        <div class="stats-genre-list tabular-nums" id="statsGenreList"></div>
+      </div>
+
+      <div>
+        <h3 class="stats-section-heading">Your Rated Games</h3>
+        <div class="stats-rated-list" id="statsRatedList"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- 3. GLOBAL FOOTER -->
   <footer class="site-footer">
     <div class="footer-inner">
@@ -279,10 +341,11 @@
       <div>
         <h3 class="footer-col-title">Game Genres</h3>
         <ul class="footer-nav-list">
-          <li><a href="#" class="footer-nav-link" data-category="Action">Action &amp; Rage Games</a></li>
-          <li><a href="#" class="footer-nav-link" data-category="Arcade">Arcade &amp; Speedrunners</a></li>
-          <li><a href="#" class="footer-nav-link" data-category="Puzzle">Puzzle &amp; Chess</a></li>
-          <li><a href="#" class="footer-nav-link" data-category="Skill">Skill &amp; One Button</a></li>
+          <li><a href="/games/action" class="footer-nav-link">Action &amp; Rage Games</a></li>
+          <li><a href="/games/arcade" class="footer-nav-link">Arcade &amp; 3D Sandbox</a></li>
+          <li><a href="/games/puzzle" class="footer-nav-link">Puzzle &amp; Chess</a></li>
+          <li><a href="/games/skill" class="footer-nav-link">Skill &amp; One Button</a></li>
+          <li><a href="/games/adventure" class="footer-nav-link">Adventure &amp; Simulation</a></li>
         </ul>
       </div>
 

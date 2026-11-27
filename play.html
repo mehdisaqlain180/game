@@ -184,6 +184,31 @@
               <a href="blog.html" id="gameGuideLink" class="game-guide-cta hidden">Read Strategy Guide &rarr;</a>
             </div>
 
+            <div class="rating-widget" id="playerRatingWidget" aria-label="Rate this game">
+              <div class="rating-label-group">
+                <span class="rating-label-title">Your Personal Rating</span>
+                <span class="rating-status-text tabular-nums" id="ratingStatusText">Tap 1–5 stars to save locally</span>
+              </div>
+              <div class="rating-controls">
+                <button type="button" class="rating-star-btn" data-rating="1" aria-label="Rate 1 out of 5 stars" aria-pressed="false">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </button>
+                <button type="button" class="rating-star-btn" data-rating="2" aria-label="Rate 2 out of 5 stars" aria-pressed="false">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </button>
+                <button type="button" class="rating-star-btn" data-rating="3" aria-label="Rate 3 out of 5 stars" aria-pressed="false">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </button>
+                <button type="button" class="rating-star-btn" data-rating="4" aria-label="Rate 4 out of 5 stars" aria-pressed="false">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </button>
+                <button type="button" class="rating-star-btn" data-rating="5" aria-label="Rate 5 out of 5 stars" aria-pressed="false">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </button>
+                <button type="button" class="rating-clear-btn hidden" id="btnClearRating">Clear</button>
+              </div>
+            </div>
+
             <div>
               <h2 class="game-description-heading">About This Game</h2>
               <p class="game-description-body" id="gameDescriptionText">Game description...</p>
@@ -258,11 +283,13 @@
       </div>
 
       <div>
-        <h3 class="footer-col-title">Game Hub</h3>
+        <h3 class="footer-col-title">Game Genres</h3>
         <ul class="footer-nav-list">
-          <li><a href="index.html?cat=trending" class="footer-nav-link">Top Rated</a></li>
-          <li><a href="index.html?cat=Action" class="footer-nav-link">Rage Platformers</a></li>
-          <li><a href="index.html?cat=Skill" class="footer-nav-link">Skill Challenges</a></li>
+          <li><a href="/games/action" class="footer-nav-link">Action &amp; Rage Games</a></li>
+          <li><a href="/games/arcade" class="footer-nav-link">Arcade &amp; 3D Sandbox</a></li>
+          <li><a href="/games/puzzle" class="footer-nav-link">Puzzle &amp; Chess</a></li>
+          <li><a href="/games/skill" class="footer-nav-link">Skill &amp; One Button</a></li>
+          <li><a href="/games/adventure" class="footer-nav-link">Adventure &amp; Simulation</a></li>
         </ul>
       </div>
     </div>
