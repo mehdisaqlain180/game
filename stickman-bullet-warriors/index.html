@@ -1,0 +1,3352 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Stickman Bullet Warriors</title>
+  <meta name="description" content="A high-juice 2D ricochet physics puzzle-shooter with articulated ragdoll stickmen, interactive traps, 25 handcrafted levels, and an unlockable armory." />
+  <meta property="og:title" content="Stickman Bullet Warriors" />
+  <meta property="og:description" content="A high-juice 2D ricochet physics puzzle-shooter with articulated ragdoll stickmen, interactive traps, 25 handcrafted levels, and an unlockable armory." />
+  <meta property="og:type" content="website" />
+  <style>:root{--bg:#0b1017;--surface:#141c27;--surface-2:#1c2736;--border:#94a3b829;--text:#f1f5f9;--muted:#94a3b8;--accent:#f59e0b;--accent-hover:#fbbf24;--danger:#ef4444;--success:#10b981;--cyan:#38bdf8}*{box-sizing:border-box;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;margin:0;padding:0}html,body{background:var(--bg);width:100%;height:100%;color:var(--text);touch-action:none;font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;overflow:hidden}#app{background:radial-gradient(circle at 50% 35%,#16202e 0%,#090d14 100%);flex-direction:column;justify-content:center;align-items:center;width:100%;height:100%;display:flex;position:relative}#hud{border-bottom:1px solid var(--border);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);z-index:20;background:#0b1017db;justify-content:space-between;align-items:center;gap:12px;height:58px;padding:0 16px;display:flex;position:absolute;top:0;left:0;right:0}.hud-group{align-items:center;gap:10px;min-width:0;display:flex}.hud-title{letter-spacing:.01em;white-space:nowrap;text-overflow:ellipsis;font-size:15px;font-weight:700;overflow:hidden}.hud-sub{color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap;font-size:13px}.hud-sep{color:#94a3b859}.ammo-bar{background:var(--surface);border:1px solid var(--border);border-radius:8px;align-items:center;gap:8px;padding:6px 12px;display:flex}.ammo-bullets{align-items:center;gap:5px;display:flex}.bullet-pip{background:var(--accent);border-radius:3px 3px 2px 2px;width:8px;height:20px;transition:transform .15s,opacity .15s;box-shadow:0 0 8px #f59e0b59}.bullet-pip.used{box-shadow:none;background:#94a3b838;transform:scaleY(.78)}.star-target{color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap;margin-left:6px;font-size:12px;font-weight:600}.star-target strong{color:var(--accent)}.coin-display{color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap;font-size:14px;font-weight:700}button{cursor:pointer;border:none;outline:none;font-family:inherit;transition:transform .12s cubic-bezier(.16,1,.3,1),background-color .15s,border-color .15s,opacity .15s}button:focus-visible{box-shadow:0 0 0 2px var(--bg), 0 0 0 4px var(--accent)}button:active:not(:disabled){transform:scale(.97)}button:disabled{opacity:.45;cursor:not-allowed}.btn-hud{background:var(--surface);border:1px solid var(--border);min-width:38px;height:38px;color:var(--text);white-space:nowrap;border-radius:7px;justify-content:center;align-items:center;gap:6px;padding:0 12px;font-size:13px;font-weight:600;display:inline-flex}.btn-hud:hover:not(:disabled){background:var(--surface-2);border-color:#94a3b859}.btn-primary{background:var(--accent);color:#0b1017;white-space:nowrap;border-radius:8px;justify-content:center;align-items:center;gap:8px;height:44px;padding:0 22px;font-size:15px;font-weight:700;display:inline-flex}.btn-primary:hover:not(:disabled){background:var(--accent-hover)}.btn-secondary{background:var(--surface-2);border:1px solid var(--border);height:44px;color:var(--text);white-space:nowrap;border-radius:8px;justify-content:center;align-items:center;gap:8px;padding:0 18px;font-size:14px;font-weight:600;display:inline-flex}.btn-secondary:hover:not(:disabled){background:#243245;border-color:#94a3b852}.btn-reward{color:#6ee7b7;white-space:nowrap;background:#10b98129;border:1px solid #10b98173;border-radius:8px;justify-content:center;align-items:center;gap:8px;height:44px;padding:0 18px;font-size:14px;font-weight:600;display:inline-flex}.btn-reward:hover:not(:disabled){background:#10b98140}#canvas-wrap{justify-content:center;align-items:center;width:100%;height:100%;padding-top:58px;display:flex;position:relative}canvas{cursor:crosshair;background:#111822;border:1px solid #94a3b81f;max-width:100%;max-height:100%;display:block;box-shadow:0 24px 60px #000000a6}.overlay{-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);z-index:40;opacity:0;pointer-events:none;background:#080c12d1;justify-content:center;align-items:center;padding:20px;transition:opacity .18s;display:flex;position:absolute;inset:0}.overlay.active{opacity:1;pointer-events:auto}.modal{background:var(--surface);border:1px solid var(--border);border-radius:14px;flex-direction:column;gap:20px;width:100%;max-width:520px;max-height:90vh;padding:28px;display:flex;overflow-y:auto;box-shadow:0 24px 64px #000000b3}.modal.wide{max-width:780px}.modal-header{justify-content:space-between;align-items:center;gap:12px;display:flex}.modal-title{letter-spacing:-.01em;font-size:24px;font-weight:800;line-height:1.2}.modal-subtitle{color:var(--muted);font-size:14px;line-height:1.5}.stars-row{justify-content:center;align-items:center;gap:14px;padding:8px 0;display:flex}.star-icon{width:44px;height:44px;transition:transform .25s cubic-bezier(.16,1,.3,1)}.stats-strip{background:var(--bg);border:1px solid var(--border);text-align:center;border-radius:10px;grid-template-columns:repeat(3,1fr);gap:12px;padding:14px;display:grid}.stat-label{color:var(--muted);margin-bottom:4px;font-size:12px}.stat-val{font-variant-numeric:tabular-nums;font-size:18px;font-weight:700}.btn-row{flex-wrap:wrap;justify-content:center;gap:10px;display:flex}.btn-col{flex-direction:column;gap:10px;display:flex}.level-grid{grid-template-columns:repeat(5,1fr);gap:10px;display:grid}.lvl-cell{background:var(--surface-2);border:1px solid var(--border);color:var(--text);border-radius:10px;flex-direction:column;align-items:center;gap:5px;min-height:74px;padding:10px 6px;display:flex}.lvl-cell:hover:not(:disabled){border-color:var(--accent);background:#233144}.lvl-cell.current{border-color:var(--accent);box-shadow:inset 0 0 0 1px #f59e0b59}.lvl-num{font-variant-numeric:tabular-nums;font-size:16px;font-weight:800}.lvl-stars{gap:2px;font-size:12px;display:flex}.lvl-name{color:var(--muted);text-overflow:ellipsis;white-space:nowrap;max-width:100%;font-size:10px;overflow:hidden}.tabs{background:var(--bg);border:1px solid var(--border);border-radius:9px;gap:6px;padding:4px;display:flex}.tab-btn{height:36px;color:var(--muted);background:0 0;border-radius:6px;flex:1;font-size:14px;font-weight:600}.tab-btn.active{background:var(--surface-2);color:var(--text)}.shop-grid{grid-template-columns:repeat(2,1fr);gap:12px;display:grid}.shop-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;flex-direction:column;justify-content:space-between;gap:12px;padding:14px;display:flex}.shop-card.equipped{border-color:var(--accent)}.shop-card-top{justify-content:space-between;align-items:flex-start;gap:10px;display:flex}.shop-item-name{margin-bottom:4px;font-size:15px;font-weight:700}.shop-item-desc{color:var(--muted);font-size:12px;line-height:1.4}#ad-overlay{z-index:60}.ad-progress-track{background:var(--bg);border-radius:3px;width:100%;height:6px;overflow:hidden}.ad-progress-fill{background:var(--accent);width:0%;height:100%;transition:width 50ms linear}@media (width<=680px){#hud{gap:6px;padding:0 10px}.hud-title{font-size:13px}.hud-sub.hide-sm,.star-target{display:none}.btn-hud{padding:0 8px;font-size:12px}.level-grid{grid-template-columns:repeat(5,1fr);gap:6px}.shop-grid{grid-template-columns:1fr}}</style>
+</head>
+<body>
+  <div id="app">
+    <header id="hud" aria-label="Game controls">
+      <div class="hud-group">
+        <button id="btn-levels" class="btn-hud" title="Select Level">Levels</button>
+        <div class="hud-title" id="hud-level-title">Level 1 · Straight Shot</div>
+      </div>
+
+      <div class="ammo-bar" aria-label="Ammo remaining">
+        <div class="ammo-bullets" id="hud-bullets"></div>
+        <span class="star-target" id="hud-star-hint"><strong>3★</strong> in 1 shot</span>
+      </div>
+
+      <div class="hud-group">
+        <span class="coin-display" id="hud-coins">Coins: 0</span>
+        <button id="btn-shop" class="btn-hud">Armory</button>
+        <button id="btn-restart" class="btn-hud" title="Restart Level (R)">Restart</button>
+        <button id="btn-mute" class="btn-hud" title="Toggle Sound">Sound: On</button>
+        <button id="btn-pause" class="btn-hud" title="Pause (Esc)">Pause</button>
+      </div>
+    </header>
+
+    <div id="canvas-wrap">
+      <canvas id="gameCanvas" width="1280" height="662"></canvas>
+    </div>
+
+    <!-- Title Overlay -->
+    <div id="title-overlay" class="overlay active">
+      <div class="modal" style="text-align: center;">
+        <div>
+          <h1 class="modal-title" style="font-size: 30px; margin-bottom: 8px;">Stickman Bullet Warriors</h1>
+          <p class="modal-subtitle">Drag anywhere to aim, release to fire. Ricochet off steel walls, detonate barrels, snap crate ropes, and watch out for your own rebounds.</p>
+        </div>
+        <div class="stats-strip">
+          <div>
+            <div class="stat-label">Unlocked</div>
+            <div class="stat-val" id="title-unlocked">1 / 25</div>
+          </div>
+          <div>
+            <div class="stat-label">Total Stars</div>
+            <div class="stat-val" id="title-stars">0 / 75</div>
+          </div>
+          <div>
+            <div class="stat-label">Coins</div>
+            <div class="stat-val" id="title-coins" style="color: var(--accent);">0</div>
+          </div>
+        </div>
+        <div class="btn-col">
+          <button id="btn-play-main" class="btn-primary">Play Level 1</button>
+          <div class="btn-row">
+            <button id="btn-title-levels" class="btn-secondary" style="flex:1;">Select Level</button>
+            <button id="btn-title-shop" class="btn-secondary" style="flex:1;">Armory &amp; Skins</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Level Complete Overlay -->
+    <div id="win-overlay" class="overlay">
+      <div class="modal" style="text-align: center;">
+        <div>
+          <h2 class="modal-title" id="win-title">Stage Cleared</h2>
+          <p class="modal-subtitle" id="win-sub">Precision ricochet elimination.</p>
+        </div>
+        <div class="stars-row" id="win-stars"></div>
+        <div class="stats-strip">
+          <div>
+            <div class="stat-label">Shots Fired</div>
+            <div class="stat-val" id="win-shots">1</div>
+          </div>
+          <div>
+            <div class="stat-label">Headshots</div>
+            <div class="stat-val" id="win-headshots">0</div>
+          </div>
+          <div>
+            <div class="stat-label">Coins Earned</div>
+            <div class="stat-val" id="win-coins" style="color: var(--accent);">+40</div>
+          </div>
+        </div>
+        <div class="btn-col">
+          <button id="btn-next-level" class="btn-primary">Next Level</button>
+          <div class="btn-row">
+            <button id="btn-win-replay" class="btn-secondary" style="flex:1;">Replay for 3★</button>
+            <button id="btn-win-shop" class="btn-secondary" style="flex:1;">Armory</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Level Failed Overlay -->
+    <div id="fail-overlay" class="overlay">
+      <div class="modal" style="text-align: center;">
+        <div>
+          <h2 class="modal-title" id="fail-title" style="color: var(--danger);">Out of Ammo</h2>
+          <p class="modal-subtitle" id="fail-sub">Targets remain in the arena. Reload or try a sharper ricochet angle.</p>
+        </div>
+        <div class="btn-col">
+          <button id="btn-fail-retry" class="btn-primary">Retry Level (R)</button>
+          <button id="btn-reward-bullets" class="btn-reward">Watch Ad for +2 Bonus Bullets</button>
+          <button id="btn-reward-skip-fail" class="btn-secondary">Watch Ad to Skip Level</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pause Overlay -->
+    <div id="pause-overlay" class="overlay">
+      <div class="modal" style="text-align: center;">
+        <h2 class="modal-title">Game Paused</h2>
+        <div class="btn-col">
+          <button id="btn-resume" class="btn-primary">Resume</button>
+          <button id="btn-pause-restart" class="btn-secondary">Restart Level</button>
+          <button id="btn-pause-levels" class="btn-secondary">Select Level</button>
+          <button id="btn-pause-shop" class="btn-secondary">Armory &amp; Skins</button>
+          <button id="btn-reward-skip-pause" class="btn-reward">Watch Ad to Skip Level</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Level Select Overlay -->
+    <div id="levels-overlay" class="overlay">
+      <div class="modal wide">
+        <div class="modal-header">
+          <div>
+            <h2 class="modal-title">Select Stage</h2>
+            <p class="modal-subtitle" id="levels-summary">25 handcrafted tactical ricochet stages</p>
+          </div>
+          <button id="btn-close-levels" class="btn-hud">Close</button>
+        </div>
+        <div class="level-grid" id="level-grid"></div>
+      </div>
+    </div>
+
+    <!-- Armory / Shop Overlay -->
+    <div id="shop-overlay" class="overlay">
+      <div class="modal wide">
+        <div class="modal-header">
+          <div>
+            <h2 class="modal-title">Armory &amp; Gear</h2>
+            <p class="modal-subtitle">Coins available: <strong id="shop-coins" style="color: var(--accent);">0</strong></p>
+          </div>
+          <button id="btn-close-shop" class="btn-hud">Close</button>
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" id="tab-weapons">Weapons</button>
+          <button class="tab-btn" id="tab-skins">Stickman Skins</button>
+        </div>
+        <div class="shop-grid" id="shop-grid"></div>
+      </div>
+    </div>
+
+    <!-- AdSense Simulation Overlay -->
+    <div id="ad-overlay" class="overlay">
+      <div class="modal" style="max-width: 400px; text-align: center;">
+        <h2 class="modal-title" id="ad-title" style="font-size: 20px;">Ad Break</h2>
+        <p class="modal-subtitle" id="ad-desc">Resuming gameplay momentarily...</p>
+        <div class="ad-progress-track">
+          <div class="ad-progress-fill" id="ad-progress"></div>
+        </div>
+        <div class="btn-row" id="ad-actions" style="display: none;">
+          <button id="btn-ad-dismiss" class="btn-secondary">Skip</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (() => {
+    "use strict";
+
+    // =========================================================================
+    // 1. CONSTANTS & PERSISTENT SAVE STATE
+    // =========================================================================
+    const SAVE_KEY = "sbw_save_v1";
+    const LOGICAL_W = 1280;
+    const LOGICAL_H = 662; // 720 - 58px HUD
+    const GRAVITY = 940;
+
+    const WEAPONS = [
+      {
+        id: "pistol",
+        name: "Classic Pistol",
+        cost: 0,
+        speed: 1260,
+        bounces: 5,
+        previewBounces: 1,
+        pierceWood: false,
+        pierceShield: false,
+        impulseMult: 1.0,
+        burstCount: 1,
+        spread: 0,
+        color: "#fbbf24",
+        desc: "Reliable sidearm. Up to 5 steel ricochets with balanced velocity."
+      },
+      {
+        id: "sniper",
+        name: "Laser Sniper",
+        cost: 120,
+        speed: 1920,
+        bounces: 6,
+        previewBounces: 2,
+        pierceWood: false,
+        pierceShield: false,
+        impulseMult: 1.25,
+        burstCount: 1,
+        spread: 0,
+        color: "#38bdf8",
+        desc: "Extended 2-bounce laser sightline, ultra-fast velocity, 6 bounces."
+      },
+      {
+        id: "revolver",
+        name: "Heavy Revolver",
+        cost: 220,
+        speed: 1420,
+        bounces: 5,
+        previewBounces: 1,
+        pierceWood: true,
+        pierceShield: true,
+        impulseMult: 1.65,
+        burstCount: 1,
+        spread: 0,
+        color: "#fb7185",
+        desc: "High-caliber slug pierces wooden planks and riot shields with huge ragdoll knockback."
+      },
+      {
+        id: "smg",
+        name: "Burst SMG",
+        cost: 320,
+        speed: 1320,
+        bounces: 4,
+        previewBounces: 1,
+        pierceWood: false,
+        pierceShield: false,
+        impulseMult: 0.9,
+        burstCount: 3,
+        spread: 0.048,
+        color: "#34d399",
+        desc: "Fires a rapid 3-round spread per shot for saturation ricochets."
+      }
+    ];
+
+    const SKINS = [
+      { id: "default", name: "Default Operative", cost: 0, body: "#f8fafc", accent: "#38bdf8", desc: "Clean tactical silhouette with cyan optic visor." },
+      { id: "agent", name: "Agent Suit", cost: 80, body: "#e2e8f0", accent: "#f43f5e", desc: "Sharp tailored suit collar, crimson tie, and dark shades." },
+      { id: "ninja", name: "Ninja Headband", cost: 140, body: "#cbd5e1", accent: "#ef4444", desc: "Flowing crimson headband tails trailing every move." },
+      { id: "cowboy", name: "Cowboy Hat", cost: 200, body: "#fde68a", accent: "#d97706", desc: "Wide-brim frontier hat and outlaw bandana." },
+      { id: "cyber", name: "Cyber Visor", cost: 260, body: "#f1f5f9", accent: "#f59e0b", desc: "Armored shoulder plates and glowing amber tactical visor." }
+    ];
+
+    function loadSave() {
+      try {
+        const raw = localStorage.getItem(SAVE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          return {
+            unlockedLevel: Math.max(1, Math.min(25, parsed.unlockedLevel || 1)),
+            stars: parsed.stars || {},
+            coins: typeof parsed.coins === "number" ? parsed.coins : 0,
+            unlockedWeapons: Array.isArray(parsed.unlockedWeapons) ? parsed.unlockedWeapons : ["pistol"],
+            equippedWeapon: parsed.equippedWeapon || "pistol",
+            unlockedSkins: Array.isArray(parsed.unlockedSkins) ? parsed.unlockedSkins : ["default"],
+            equippedSkin: parsed.equippedSkin || "default",
+            muted: !!parsed.muted,
+            completedCount: parsed.completedCount || 0
+          };
+        }
+      } catch (e) {}
+      return {
+        unlockedLevel: 1,
+        stars: {},
+        coins: 0,
+        unlockedWeapons: ["pistol"],
+        equippedWeapon: "pistol",
+        unlockedSkins: ["default"],
+        equippedSkin: "default",
+        muted: false,
+        completedCount: 0
+      };
+    }
+
+    let save = loadSave();
+    function persistSave() {
+      try {
+        localStorage.setItem(SAVE_KEY, JSON.stringify(save));
+      } catch (e) {}
+    }
+
+    function getWeapon(id = save.equippedWeapon) {
+      return WEAPONS.find(w => w.id === id) || WEAPONS[0];
+    }
+    function getSkin(id = save.equippedSkin) {
+      return SKINS.find(s => s.id === id) || SKINS[0];
+    }
+
+    // =========================================================================
+    // 2. PROCEDURAL WEB AUDIO SYNTHESIZER
+    // =========================================================================
+    const AudioEngine = (() => {
+      let ctx = null;
+      let tempAdMuted = false;
+
+      function ensureCtx() {
+        if (!ctx) {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          if (AC) ctx = new AC();
+        }
+        if (ctx && ctx.state === "suspended") {
+          ctx.resume().catch(() => {});
+        }
+        return ctx;
+      }
+
+      function isMuted() {
+        return save.muted || tempAdMuted;
+      }
+
+      function noiseBuffer(duration) {
+        const c = ensureCtx();
+        const len = Math.floor(c.sampleRate * duration);
+        const buf = c.createBuffer(1, len, c.sampleRate);
+        const data = buf.getChannelData(0);
+        for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+        return buf;
+      }
+
+      function playGunshot(weaponId) {
+        if (isMuted()) return;
+        const c = ensureCtx();
+        if (!c) return;
+        const now = c.currentTime;
+
+        const isHeavy = weaponId === "revolver";
+        const isSniper = weaponId === "sniper";
+
+        // Noise crack
+        const src = c.createBufferSource();
+        src.buffer = noiseBuffer(isHeavy ? 0.22 : 0.14);
+        const filter = c.createBiquadFilter();
+        filter.type = "bandpass";
+        filter.frequency.setValueAtTime(isSniper ? 2400 : isHeavy ? 950 : 1600, now);
+        filter.Q.value = 0.8;
+
+        const gain = c.createGain();
+        gain.gain.setValueAtTime(isHeavy ? 0.48 : 0.34, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + (isHeavy ? 0.21 : 0.13));
+
+        src.connect(filter).connect(gain).connect(c.destination);
+        src.start(now);
+
+        // Punchy sub thump
+        const osc = c.createOscillator();
+        osc.type = isSniper ? "sawtooth" : "triangle";
+        osc.frequency.setValueAtTime(isHeavy ? 150 : 210, now);
+        osc.frequency.exponentialRampToValueAtTime(38, now + 0.11);
+
+        const oGain = c.createGain();
+        oGain.gain.setValueAtTime(0.38, now);
+        oGain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+
+        osc.connect(oGain).connect(c.destination);
+        osc.start(now);
+        osc.stop(now + 0.13);
+      }
+
+      function playRicochet(bounceIdx = 1) {
+        if (isMuted()) return;
+        const c = ensureCtx();
+        if (!c) return;
+        const now = c.currentTime;
+        const base = 1350 + bounceIdx * 180 + Math.random() * 220;
+
+        const osc = c.createOscillator();
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(base, now);
+        osc.frequency.exponentialRampToValueAtTime(base * 1.65, now + 0.045);
+        osc.frequency.exponentialRampToValueAtTime(base * 0.6, now + 0.16);
+
+        const gain = c.createGain();
+        gain.gain.setValueAtTime(0.18, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.17);
+
+        osc.connect(gain).connect(c.destination);
+        osc.start(now);
+        osc.stop(now + 0.18);
+      }
+
+      function playShieldClang() {
+        if (isMuted()) return;
+        const c = ensureCtx();
+        if (!c) return;
+        const now = c.currentTime;
+        [440, 710].forEach((freq, i) => {
+          const osc = c.createOscillator();
+          osc.type = i === 0 ? "square" : "sine";
+          osc.frequency.setValueAtTime(freq, now);
+          osc.frequency.exponentialRampToValueAtTime(freq * 0.72, now + 0.16);
+          const g = c.createGain();
+          g.gain.setValueAtTime(0.14, now);
+          g.gain.exponentialRampToValueAtTime(0.001, now + 0.17);
+          osc.connect(g).connect(c.destination);
+          osc.start(now);
+          osc.stop(now + 0.18);
+        });
+      }
+
+      function playGlassShatter() {
+        if (isMuted()) return;
+        const c = ensureCtx();
+        if (!c) return;
+        const now = c.currentTime;
+
+        const src = c.createBufferSource();
+        src.buffer = noiseBuffer(0.24);
+        const hp = c.createBiquadFilter();
+        hp.type = "highpass";
+        hp.frequency.setValueAtTime(2800, now);
+        const g = c.createGain();
+        g.gain.setValueAtTime(0.26, now);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
+        src.connect(hp).connect(g).connect(c.destination);
+        src.start(now);
+
+        for (let i = 0; i < 4; i++) {
+          const osc = c.createOscillator();
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(2400 + Math.random() * 2200, now + i * 0.025);
+          const sg = c.createGain();
+          sg.gain.setValueAtTime(0.08, now + i * 0.025);
+          sg.gain.exponentialRampToValueAtTime(0.001, now + i * 0.025 + 0.09);
+          osc.connect(sg).connect(c.destination);
+          osc.start(now + i * 0.025);
+          osc.stop(now + i * 0.025 + 0.1);
+        }
+      }
+
+      function playWoodSplinter() {
+        if (isMuted()) return;
+        const c = ensureCtx();
+        if (!c) return;
+        const now = c.currentTime;
+
+        const src = c.createBufferSource();
+        src.buffer = noiseBuffer(0.16);
+        const bp = c.createBiquadFilter();
+        bp.type = "bandpass";
+        bp.frequency.setValueAtTime(550, now);
+        bp.Q.value = 1.6;
+        const g = c.createGain();
+        g.gain.setValueAtTime(0.32, now);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+        src.connect(bp).connect(g).connect(c.destination);
+        src.start(now);
+      }
+
+      function playRopeSnap() {
+        if (isMuted()) return;
+        const c = ensureCtx();
+        if (!c) return;
+        const now = c.currentTime;
+
+        const osc = c.createOscillator();
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(620, now);
+        osc.frequency.exponentialRampToValueAtTime(160, now + 0.09);
+        const g = c.createGain();
+        g.gain.setValueAtTime(0.2, now);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+        osc.connect(g).connect(c.destination);
+        osc.start(now);
+        osc.stop(now + 0.11);
+      }
+
+      function playExplosion() {
+        if (isMuted()) return;
+        const c = ensureCtx();
+        if (!c) return;
+        const now = c.currentTime;
+
+        const src = c.createBufferSource();
+        src.buffer = noiseBuffer(0.65);
+        const lp = c.createBiquadFilter();
+        lp.type = "lowpass";
+        lp.frequency.setValueAtTime(900, now);
+        lp.frequency.exponentialRampToValueAtTime(90, now + 0.6);
+        const g = c.createGain();
+        g.gain.setValueAtTime(0.55, now);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 0.62);
+        src.connect(lp).connect(g).connect(c.destination);
+        src.start(now);
+
+        const sub = c.createOscillator();
+        sub.type = "sine";
+        sub.frequency.setValueAtTime(110, now);
+        sub.frequency.exponentialRampToValueAtTime(26, now + 0.45);
+        const sg = c.createGain();
+        sg.gain.setValueAtTime(0.5, now);
+        sg.gain.exponentialRampToValueAtTime(0.001, now + 0.48);
+        sub.connect(sg).connect(c.destination);
+        sub.start(now);
+        sub.stop(now + 0.5);
+      }
+
+      function playHit(isHeadshot = false) {
+        if (isMuted()) return;
+        const c = ensureCtx();
+        if (!c) return;
+        const now = c.currentTime;
+
+        const osc = c.createOscillator();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(160, now);
+        osc.frequency.exponentialRampToValueAtTime(48, now + 0.1);
+        const g = c.createGain();
+        g.gain.setValueAtTime(0.32, now);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 0.11);
+        osc.connect(g).connect(c.destination);
+        osc.start(now);
+        osc.stop(now + 0.12);
+
+        if (isHeadshot) {
+          [880, 1320].forEach((freq, idx) => {
+            const bell = c.createOscillator();
+            bell.type = "sine";
+            bell.frequency.setValueAtTime(freq, now + idx * 0.035);
+            const bg = c.createGain();
+            bg.gain.setValueAtTime(0.14, now + idx * 0.035);
+            bg.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.035 + 0.2);
+            bell.connect(bg).connect(c.destination);
+            bell.start(now + idx * 0.035);
+            bell.stop(now + idx * 0.035 + 0.22);
+          });
+        }
+      }
+
+      function playVictory() {
+        if (isMuted()) return;
+        const c = ensureCtx();
+        if (!c) return;
+        const now = c.currentTime;
+        const notes = [523.25, 659.25, 783.99, 1046.5];
+        notes.forEach((f, i) => {
+          const osc = c.createOscillator();
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(f, now + i * 0.09);
+          const g = c.createGain();
+          g.gain.setValueAtTime(0.16, now + i * 0.09);
+          g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.09 + 0.32);
+          osc.connect(g).connect(c.destination);
+          osc.start(now + i * 0.09);
+          osc.stop(now + i * 0.09 + 0.34);
+        });
+      }
+
+      function playFail() {
+        if (isMuted()) return;
+        const c = ensureCtx();
+        if (!c) return;
+        const now = c.currentTime;
+        [330, 277.18, 220].forEach((f, i) => {
+          const osc = c.createOscillator();
+          osc.type = "sawtooth";
+          osc.frequency.setValueAtTime(f, now + i * 0.12);
+          const g = c.createGain();
+          g.gain.setValueAtTime(0.1, now + i * 0.12);
+          g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.12 + 0.22);
+          osc.connect(g).connect(c.destination);
+          osc.start(now + i * 0.12);
+          osc.stop(now + i * 0.12 + 0.24);
+        });
+      }
+
+      return {
+        unlock: ensureCtx,
+        setAdMute(m) { tempAdMuted = m; },
+        playGunshot,
+        playRicochet,
+        playShieldClang,
+        playGlassShatter,
+        playWoodSplinter,
+        playRopeSnap,
+        playExplosion,
+        playHit,
+        playVictory,
+        playFail
+      };
+    })();
+
+    // =========================================================================
+    // 3. ADSENSE MONETIZATION HOOKS (window.GameAds)
+    // =========================================================================
+    let adPaused = false;
+
+    function runSimulatedAd({ title, desc, durationMs, allowDismiss, onComplete, onDismiss }) {
+      const overlay = document.getElementById("ad-overlay");
+      const titleEl = document.getElementById("ad-title");
+      const descEl = document.getElementById("ad-desc");
+      const fillEl = document.getElementById("ad-progress");
+      const actionsEl = document.getElementById("ad-actions");
+      const dismissBtn = document.getElementById("btn-ad-dismiss");
+
+      adPaused = true;
+      AudioEngine.setAdMute(true);
+
+      titleEl.textContent = title;
+      descEl.textContent = desc;
+      fillEl.style.width = "0%";
+      actionsEl.style.display = allowDismiss ? "flex" : "none";
+      overlay.classList.add("active");
+
+      let finished = false;
+      const start = performance.now();
+
+      function cleanup() {
+        overlay.classList.remove("active");
+        adPaused = false;
+        AudioEngine.setAdMute(false);
+        dismissBtn.onclick = null;
+      }
+
+      dismissBtn.onclick = () => {
+        if (finished) return;
+        finished = true;
+        cleanup();
+        if (typeof onDismiss === "function") onDismiss();
+      };
+
+      function tick(now) {
+        if (finished) return;
+        const p = Math.min(1, (now - start) / durationMs);
+        fillEl.style.width = (p * 100).toFixed(1) + "%";
+        if (p >= 1) {
+          finished = true;
+          cleanup();
+          if (typeof onComplete === "function") onComplete();
+        } else {
+          requestAnimationFrame(tick);
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+
+    window.GameAds = {
+      showInterstitial(onComplete) {
+        console.log("[AdSense Hook] Interstitial Triggered");
+        runSimulatedAd({
+          title: "Sponsored Break",
+          desc: "Continuing to next tactical stage...",
+          durationMs: 650,
+          allowDismiss: false,
+          onComplete
+        });
+      },
+      showRewarded(onReward, onDismiss) {
+        console.log("[AdSense Hook] Rewarded Ad Triggered");
+        runSimulatedAd({
+          title: "Rewarded Ad",
+          desc: "Granting tactical bonus...",
+          durationMs: 750,
+          allowDismiss: true,
+          onComplete: onReward,
+          onDismiss
+        });
+      }
+    };
+
+    // =========================================================================
+    // 4. 25 HANDCRAFTED LEVELS
+    // =========================================================================
+    // Logical stage: 1280 x 662.
+    // Floor at y = 638, ceiling at y = 24, left wall x = 24, right wall x = 1256.
+    // Standard stickman standing on y=floorY has feet at floorY, height ~78px.
+    const FLOOR_Y = 638;
+
+    function buildPerimeterWalls() {
+      return [
+        { x: 640, y: 12, w: 1280, h: 24, angle: 0, mat: "steel" },     // Top
+        { x: 640, y: 650, w: 1280, h: 24, angle: 0, mat: "steel" },    // Bottom
+        { x: 12, y: 331, w: 24, h: 662, angle: 0, mat: "steel" },      // Left
+        { x: 1268, y: 331, w: 24, h: 662, angle: 0, mat: "steel" }     // Right
+      ];
+    }
+
+    // Helper: floor platform top surface at topY -> center y = topY + h/2
+    function plat(x, topY, w, h = 22, mat = "steel", angle = 0) {
+      return { x, y: topY + h / 2, w, h, angle, mat };
+    }
+
+    const LEVELS = [
+      // 1: Direct Intro
+      {
+        name: "Straight Shot",
+        hint: "Drag anywhere to aim, release to fire.",
+        ammo: 3,
+        player: { x: 150, floorY: FLOOR_Y },
+        walls: [
+          plat(980, 440, 260, 24)
+        ],
+        enemies: [
+          { x: 980, floorY: 440, type: "grunt", dir: -1 }
+        ]
+      },
+      // 2: First Ceiling Ricochet
+      {
+        name: "Ceiling Bounce",
+        hint: "Ricochet off the overhead steel beam.",
+        ammo: 3,
+        player: { x: 140, floorY: FLOOR_Y },
+        walls: [
+          { x: 580, y: 528, w: 32, h: 220, angle: 0, mat: "steel" },
+          { x: 640, y: 120, w: 520, h: 26, angle: 0, mat: "steel" }
+        ],
+        enemies: [
+          { x: 950, floorY: FLOOR_Y, type: "grunt", dir: -1 }
+        ]
+      },
+      // 3: 45-Degree Deflector
+      {
+        name: "Bank Shot",
+        hint: "Use the 45-degree deflector to sweep the lower deck.",
+        ammo: 3,
+        player: { x: 160, floorY: FLOOR_Y },
+        walls: [
+          { x: 1120, y: 130, w: 220, h: 24, angle: Math.PI / 4, mat: "steel" },
+          plat(940, 490, 380, 24),
+          { x: 680, y: 560, w: 26, h: 160, angle: 0, mat: "steel" }
+        ],
+        enemies: [
+          { x: 890, floorY: 490, type: "grunt", dir: -1 },
+          { x: 1050, floorY: 490, type: "grunt", dir: -1 }
+        ]
+      },
+      // 4: Double Trouble
+      {
+        name: "Cross Corner",
+        hint: "Line up a multi-wall bounce or split your shots.",
+        ammo: 3,
+        player: { x: 140, floorY: 480 },
+        walls: [
+          plat(150, 480, 240, 24),
+          { x: 640, y: 95, w: 360, h: 24, angle: 0.14, mat: "steel" },
+          plat(1020, 320, 240, 24),
+          plat(1020, FLOOR_Y, 240, 24)
+        ],
+        enemies: [
+          { x: 1020, floorY: 320, type: "grunt", dir: -1 },
+          { x: 1040, floorY: FLOOR_Y, type: "grunt", dir: -1 }
+        ]
+      },
+      // 5: Alleyway Bounce
+      {
+        name: "Steel Zigzag",
+        hint: "Thread the staggered steel baffles.",
+        ammo: 4,
+        player: { x: 130, floorY: FLOOR_Y },
+        walls: [
+          { x: 420, y: 470, w: 26, h: 340, angle: 0, mat: "steel" },
+          { x: 680, y: 210, w: 26, h: 340, angle: 0, mat: "steel" },
+          { x: 920, y: 480, w: 26, h: 320, angle: 0, mat: "steel" }
+        ],
+        enemies: [
+          { x: 790, floorY: FLOOR_Y, type: "grunt", dir: -1 },
+          { x: 1110, floorY: FLOOR_Y, type: "grunt", dir: -1 }
+        ]
+      },
+      // 6: Explosive Red Barrel Intro
+      {
+        name: "Red Danger",
+        hint: "One shot on the explosive barrel clears the bunker.",
+        ammo: 3,
+        player: { x: 150, floorY: FLOOR_Y },
+        walls: [
+          { x: 660, y: 510, w: 30, h: 256, angle: 0, mat: "steel" },
+          { x: 860, y: 140, w: 320, h: 24, angle: 0.25, mat: "steel" }
+        ],
+        barrels: [
+          { x: 930, floorY: FLOOR_Y }
+        ],
+        enemies: [
+          { x: 850, floorY: FLOOR_Y, type: "grunt", dir: -1 },
+          { x: 1015, floorY: FLOOR_Y, type: "grunt", dir: -1 }
+        ]
+      },
+      // 7: Glass House
+      {
+        name: "Glass House",
+        hint: "Bullets pierce straight through glass panes.",
+        ammo: 3,
+        player: { x: 140, floorY: FLOOR_Y },
+        walls: [
+          plat(920, 420, 380, 22),
+          { x: 740, y: 315, w: 16, h: 210, angle: 0, mat: "glass" },
+          { x: 740, y: 530, w: 16, h: 216, angle: 0, mat: "glass" }
+        ],
+        barrels: [
+          { x: 960, floorY: FLOOR_Y }
+        ],
+        enemies: [
+          { x: 920, floorY: 420, type: "grunt", dir: -1 },
+          { x: 1060, floorY: FLOOR_Y, type: "grunt", dir: -1 }
+        ]
+      },
+      // 8: Chain Reaction
+      {
+        name: "Chain Reaction",
+        hint: "Trigger a barrel cascade across two tiers.",
+        ammo: 3,
+        player: { x: 140, floorY: 500 },
+        walls: [
+          plat(160, 500, 240, 24),
+          plat(860, 360, 440, 22),
+          { x: 620, y: 250, w: 28, h: 240, angle: 0, mat: "steel" }
+        ],
+        barrels: [
+          { x: 770, floorY: 360 },
+          { x: 890, floorY: 360 },
+          { x: 840, floorY: FLOOR_Y }
+        ],
+        enemies: [
+          { x: 980, floorY: 360, type: "grunt", dir: -1 },
+          { x: 760, floorY: FLOOR_Y, type: "grunt", dir: -1 },
+          { x: 1060, floorY: FLOOR_Y, type: "grunt", dir: -1 }
+        ]
+      },
+      // 9: Wooden Planks
+      {
+        name: "Splinter Cover",
+        hint: "Wood splinters after 1-2 hits—or pierce it with the Heavy Revolver.",
+        ammo: 4,
+        player: { x: 150, floorY: FLOOR_Y },
+        walls: [
+          { x: 640, y: 530, w: 24, h: 216, angle: 0, mat: "wood", hp: 1 },
+          { x: 790, y: 530, w: 24, h: 216, angle: 0, mat: "wood", hp: 2 },
+          plat(970, 400, 320, 22),
+          { x: 810, y: 295, w: 22, h: 210, angle: 0, mat: "wood", hp: 1 }
+        ],
+        barrels: [
+          { x: 950, floorY: FLOOR_Y }
+        ],
+        enemies: [
+          { x: 970, floorY: 400, type: "grunt", dir: -1 },
+          { x: 1050, floorY: FLOOR_Y, type: "grunt", dir: -1 }
+        ]
+      },
+      // 10: Skylight Strike
+      {
+        name: "Skylight Strike",
+        hint: "Bounce off the upper steel plate down through the skylight glass.",
+        ammo: 4,
+        player: { x: 150, floorY: FLOOR_Y },
+        walls: [
+          { x: 660, y: 495, w: 30, h: 286, angle: 0, mat: "steel" },
+          { x: 910, y: 355, w: 460, h: 16, angle: 0, mat: "glass" },
+          { x: 900, y: 110, w: 300, h: 24, angle: 0.22, mat: "steel" }
+        ],
+        barrels: [
+          { x: 950, floorY: FLOOR_Y }
+        ],
+        enemies: [
+          { x: 830, floorY: FLOOR_Y, type: "grunt", dir: -1 },
+          { x: 1060, floorY: FLOOR_Y, type: "grunt", dir: -1 },
+          { x: 1170, floorY: FLOOR_Y, type: "grunt", dir: -1 }
+        ]
+      },
+      // 11: Hanging Crate & Rope Intro
+      {
+        name: "Drop the Load",
+        hint: "Shoot the rope to drop the heavy crate onto the targets below.",
+        ammo: 3,
+        player: { x: 140, floorY: FLOOR_Y },
+        walls: [
+          { x: 620, y: 500, w: 30, h: 276, angle: 0, mat: "steel" }
+        ],
+        crates: [
+          { x: 950, y: 230, w: 120, h: 68, anchorX: 950, anchorY: 28 }
+        ],
+        enemies: [
+          { x: 915, floorY: FLOOR_Y, type: "grunt", dir: -1 },
+          { x: 990, floorY: FLOOR_Y, type: "grunt", dir: -1 }
+        ]
+      },
+      // 12: Riot Shield Intro
+      {
+        name: "Riot Shield",
+        hint: "Front shields deflect standard bullets. Bank your shot behind him!",
+        ammo: 4,
+        player: { x: 150, floorY: FLOOR_Y },
+        walls: [
+          { x: 1120, y: 260, w: 24, h: 300, angle: -0.35, mat: "steel" },
+          plat(880, 440, 260, 22)
+        ],
+        enemies: [
+          { x: 880, floorY: 440, type: "shield", dir: -1 },
+          { x: 930, floorY: FLOOR_Y, type: "shield", dir: -1 }
+        ]
+      },
+      // 13: Twin Traps
+      {
+        name: "Twin Traps",
+        hint: "Drop crates on the shield guards or bounce through the center.",
+        ammo: 4,
+        player: { x: 140, floorY: FLOOR_Y },
+        walls: [
+          { x: 540, y: 520, w: 26, h: 236, angle: 0, mat: "steel" }
+        ],
+        crates: [
+          { x: 760, y: 220, w: 94, h: 64, anchorX: 760, anchorY: 28 },
+          { x: 1060, y: 220, w: 94, h: 64, anchorX: 1060, anchorY: 28 }
+        ],
+        barrels: [
+          { x: 910, floorY: FLOOR_Y }
+        ],
+        enemies: [
+          { x: 760, floorY: FLOOR_Y, type: "shield", dir: -1 },
+          { x: 1060, floorY: FLOOR_Y, type: "shield", dir: -1 }
+        ]
+      },
+      // 14: Armored Helmet Intro
+      {
+        name: "Hard Hat",
+        hint: "Armored helmets absorb one headshot—knock them off or aim for the body.",
+        ammo: 4,
+        player: { x: 140, floorY: FLOOR_Y },
+        walls: [
+          plat(820, 430, 320, 22),
+          { x: 640, y: 240, w: 260, h: 22, angle: 0.18, mat: "steel" }
+        ],
+        barrels: [
+          { x: 1090, floorY: FLOOR_Y }
+        ],
+        enemies: [
+          { x: 820, floorY: 430, type: "helmet", dir: -1 },
+          { x: 960, floorY: FLOOR_Y, type: "helmet", dir: -1 }
+        ]
+      },
+      // 15: VIP Extraction
+      {
+        name: "VIP Office",
+        hint: "Eliminate the VIP and his escort inside the glass suite.",
+        ammo: 4,
+        player: { x: 130, floorY: FLOOR_Y },
+        walls: [
+          plat(920, 380, 460, 22),
+          { x: 690, y: 250, w: 16, h: 260, angle: 0, mat: "glass" },
+          { x: 690, y: 509, w: 16, h: 258, angle: 0, mat: "glass" }
+        ],
+        crates: [
+          { x: 1040, y: 185, w: 92, h: 58, anchorX: 1040, anchorY: 28 }
+        ],
+        enemies: [
+          { x: 850, floorY: 380, type: "shield", dir: -1 },
+          { x: 1040, floorY: 380, type: "vip", dir: -1 },
+          { x: 900, floorY: FLOOR_Y, type: "shield", dir: -1 }
+        ]
+      },
+      // 16: Moving Elevator Intro
+      {
+        name: "Elevator Shaft",
+        hint: "Time your shot as the armored elevator rises and falls.",
+        ammo: 4,
+        player: { x: 140, floorY: FLOOR_Y },
+        walls: [
+          { x: 600, y: 200, w: 28, h: 320, angle: 0, mat: "steel" },
+          { x: 600, y: 575, w: 28, h: 126, angle: 0, mat: "steel" },
+          plat(1000, 420, 320, 22)
+        ],
+        moving: [
+          { x: 600, y: 420, w: 32, h: 130, dx: 0, dy: 120, speed: 1.9, phase: 0, mat: "steel" }
+        ],
+        barrels: [
+          { x: 960, floorY: FLOOR_Y }
+        ],
+        enemies: [
+          { x: 1010, floorY: 420, type: "grunt", dir: -1 },
+          { x: 1090, floorY: FLOOR_Y, type: "helmet", dir: -1 }
+        ]
+      },
+      // 17: Spinning Mill
+      {
+        name: "Spinning Mill",
+        hint: "Bounce off the rotating blade or thread the gap!",
+        ammo: 4,
+        player: { x: 140, floorY: FLOOR_Y },
+        walls: [
+          plat(980, 320, 260, 22),
+          plat(980, 500, 260, 22)
+        ],
+        rotating: [
+          { x: 610, y: 340, w: 250, h: 24, omega: 1.35, mat: "steel" }
+        ],
+        enemies: [
+          { x: 980, floorY: 320, type: "grunt", dir: -1 },
+          { x: 980, floorY: 500, type: "grunt", dir: -1 },
+          { x: 1060, floorY: FLOOR_Y, type: "grunt", dir: -1 }
+        ]
+      },
+      // 18: Crossfire Corridor
+      {
+        name: "Crossfire Gate",
+        hint: "Slip past the moving shield gate through the glass into the barrel.",
+        ammo: 4,
+        player: { x: 140, floorY: FLOOR_Y },
+        walls: [
+          { x: 760, y: 480, w: 16, h: 316, angle: 0, mat: "glass" },
+          plat(980, 390, 340, 22),
+          { x: 1140, y: 170, w: 220, h: 24, angle: Math.PI / 4, mat: "steel" }
+        ],
+        moving: [
+          { x: 560, y: 340, w: 28, h: 170, dx: 0, dy: 160, speed: 2.2, phase: 1.2, mat: "steel" }
+        ],
+        barrels: [
+          { x: 970, floorY: FLOOR_Y }
+        ],
+        enemies: [
+          { x: 920, floorY: 390, type: "shield", dir: -1 },
+          { x: 1080, floorY: FLOOR_Y, type: "shield", dir: -1 }
+        ]
+      },
+      // 19: Pendulum Drop
+      {
+        name: "Blade & Rope",
+        hint: "Thread past the turbine to sever the crate rope above the VIP.",
+        ammo: 4,
+        player: { x: 140, floorY: FLOOR_Y },
+        walls: [
+          { x: 720, y: 505, w: 28, h: 266, angle: 0, mat: "steel" },
+          plat(980, 440, 320, 22)
+        ],
+        rotating: [
+          { x: 520, y: 260, w: 210, h: 22, omega: -1.5, mat: "steel" }
+        ],
+        crates: [
+          { x: 990, y: 205, w: 110, h: 64, anchorX: 990, anchorY: 28 }
+        ],
+        enemies: [
+          { x: 960, floorY: 440, type: "helmet", dir: -1 },
+          { x: 1030, floorY: 440, type: "vip", dir: -1 },
+          { x: 1090, floorY: FLOOR_Y, type: "grunt", dir: -1 }
+        ]
+      },
+      // 20: Timing Matrix
+      {
+        name: "Timing Matrix",
+        hint: "Sync both moving platforms to reach the corner reflectors.",
+        ammo: 4,
+        player: { x: 140, floorY: FLOOR_Y },
+        walls: [
+          { x: 1140, y: 120, w: 220, h: 24, angle: Math.PI / 4, mat: "steel" },
+          plat(1000, 340, 260, 22),
+          plat(1000, 500, 260, 22)
+        ],
+        moving: [
+          { x: 500, y: 340, w: 26, h: 150, dx: 0, dy: 155, speed: 1.8, phase: 0, mat: "steel" },
+          { x: 730, y: 340, w: 26, h: 150, dx: 0, dy: 155, speed: 1.8, phase: Math.PI, mat: "steel" }
+        ],
+        enemies: [
+          { x: 1000, floorY: 340, type: "grunt", dir: -1 },
+          { x: 1000, floorY: 500, type: "shield", dir: -1 },
+          { x: 1060, floorY: FLOOR_Y, type: "helmet", dir: -1 }
+        ]
+      },
+      // 21: Iron Fortress
+      {
+        name: "Iron Fortress",
+        hint: "Breach the wooden shutter or rain down through the glass skylight.",
+        ammo: 5,
+        player: { x: 130, floorY: FLOOR_Y },
+        walls: [
+          { x: 640, y: 500, w: 24, h: 276, angle: 0, mat: "wood", hp: 2 },
+          { x: 640, y: 290, w: 28, h: 144, angle: 0, mat: "steel" },
+          { x: 890, y: 220, w: 480, h: 16, angle: 0, mat: "glass" },
+          plat(920, 420, 420, 22),
+          { x: 960, y: 95, w: 280, h: 22, angle: 0.2, mat: "steel" }
+        ],
+        barrels: [
+          { x: 960, floorY: FLOOR_Y }
+        ],
+        enemies: [
+          { x: 840, floorY: 420, type: "shield", dir: -1 },
+          { x: 1040, floorY: 420, type: "helmet", dir: -1 },
+          { x: 1120, floorY: FLOOR_Y, type: "grunt", dir: -1 }
+        ]
+      },
+      // 22: Domino Vault
+      {
+        name: "Domino Vault",
+        hint: "Drop the crate onto the explosive barrel to chain-clear the vault.",
+        ammo: 4,
+        player: { x: 130, floorY: FLOOR_Y },
+        walls: [
+          { x: 560, y: 495, w: 30, h: 286, angle: 0, mat: "steel" },
+          plat(960, 380, 360, 22),
+          { x: 1160, y: 150, w: 180, h: 22, angle: Math.PI / 4, mat: "steel" }
+        ],
+        crates: [
+          { x: 900, y: 170, w: 96, h: 58, anchorX: 900, anchorY: 28 }
+        ],
+        barrels: [
+          { x: 900, floorY: 380 },
+          { x: 910, floorY: FLOOR_Y }
+        ],
+        enemies: [
+          { x: 1025, floorY: 380, type: "helmet", dir: -1 },
+          { x: 810, floorY: FLOOR_Y, type: "shield", dir: -1 },
+          { x: 1080, floorY: FLOOR_Y, type: "grunt", dir: -1 }
+        ]
+      },
+      // 23: Turbine Gauntlet
+      {
+        name: "Turbine Gauntlet",
+        hint: "Twin rotors guard staggered balconies. Master the timing.",
+        ammo: 5,
+        player: { x: 130, floorY: FLOOR_Y },
+        walls: [
+          plat(990, 270, 280, 22),
+          plat(990, 460, 280, 22),
+          { x: 740, y: 550, w: 24, h: 176, angle: 0, mat: "wood", hp: 1 }
+        ],
+        rotating: [
+          { x: 480, y: 240, w: 180, h: 20, omega: 1.6, mat: "steel" },
+          { x: 640, y: 440, w: 190, h: 20, omega: -1.4, mat: "steel" }
+        ],
+        barrels: [
+          { x: 960, floorY: FLOOR_Y }
+        ],
+        enemies: [
+          { x: 990, floorY: 270, type: "vip", dir: -1 },
+          { x: 980, floorY: 460, type: "shield", dir: -1 },
+          { x: 1110, floorY: FLOOR_Y, type: "helmet", dir: -1 }
+        ]
+      },
+      // 24: Glass Labyrinth
+      {
+        name: "Glass Labyrinth",
+        hint: "Pierce the glass maze and ricochet off angled steel mirrors.",
+        ammo: 5,
+        player: { x: 130, floorY: FLOOR_Y },
+        walls: [
+          { x: 460, y: 160, w: 220, h: 22, angle: 0.45, mat: "steel" },
+          { x: 1100, y: 150, w: 220, h: 22, angle: -0.55, mat: "steel" },
+          { x: 650, y: 360, w: 16, h: 520, angle: 0, mat: "glass" },
+          plat(940, 350, 320, 22),
+          plat(940, 510, 320, 22),
+          { x: 890, y: 430, w: 16, h: 140, angle: 0, mat: "glass" }
+        ],
+        barrels: [
+          { x: 860, floorY: 350 },
+          { x: 1020, floorY: FLOOR_Y }
+        ],
+        enemies: [
+          { x: 980, floorY: 350, type: "helmet", dir: -1 },
+          { x: 960, floorY: 510, type: "shield", dir: -1 },
+          { x: 840, floorY: FLOOR_Y, type: "grunt", dir: -1 },
+          { x: 1130, floorY: FLOOR_Y, type: "vip", dir: -1 }
+        ]
+      },
+      // 25: Final Citadel
+      {
+        name: "Final Citadel",
+        hint: "Use every trick in the book to bring down the Citadel.",
+        ammo: 5,
+        player: { x: 120, floorY: FLOOR_Y },
+        walls: [
+          { x: 700, y: 210, w: 320, h: 16, angle: 0, mat: "glass" },
+          plat(980, 370, 360, 22),
+          { x: 790, y: 504, w: 24, h: 268, angle: 0, mat: "wood", hp: 2 },
+          { x: 1140, y: 130, w: 200, h: 22, angle: Math.PI / 4, mat: "steel" }
+        ],
+        moving: [
+          { x: 430, y: 340, w: 24, h: 150, dx: 0, dy: 155, speed: 1.9, phase: 0, mat: "steel" }
+        ],
+        rotating: [
+          { x: 620, y: 460, w: 185, h: 20, omega: 1.45, mat: "steel" }
+        ],
+        crates: [
+          { x: 1015, y: 175, w: 124, h: 60, anchorX: 1015, anchorY: 28 }
+        ],
+        barrels: [
+          { x: 930, floorY: FLOOR_Y }
+        ],
+        enemies: [
+          { x: 920, floorY: 370, type: "shield", dir: -1 },
+          { x: 1040, floorY: 370, type: "vip", dir: -1 },
+          { x: 860, floorY: FLOOR_Y, type: "helmet", dir: -1 },
+          { x: 1120, floorY: FLOOR_Y, type: "grunt", dir: -1 }
+        ]
+      }
+    ];
+
+    // =========================================================================
+    // 5. GEOMETRY, RAYCAST & VERLET RAGDOLL ENGINE
+    // =========================================================================
+    function rotVec(x, y, a) {
+      const c = Math.cos(a), s = Math.sin(a);
+      return { x: x * c - y * s, y: x * s + y * c };
+    }
+
+    // Ray from P0 -> P1 against OBB (cx, cy, w, h, angle)
+    function rayOBB(p0x, p0y, p1x, p1y, box) {
+      const dx = p1x - p0x;
+      const dy = p1y - p0y;
+      const cos = Math.cos(-box.angle);
+      const sin = Math.sin(-box.angle);
+
+      const rx = p0x - box.x;
+      const ry = p0y - box.y;
+      const lx0 = rx * cos - ry * sin;
+      const ly0 = rx * sin + ry * cos;
+      const ldx = dx * cos - dy * sin;
+      const ldy = dx * sin + dy * cos;
+
+      const hw = box.w * 0.5;
+      const hh = box.h * 0.5;
+
+      let tMin = 0.0001;
+      let tMax = 1.0;
+      let hitNx = 0, hitNy = 0;
+
+      // X slab
+      if (Math.abs(ldx) < 1e-8) {
+        if (lx0 < -hw || lx0 > hw) return null;
+      } else {
+        let t1 = (-hw - lx0) / ldx;
+        let t2 = (hw - lx0) / ldx;
+        let nx = -1;
+        if (t1 > t2) { const tmp = t1; t1 = t2; t2 = tmp; nx = 1; }
+        if (t1 > tMin) { tMin = t1; hitNx = nx; hitNy = 0; }
+        if (t2 < tMax) tMax = t2;
+        if (tMin > tMax) return null;
+      }
+
+      // Y slab
+      if (Math.abs(ldy) < 1e-8) {
+        if (ly0 < -hh || ly0 > hh) return null;
+      } else {
+        let t1 = (-hh - ly0) / ldy;
+        let t2 = (hh - ly0) / ldy;
+        let ny = -1;
+        if (t1 > t2) { const tmp = t1; t1 = t2; t2 = tmp; ny = 1; }
+        if (t1 > tMin) { tMin = t1; hitNx = 0; hitNy = ny; }
+        if (t2 < tMax) tMax = t2;
+        if (tMin > tMax) return null;
+      }
+
+      if (hitNx === 0 && hitNy === 0) return null;
+
+      const worldN = rotVec(hitNx, hitNy, box.angle);
+      return {
+        t: tMin,
+        x: p0x + dx * tMin,
+        y: p0y + dy * tMin,
+        nx: worldN.x,
+        ny: worldN.y
+      };
+    }
+
+    function rayCircle(p0x, p0y, p1x, p1y, cx, cy, r) {
+      const dx = p1x - p0x;
+      const dy = p1y - p0y;
+      const fx = p0x - cx;
+      const fy = p0y - cy;
+      const a = dx * dx + dy * dy;
+      if (a < 1e-8) return null;
+      const b = 2 * (fx * dx + fy * dy);
+      const c = fx * fx + fy * fy - r * r;
+      let disc = b * b - 4 * a * c;
+      if (disc < 0) return null;
+      disc = Math.sqrt(disc);
+      const t = (-b - disc) / (2 * a);
+      if (t >= 0.0001 && t <= 1.0) {
+        const hx = p0x + dx * t;
+        const hy = p0y + dy * t;
+        const len = Math.hypot(hx - cx, hy - cy) || 1;
+        return { t, x: hx, y: hy, nx: (hx - cx) / len, ny: (hy - cy) / len };
+      }
+      return null;
+    }
+
+    function raySegment(p0x, p0y, p1x, p1y, ax, ay, bx, by) {
+      const rdx = p1x - p0x, rdy = p1y - p0y;
+      const sdx = bx - ax, sdy = by - ay;
+      const denom = rdx * sdy - rdy * sdx;
+      if (Math.abs(denom) < 1e-8) return null;
+      const qpx = ax - p0x, qpy = ay - p0y;
+      const t = (qpx * sdy - qpy * sdx) / denom;
+      const u = (qpx * rdy - qpy * rdx) / denom;
+      if (t >= 0.0001 && t <= 1.0 && u >= 0 && u <= 1) {
+        const len = Math.hypot(sdx, sdy) || 1;
+        let nx = -sdy / len, ny = sdx / len;
+        if (rdx * nx + rdy * ny > 0) { nx = -nx; ny = -ny; }
+        return { t, x: p0x + rdx * t, y: p0y + rdy * t, nx, ny };
+      }
+      return null;
+    }
+
+    // =========================================================================
+    // 6. RAGDOLL BUILDER & SOLVER
+    // =========================================================================
+    // Standing stickman proportions (total height ~78px from floorY)
+    // feet at floorY, pelvis at floorY - 34, neck at floorY - 62, head at floorY - 73
+    function createRagdoll(x, floorY, dir = 1) {
+      const makeNode = (nx, ny) => ({ x: nx, y: ny, ox: nx, oy: ny });
+      const nodes = {
+        head: makeNode(x, floorY - 72),
+        neck: makeNode(x, floorY - 60),
+        pelvis: makeNode(x, floorY - 33),
+        lElbow: makeNode(x - 10 * dir, floorY - 48),
+        lHand: makeNode(x - 14 * dir, floorY - 36),
+        rElbow: makeNode(x + 12 * dir, floorY - 48),
+        rHand: makeNode(x + 18 * dir, floorY - 38),
+        lKnee: makeNode(x - 8, floorY - 17),
+        lFoot: makeNode(x - 11, floorY),
+        rKnee: makeNode(x + 8, floorY - 17),
+        rFoot: makeNode(x + 11, floorY)
+      };
+
+      const link = (a, b, stiffness = 0.95) => ({
+        a, b,
+        dist: Math.hypot(nodes[a].x - nodes[b].x, nodes[a].y - nodes[b].y),
+        stiffness
+      });
+
+      const constraints = [
+        link("head", "neck", 1.0),
+        link("neck", "pelvis", 1.0),
+        link("neck", "lElbow", 0.95),
+        link("lElbow", "lHand", 0.95),
+        link("neck", "rElbow", 0.95),
+        link("rElbow", "rHand", 0.95),
+        link("pelvis", "lKnee", 0.95),
+        link("lKnee", "lFoot", 0.95),
+        link("pelvis", "rKnee", 0.95),
+        link("rKnee", "rFoot", 0.95),
+        // Soft anti-collapse structural constraints
+        { a: "head", b: "pelvis", dist: 38, stiffness: 0.35 },
+        { a: "lFoot", b: "rFoot", dist: 20, stiffness: 0.08 }
+      ];
+
+      return { nodes, constraints, list: Object.values(nodes) };
+    }
+
+    function stepRagdoll(ragdoll, dt, colliders) {
+      const damp = 0.992;
+      const gStep = GRAVITY * dt * dt;
+      for (const n of ragdoll.list) {
+        const vx = (n.x - n.ox) * damp;
+        const vy = (n.y - n.oy) * damp;
+        n.ox = n.x;
+        n.oy = n.y;
+        n.x += vx;
+        n.y += vy + gStep;
+      }
+
+      for (let iter = 0; iter < 6; iter++) {
+        for (const c of ragdoll.constraints) {
+          const na = ragdoll.nodes[c.a];
+          const nb = ragdoll.nodes[c.b];
+          const dx = nb.x - na.x;
+          const dy = nb.y - na.y;
+          const d = Math.hypot(dx, dy) || 0.0001;
+          const diff = ((d - c.dist) / d) * 0.5 * c.stiffness;
+          na.x += dx * diff;
+          na.y += dy * diff;
+          nb.x -= dx * diff;
+          nb.y -= dy * diff;
+        }
+
+        // Collide nodes with OBBs & floor
+        for (const n of ragdoll.list) {
+          const r = n === ragdoll.nodes.head ? 10 : 4;
+          for (const box of colliders) {
+            if (box.broken) continue;
+            const cos = Math.cos(-box.angle);
+            const sin = Math.sin(-box.angle);
+            const rx = n.x - box.x;
+            const ry = n.y - box.y;
+            const lx = rx * cos - ry * sin;
+            const ly = rx * sin + ry * cos;
+            const hw = box.w * 0.5 + r;
+            const hh = box.h * 0.5 + r;
+            if (Math.abs(lx) < hw && Math.abs(ly) < hh) {
+              const px = hw - Math.abs(lx);
+              const py = hh - Math.abs(ly);
+              let plx = 0, ply = 0;
+              if (px < py) plx = lx < 0 ? -px : px;
+              else ply = ly < 0 ? -py : py;
+              const w = rotVec(plx, ply, box.angle);
+              n.x += w.x;
+              n.y += w.y;
+              // Friction
+              const vx = n.x - n.ox;
+              const vy = n.y - n.oy;
+              n.ox = n.x - vx * 0.86;
+              n.oy = n.y - vy * 0.86;
+            }
+          }
+          // Safety arena clamp
+          n.x = Math.max(28, Math.min(1252, n.x));
+          n.y = Math.max(28, Math.min(FLOOR_Y - r, n.y));
+        }
+      }
+    }
+
+    function applyRagdollImpulse(ragdoll, targetKey, ix, iy) {
+      const node = ragdoll.nodes[targetKey] || ragdoll.nodes.neck;
+      node.ox -= ix;
+      node.oy -= iy;
+      // Distribute slight secondary momentum to neighbors
+      for (const n of ragdoll.list) {
+        if (n !== node) {
+          n.ox -= ix * 0.25;
+          n.oy -= iy * 0.25;
+        }
+      }
+    }
+
+    // =========================================================================
+    // 7. GAME STATE & LEVEL LOADER
+    // =========================================================================
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    let currentLevelIdx = Math.min(24, save.unlockedLevel - 1);
+    let gameMode = "TITLE"; // TITLE | PLAYING | PAUSED | WIN | FAIL
+    let levelState = null;
+
+    // Input aiming state
+    let isAiming = false;
+    let pointerPos = { x: 400, y: 400 };
+    let aimAngle = -0.15;
+
+    // Juice / Camera state
+    let timeScale = 1.0;
+    let slowMoTimer = 0;
+    let hitStopTimer = 0;
+    let shakeMag = 0;
+    let camZoom = 1.0;
+    let camFocus = { x: LOGICAL_W / 2, y: LOGICAL_H / 2 };
+
+    function initLevel(idx) {
+      currentLevelIdx = Math.max(0, Math.min(LEVELS.length - 1, idx));
+      const def = LEVELS[currentLevelIdx];
+
+      const walls = [
+        ...buildPerimeterWalls(),
+        ...(def.walls || []).map(w => ({ ...w, maxHp: w.hp || 999, broken: false }))
+      ];
+
+      const moving = (def.moving || []).map(m => ({
+        ...m,
+        baseX: m.x,
+        baseY: m.y,
+        angle: m.angle || 0,
+        broken: false
+      }));
+
+      const rotating = (def.rotating || []).map(r => ({
+        ...r,
+        angle: r.angle || 0,
+        broken: false
+      }));
+
+      const barrels = (def.barrels || []).map(b => ({
+        x: b.x,
+        y: b.floorY - 22,
+        w: 30,
+        h: 44,
+        angle: 0,
+        exploded: false,
+        broken: false,
+        mat: "barrel"
+      }));
+
+      const crates = (def.crates || []).map(c => ({
+        x: c.x,
+        y: c.y,
+        w: c.w,
+        h: c.h,
+        angle: 0,
+        vx: 0,
+        vy: 0,
+        angVel: 0,
+        anchorX: c.anchorX,
+        anchorY: c.anchorY,
+        ropeCut: false,
+        ropeSnapTimer: 0,
+        settled: false,
+        broken: false,
+        mat: "crate"
+      }));
+
+      const enemies = (def.enemies || []).map((e, i) => ({
+        id: i,
+        x: e.x,
+        floorY: e.floorY,
+        type: e.type || "grunt", // grunt | shield | helmet | vip
+        dir: e.dir || -1,
+        alive: true,
+        hasHelmet: e.type === "helmet",
+        ragdoll: null,
+        phase: Math.random() * Math.PI * 2
+      }));
+
+      const player = {
+        x: def.player.x,
+        floorY: def.player.floorY,
+        alive: true,
+        ragdoll: null,
+        phase: 0,
+        recoil: 0
+      };
+
+      levelState = {
+        def,
+        elapsed: 0,
+        ammoLeft: def.ammo,
+        maxAmmo: def.ammo,
+        shotsFired: 0,
+        headshots: 0,
+        trickKills: 0,
+        bonusCoins: 0,
+        walls,
+        moving,
+        rotating,
+        barrels,
+        crates,
+        enemies,
+        player,
+        bullets: [],
+        pendingBursts: [],
+        particles: [],
+        shards: [],
+        casings: [],
+        rings: [],
+        muzzleFlashes: [],
+        floatingTexts: [],
+        flyingHelmets: [],
+        endCheckTimer: 0,
+        winTriggered: false,
+        failTriggered: false,
+        failReason: ""
+      };
+
+      isAiming = false;
+      aimAngle = -0.12;
+      timeScale = 1.0;
+      slowMoTimer = 0;
+      hitStopTimer = 0;
+      shakeMag = 0;
+      camZoom = 1.0;
+      camFocus = { x: LOGICAL_W / 2, y: LOGICAL_H / 2 };
+
+      updateHUD();
+    }
+
+    // =========================================================================
+    // 8. PARTICLE & FX SPAWNERS
+    // =========================================================================
+    function spawnSparks(x, y, nx, ny, color = "#fbbf24", count = 10) {
+      const baseA = Math.atan2(ny, nx);
+      for (let i = 0; i < count; i++) {
+        const a = baseA + (Math.random() - 0.5) * 1.4;
+        const sp = 140 + Math.random() * 340;
+        levelState.particles.push({
+          x, y,
+          vx: Math.cos(a) * sp,
+          vy: Math.sin(a) * sp,
+          life: 0.25 + Math.random() * 0.25,
+          maxLife: 0.45,
+          size: 1.8 + Math.random() * 2.2,
+          color,
+          gravity: 480
+        });
+      }
+    }
+
+    function spawnBloodImpact(x, y, dirX, dirY, count = 14) {
+      const baseA = Math.atan2(dirY, dirX);
+      for (let i = 0; i < count; i++) {
+        const a = baseA + (Math.random() - 0.5) * 1.1;
+        const sp = 120 + Math.random() * 320;
+        levelState.particles.push({
+          x, y,
+          vx: Math.cos(a) * sp,
+          vy: Math.sin(a) * sp,
+          life: 0.35 + Math.random() * 0.3,
+          maxLife: 0.65,
+          size: 2.2 + Math.random() * 3.0,
+          color: i % 3 === 0 ? "#fb7185" : "#e11d48",
+          gravity: 680
+        });
+      }
+    }
+
+    function spawnShards(box, color, count = 12) {
+      for (let i = 0; i < count; i++) {
+        const sx = box.x + (Math.random() - 0.5) * box.w * 0.85;
+        const sy = box.y + (Math.random() - 0.5) * box.h * 0.85;
+        levelState.shards.push({
+          x: sx,
+          y: sy,
+          vx: (Math.random() - 0.5) * 320,
+          vy: -80 - Math.random() * 220,
+          angle: Math.random() * Math.PI * 2,
+          angVel: (Math.random() - 0.5) * 14,
+          w: 6 + Math.random() * 12,
+          h: 4 + Math.random() * 8,
+          color,
+          life: 1.4
+        });
+      }
+    }
+
+    function spawnShellCasing(x, y, dirAngle) {
+      const ejectA = dirAngle - Math.PI * 0.65 + (Math.random() - 0.5) * 0.4;
+      const sp = 130 + Math.random() * 70;
+      levelState.casings.push({
+        x, y,
+        vx: Math.cos(ejectA) * sp,
+        vy: Math.sin(ejectA) * sp - 90,
+        angle: Math.random() * Math.PI,
+        angVel: (Math.random() - 0.5) * 18,
+        life: 1.8
+      });
+    }
+
+    function addFloatingText(x, y, text, color = "#fbbf24") {
+      levelState.floatingTexts.push({
+        x, y,
+        vy: -55,
+        text,
+        color,
+        life: 1.1,
+        maxLife: 1.1
+      });
+    }
+
+    // =========================================================================
+    // 9. COMBAT, EXPLOSIONS & COLLISION RESOLUTION
+    // =========================================================================
+    function getAllSolidBoxes() {
+      return [
+        ...levelState.walls,
+        ...levelState.moving,
+        ...levelState.rotating,
+        ...levelState.crates,
+        ...levelState.barrels
+      ];
+    }
+
+    function getShieldBox(enemy) {
+      if (!enemy.alive || enemy.type !== "shield") return null;
+      return {
+        x: enemy.x + enemy.dir * 20,
+        y: enemy.floorY - 40,
+        w: 11,
+        h: 58,
+        angle: 0,
+        mat: "shield",
+        enemy
+      };
+    }
+
+    function eliminateEnemy(enemy, hitPart, ix, iy, label = null, isTrick = false) {
+      if (!enemy.alive) return;
+      enemy.alive = false;
+      enemy.ragdoll = createRagdoll(enemy.x, enemy.floorY, enemy.dir);
+      applyRagdollImpulse(enemy.ragdoll, hitPart, ix, iy);
+
+      if (hitPart === "head") {
+        levelState.headshots++;
+        levelState.bonusCoins += 15;
+        addFloatingText(enemy.x, enemy.floorY - 92, "HEADSHOT! +15", "#fbbf24");
+        hitStopTimer = Math.max(hitStopTimer, 0.045);
+        AudioEngine.playHit(true);
+      } else {
+        AudioEngine.playHit(false);
+        if (label) {
+          addFloatingText(enemy.x, enemy.floorY - 88, label, "#38bdf8");
+        }
+      }
+
+      if (enemy.type === "vip") {
+        levelState.bonusCoins += 25;
+        addFloatingText(enemy.x, enemy.floorY - 110, "VIP DOWN +25", "#f59e0b");
+      }
+
+      if (isTrick) {
+        levelState.trickKills++;
+        levelState.bonusCoins += 10;
+      }
+
+      // Check if final enemy eliminated -> slow-mo zoom!
+      const remaining = levelState.enemies.filter(e => e.alive).length;
+      if (remaining === 0) {
+        slowMoTimer = 1.15;
+        timeScale = 0.25;
+        camFocus = { x: enemy.x, y: enemy.floorY - 44 };
+      }
+    }
+
+    function eliminatePlayer(hitPart, ix, iy, reason = "Hit by Own Ricochet!") {
+      if (!levelState.player.alive) return;
+      levelState.player.alive = false;
+      levelState.player.ragdoll = createRagdoll(levelState.player.x, levelState.player.floorY, 1);
+      applyRagdollImpulse(levelState.player.ragdoll, hitPart, ix, iy);
+      addFloatingText(levelState.player.x, levelState.player.floorY - 92, "SELF-HIT!", "#ef4444");
+      AudioEngine.playHit(false);
+      shakeMag = Math.max(shakeMag, 12);
+      levelState.failReason = reason;
+      levelState.endCheckTimer = 1.05;
+    }
+
+    function detonateBarrel(barrel) {
+      if (barrel.exploded) return;
+      barrel.exploded = true;
+      barrel.broken = true;
+      const cx = barrel.x;
+      const cy = barrel.y;
+      const radius = 148;
+
+      AudioEngine.playExplosion();
+      shakeMag = Math.max(shakeMag, 18);
+      hitStopTimer = Math.max(hitStopTimer, 0.055);
+
+      levelState.rings.push({ x: cx, y: cy, r: 10, maxR: radius, life: 0.36, maxLife: 0.36 });
+      spawnSparks(cx, cy, 0, -1, "#fbbf24", 26);
+      spawnSparks(cx, cy, 0, -1, "#ef4444", 22);
+      spawnShards(barrel, "#dc2626", 10);
+
+      // Affect enemies in blast radius
+      for (const e of levelState.enemies) {
+        if (!e.alive) continue;
+        const ex = e.x;
+        const ey = e.floorY - 38;
+        const dist = Math.hypot(ex - cx, ey - cy);
+        if (dist <= radius) {
+          const nx = (ex - cx) / (dist || 1);
+          const ny = (ey - cy) / (dist || 1) - 0.45;
+          const mag = 16 * (1 - dist / (radius * 1.4));
+          e.hasHelmet = false;
+          eliminateEnemy(e, "neck", nx * mag, ny * mag, "BLAST!", true);
+        }
+      }
+
+      // Check player blast damage
+      if (levelState.player.alive) {
+        const px = levelState.player.x;
+        const py = levelState.player.floorY - 38;
+        const dist = Math.hypot(px - cx, py - cy);
+        if (dist <= radius * 0.85) {
+          const nx = (px - cx) / (dist || 1);
+          const ny = (py - cy) / (dist || 1) - 0.45;
+          eliminatePlayer("neck", nx * 13, ny * 13, "Caught in Explosion!");
+        }
+      }
+
+      // Shatter nearby glass/wood
+      for (const w of levelState.walls) {
+        if (w.broken) continue;
+        if (w.mat === "glass" || w.mat === "wood") {
+          const dist = Math.hypot(w.x - cx, w.y - cy);
+          if (dist <= radius + Math.max(w.w, w.h) * 0.4) {
+            w.broken = true;
+            spawnShards(w, w.mat === "glass" ? "#7dd3fc" : "#a16207", 12);
+          }
+        }
+      }
+
+      // Snap nearby ropes
+      for (const c of levelState.crates) {
+        if (!c.ropeCut) {
+          const midX = (c.anchorX + c.x) * 0.5;
+          const midY = (c.anchorY + c.y - c.h * 0.5) * 0.5;
+          if (Math.hypot(midX - cx, midY - cy) <= radius) {
+            c.ropeCut = true;
+            c.ropeSnapTimer = 0.4;
+          }
+        }
+      }
+
+      // Chain-detonate nearby barrels
+      for (const other of levelState.barrels) {
+        if (!other.exploded && Math.hypot(other.x - cx, other.y - cy) <= radius) {
+          detonateBarrel(other);
+        }
+      }
+    }
+
+    // Cast single ray segment from (p0x, p0y) along direction (dx, dy) for distance maxDist
+    // Returns earliest collision hit for preview OR bullet step
+    function traceSegment(p0x, p0y, p1x, p1y, weapon, canHitPlayer, ignored = null) {
+      let best = null;
+      const takeBest = (hit, kind, obj, part = null) => {
+        if (!hit) return;
+        if (ignored && ignored.has(obj)) return;
+        if (!best || hit.t < best.t) {
+          best = { ...hit, kind, obj, part };
+        }
+      };
+
+      // 1. Walls, Moving, Rotating, Crates
+      const solidGroups = [
+        levelState.walls,
+        levelState.moving,
+        levelState.rotating,
+        levelState.crates
+      ];
+      for (const grp of solidGroups) {
+        for (const box of grp) {
+          if (box.broken) continue;
+          const hit = rayOBB(p0x, p0y, p1x, p1y, box);
+          takeBest(hit, "box", box);
+        }
+      }
+
+      // 2. Explosive Barrels
+      for (const b of levelState.barrels) {
+        if (b.exploded) continue;
+        const hit = rayOBB(p0x, p0y, p1x, p1y, b);
+        takeBest(hit, "barrel", b);
+      }
+
+      // 3. Ropes
+      for (const c of levelState.crates) {
+        if (c.ropeCut) continue;
+        const hit = raySegment(p0x, p0y, p1x, p1y, c.anchorX, c.anchorY, c.x, c.y - c.h * 0.5);
+        takeBest(hit, "rope", c);
+      }
+
+      // 4. Enemies (Head circle, Torso circles, Legs, Riot Shield)
+      for (const e of levelState.enemies) {
+        if (!e.alive) continue;
+        const sb = getShieldBox(e);
+        if (sb) {
+          const sHit = rayOBB(p0x, p0y, p1x, p1y, sb);
+          takeBest(sHit, "shield", e);
+        }
+        // Head
+        takeBest(rayCircle(p0x, p0y, p1x, p1y, e.x, e.floorY - 72, 12), "enemy", e, "head");
+        // Upper torso & pelvis
+        takeBest(rayCircle(p0x, p0y, p1x, p1y, e.x, e.floorY - 51, 11), "enemy", e, "neck");
+        takeBest(rayCircle(p0x, p0y, p1x, p1y, e.x, e.floorY - 33, 10), "enemy", e, "pelvis");
+        // Legs
+        takeBest(rayCircle(p0x, p0y, p1x, p1y, e.x, e.floorY - 14, 10), "enemy", e, "lKnee");
+      }
+
+      // 5. Player (if bullet has bounced or aged)
+      if (canHitPlayer && levelState.player.alive) {
+        const p = levelState.player;
+        takeBest(rayCircle(p0x, p0y, p1x, p1y, p.x, p.floorY - 72, 11), "player", p, "head");
+        takeBest(rayCircle(p0x, p0y, p1x, p1y, p.x, p.floorY - 48, 10), "player", p, "neck");
+        takeBest(rayCircle(p0x, p0y, p1x, p1y, p.x, p.floorY - 22, 10), "player", p, "pelvis");
+      }
+
+      return best;
+    }
+
+    function getMuzzlePos() {
+      const p = levelState.player;
+      const sx = p.x;
+      const sy = p.floorY - 56;
+      const len = 32;
+      return {
+        sx,
+        sy,
+        mx: sx + Math.cos(aimAngle) * len,
+        my: sy + Math.sin(aimAngle) * len
+      };
+    }
+
+    function fireWeapon() {
+      if (gameMode !== "PLAYING" || !levelState || !levelState.player.alive) return;
+      if (levelState.ammoLeft <= 0 || levelState.winTriggered || levelState.failTriggered) return;
+
+      const w = getWeapon();
+      levelState.ammoLeft--;
+      levelState.shotsFired++;
+      updateHUD();
+
+      const spawnOne = (angleOffset) => {
+        const a = aimAngle + angleOffset;
+        const { sx, sy } = getMuzzlePos();
+        const mx = sx + Math.cos(a) * 32;
+        const my = sy + Math.sin(a) * 32;
+        const vx = Math.cos(a) * w.speed;
+        const vy = Math.sin(a) * w.speed;
+
+        levelState.bullets.push({
+          x: mx,
+          y: my,
+          vx,
+          vy,
+          bouncesLeft: w.bounces,
+          bouncesUsed: 0,
+          age: 0,
+          weapon: w,
+          trail: [{ x: mx, y: my }],
+          ignored: new Set(),
+          dead: false
+        });
+
+        levelState.player.recoil = 1.0;
+        levelState.muzzleFlashes.push({ x: mx, y: my, angle: a, color: w.color, life: 0.075, maxLife: 0.075 });
+        spawnSparks(mx, my, Math.cos(a), Math.sin(a), w.color, 7);
+        spawnShellCasing(sx + Math.cos(a) * 14, sy + Math.sin(a) * 14, a);
+        AudioEngine.playGunshot(w.id);
+        shakeMag = Math.max(shakeMag, w.id === "revolver" ? 7 : 4);
+      };
+
+      spawnOne(0);
+      if (w.burstCount > 1) {
+        levelState.pendingBursts.push({ delay: 0.065, offset: -w.spread });
+        levelState.pendingBursts.push({ delay: 0.13, offset: w.spread });
+      }
+    }
+
+    function stepBullet(b, dt) {
+      b.age += dt;
+      let rem = 1.0;
+      let safety = 0;
+
+      while (rem > 0.001 && !b.dead && safety++ < 6) {
+        const stepX = b.vx * dt * rem;
+        const stepY = b.vy * dt * rem;
+        const p0x = b.x;
+        const p0y = b.y;
+        const p1x = p0x + stepX;
+        const p1y = p0y + stepY;
+
+        const canHitPlayer = b.bouncesUsed >= 1 || b.age > 0.18;
+        const hit = traceSegment(p0x, p0y, p1x, p1y, b.weapon, canHitPlayer, b.ignored);
+
+        if (!hit) {
+          b.x = p1x;
+          b.y = p1y;
+          rem = 0;
+          break;
+        }
+
+        // Advance to impact point
+        b.x = hit.x;
+        b.y = hit.y;
+        b.trail.push({ x: hit.x, y: hit.y });
+        rem *= (1 - hit.t);
+
+        if (hit.kind === "rope") {
+          hit.obj.ropeCut = true;
+          hit.obj.ropeSnapTimer = 0.4;
+          AudioEngine.playRopeSnap();
+          spawnSparks(hit.x, hit.y, 0, 1, "#fde68a", 8);
+          addFloatingText(hit.x, hit.y - 12, "SNAP!", "#fde68a");
+          // Bullet continues cleanly through rope!
+          b.x += (b.vx / b.weapon.speed) * 2;
+          b.y += (b.vy / b.weapon.speed) * 2;
+          continue;
+        }
+
+        if (hit.kind === "barrel") {
+          detonateBarrel(hit.obj);
+          b.dead = true;
+          break;
+        }
+
+        if (hit.kind === "player") {
+          const sp = Math.hypot(b.vx, b.vy) || 1;
+          const ix = (b.vx / sp) * 11;
+          const iy = (b.vy / sp) * 11 - 2;
+          spawnBloodImpact(hit.x, hit.y, b.vx, b.vy, 14);
+          eliminatePlayer(hit.part, ix, iy, "Hit by Own Ricochet!");
+          b.dead = true;
+          break;
+        }
+
+        if (hit.kind === "shield") {
+          if (b.weapon.pierceShield) {
+            b.ignored.add(hit.obj);
+            spawnSparks(hit.x, hit.y, -b.vx, -b.vy, "#38bdf8", 10);
+            AudioEngine.playShieldClang();
+            continue;
+          } else {
+            // Deflect off shield
+            const dot = b.vx * hit.nx + b.vy * hit.ny;
+            b.vx -= 2 * dot * hit.nx;
+            b.vy -= 2 * dot * hit.ny;
+            b.x += hit.nx * 1.5;
+            b.y += hit.ny * 1.5;
+            b.bouncesLeft--;
+            b.bouncesUsed++;
+            AudioEngine.playShieldClang();
+            spawnSparks(hit.x, hit.y, hit.nx, hit.ny, "#93c5fd", 12);
+            if (b.bouncesLeft < 0) b.dead = true;
+            continue;
+          }
+        }
+
+        if (hit.kind === "enemy") {
+          const e = hit.obj;
+          if (hit.part === "head" && e.hasHelmet) {
+            // Helmet absorbs 1st headshot and pops off!
+            e.hasHelmet = false;
+            levelState.flyingHelmets.push({
+              x: e.x,
+              y: e.floorY - 78,
+              vx: (b.vx > 0 ? 1 : -1) * 180,
+              vy: -280,
+              angle: 0,
+              angVel: 14
+            });
+            AudioEngine.playShieldClang();
+            spawnSparks(hit.x, hit.y, -b.vx, -b.vy, "#fbbf24", 10);
+            addFloatingText(e.x, e.floorY - 94, "HELMET OFF!", "#94a3b8");
+            b.dead = true;
+            break;
+          }
+
+          const sp = Math.hypot(b.vx, b.vy) || 1;
+          const mult = (hit.part === "head" ? 1.45 : 1.0) * b.weapon.impulseMult;
+          const ix = (b.vx / sp) * 12.5 * mult;
+          const iy = (b.vy / sp) * 12.5 * mult - 2.5;
+          spawnBloodImpact(hit.x, hit.y, b.vx, b.vy, hit.part === "head" ? 18 : 12);
+          eliminateEnemy(e, hit.part, ix, iy, b.bouncesUsed > 0 ? "RICOCHET!" : null, b.bouncesUsed > 0);
+          b.dead = true;
+          break;
+        }
+
+        if (hit.kind === "box") {
+          const box = hit.obj;
+          if (box.mat === "glass") {
+            box.broken = true;
+            AudioEngine.playGlassShatter();
+            spawnShards(box, "#7dd3fc", 14);
+            b.x += (b.vx / b.weapon.speed) * 4;
+            b.y += (b.vy / b.weapon.speed) * 4;
+            continue;
+          }
+
+          if (box.mat === "wood") {
+            box.hp = (box.hp || 1) - (b.weapon.pierceWood ? 99 : 1);
+            AudioEngine.playWoodSplinter();
+            spawnSparks(hit.x, hit.y, hit.nx, hit.ny, "#d97706", 9);
+            if (box.hp <= 0) {
+              box.broken = true;
+              spawnShards(box, "#b45309", 12);
+              if (b.weapon.pierceWood) {
+                b.x += (b.vx / b.weapon.speed) * 6;
+                b.y += (b.vy / b.weapon.speed) * 6;
+                continue;
+              } else {
+                b.dead = true;
+                break;
+              }
+            }
+          }
+
+          // Steel / Crate / Intact Wood ricochet
+          const dot = b.vx * hit.nx + b.vy * hit.ny;
+          b.vx -= 2 * dot * hit.nx;
+          b.vy -= 2 * dot * hit.ny;
+          b.x += hit.nx * 1.2;
+          b.y += hit.ny * 1.2;
+          b.bouncesLeft--;
+          b.bouncesUsed++;
+          AudioEngine.playRicochet(b.bouncesUsed);
+          spawnSparks(hit.x, hit.y, hit.nx, hit.ny, b.weapon.color, 11);
+          if (b.bouncesLeft < 0) b.dead = true;
+        }
+      }
+
+      if (!b.dead) {
+        b.trail.push({ x: b.x, y: b.y });
+        if (b.trail.length > 22) b.trail.shift();
+      }
+    }
+
+    // =========================================================================
+    // 10. MAIN SIMULATION UPDATE
+    // =========================================================================
+    function updateSimulation(rawDt) {
+      if (gameMode !== "PLAYING" || adPaused || !levelState) return;
+
+      if (hitStopTimer > 0) {
+        hitStopTimer -= rawDt;
+        return;
+      }
+
+      if (slowMoTimer > 0) {
+        slowMoTimer -= rawDt;
+        if (slowMoTimer <= 0) {
+          timeScale = 1.0;
+          camZoom = 1.0;
+        } else {
+          camZoom = 1 + (1.16 - 1) * Math.min(1, slowMoTimer * 2);
+        }
+      }
+
+      const dt = Math.min(0.032, rawDt) * timeScale;
+      levelState.elapsed += dt;
+      shakeMag = Math.max(0, shakeMag - rawDt * 34);
+      levelState.player.recoil = Math.max(0, levelState.player.recoil - rawDt * 7);
+
+      // Update moving platforms & rotating barriers
+      for (const m of levelState.moving) {
+        const s = Math.sin(levelState.elapsed * m.speed + m.phase);
+        m.x = m.baseX + m.dx * s;
+        m.y = m.baseY + m.dy * s;
+      }
+      for (const r of levelState.rotating) {
+        r.angle += r.omega * dt;
+      }
+
+      // Pending burst shots (SMG)
+      for (let i = levelState.pendingBursts.length - 1; i >= 0; i--) {
+        const pb = levelState.pendingBursts[i];
+        pb.delay -= dt;
+        if (pb.delay <= 0) {
+          levelState.pendingBursts.splice(i, 1);
+          if (levelState.player.alive) {
+            const w = getWeapon();
+            const a = aimAngle + pb.offset;
+            const { sx, sy } = getMuzzlePos();
+            const mx = sx + Math.cos(a) * 32;
+            const my = sy + Math.sin(a) * 32;
+            levelState.bullets.push({
+              x: mx,
+              y: my,
+              vx: Math.cos(a) * w.speed,
+              vy: Math.sin(a) * w.speed,
+              bouncesLeft: w.bounces,
+              bouncesUsed: 0,
+              age: 0,
+              weapon: w,
+              trail: [{ x: mx, y: my }],
+              ignored: new Set(),
+              dead: false
+            });
+            levelState.muzzleFlashes.push({ x: mx, y: my, angle: a, color: w.color, life: 0.075, maxLife: 0.075 });
+            AudioEngine.playGunshot(w.id);
+            spawnSparks(mx, my, Math.cos(a), Math.sin(a), w.color, 5);
+          }
+        }
+      }
+
+      // Update bullets
+      for (let i = levelState.bullets.length - 1; i >= 0; i--) {
+        const b = levelState.bullets[i];
+        stepBullet(b, dt);
+        if (b.dead) levelState.bullets.splice(i, 1);
+      }
+
+      // Update hanging/falling crates
+      for (const c of levelState.crates) {
+        if (!c.ropeCut) {
+          // Subtle ambient sway
+          c.x = c.anchorX + Math.sin(levelState.elapsed * 1.4) * 3;
+          c.angle = Math.sin(levelState.elapsed * 1.4) * 0.02;
+        } else if (!c.settled) {
+          c.ropeSnapTimer = Math.max(0, c.ropeSnapTimer - dt);
+          c.vy += GRAVITY * dt;
+          c.x += c.vx * dt;
+          c.y += c.vy * dt;
+          c.angle += c.angVel * dt;
+
+          const speed = Math.hypot(c.vx, c.vy);
+          // Crush enemies
+          if (speed > 95) {
+            for (const e of levelState.enemies) {
+              if (!e.alive) continue;
+              if (Math.abs(e.x - c.x) < c.w * 0.52 + 12 &&
+                  c.y + c.h * 0.5 > e.floorY - 76 &&
+                  c.y - c.h * 0.5 < e.floorY) {
+                e.hasHelmet = false;
+                eliminateEnemy(e, "head", (e.x - c.x) * 0.15, 8, "CRUSHED!", true);
+              }
+            }
+            // Crush player if underneath
+            if (levelState.player.alive) {
+              const p = levelState.player;
+              if (Math.abs(p.x - c.x) < c.w * 0.5 + 10 &&
+                  c.y + c.h * 0.5 > p.floorY - 76 &&
+                  c.y - c.h * 0.5 < p.floorY) {
+                eliminatePlayer("head", 0, 8, "Crushed by Crate!");
+              }
+            }
+            // Detonate barrels
+            for (const b of levelState.barrels) {
+              if (b.exploded) continue;
+              if (Math.abs(b.x - c.x) < c.w * 0.5 + b.w * 0.5 &&
+                  c.y + c.h * 0.5 > b.y - b.h * 0.5 &&
+                  c.y - c.h * 0.5 < b.y + b.h * 0.5) {
+                detonateBarrel(b);
+              }
+            }
+          }
+
+          // Collide crate against static walls & platforms below
+          let hitSurface = false;
+          let targetFloor = FLOOR_Y;
+          for (const w of levelState.walls) {
+            if (w.broken || Math.abs(w.angle) > 0.2) continue;
+            if (w.y > c.y && Math.abs(w.x - c.x) < (w.w + c.w) * 0.5) {
+              const surf = w.y - w.h * 0.5;
+              if (surf < targetFloor) targetFloor = surf;
+            }
+          }
+          if (c.y + c.h * 0.5 >= targetFloor) {
+            c.y = targetFloor - c.h * 0.5;
+            if (c.vy > 180) {
+              shakeMag = Math.max(shakeMag, 8);
+              AudioEngine.playWoodSplinter();
+              spawnSparks(c.x, targetFloor, 0, -1, "#94a3b8", 10);
+            }
+            c.vy = -c.vy * 0.2;
+            c.vx *= 0.7;
+            c.angle *= 0.5;
+            if (Math.abs(c.vy) < 28) {
+              c.vy = 0;
+              c.angle = 0;
+              c.settled = true;
+            }
+            hitSurface = true;
+          }
+          if (hitSurface && Math.abs(c.vy) < 10) c.settled = true;
+        }
+      }
+
+      // Step Ragdolls
+      const colliders = getAllSolidBoxes();
+      for (const e of levelState.enemies) {
+        if (!e.alive && e.ragdoll) stepRagdoll(e.ragdoll, dt, colliders);
+      }
+      if (!levelState.player.alive && levelState.player.ragdoll) {
+        stepRagdoll(levelState.player.ragdoll, dt, colliders);
+      }
+
+      // Update FX particles, shards, casings, rings, texts, helmets
+      for (let i = levelState.particles.length - 1; i >= 0; i--) {
+        const p = levelState.particles[i];
+        p.life -= dt;
+        p.vy += p.gravity * dt;
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        if (p.life <= 0) levelState.particles.splice(i, 1);
+      }
+
+      for (let i = levelState.shards.length - 1; i >= 0; i--) {
+        const s = levelState.shards[i];
+        s.life -= dt;
+        s.vy += GRAVITY * 0.85 * dt;
+        s.x += s.vx * dt;
+        s.y += s.vy * dt;
+        s.angle += s.angVel * dt;
+        if (s.y > FLOOR_Y) { s.y = FLOOR_Y; s.vy *= -0.35; s.vx *= 0.75; }
+        if (s.life <= 0) levelState.shards.splice(i, 1);
+      }
+
+      for (let i = levelState.casings.length - 1; i >= 0; i--) {
+        const c = levelState.casings[i];
+        c.life -= dt;
+        c.vy += GRAVITY * dt;
+        c.x += c.vx * dt;
+        c.y += c.vy * dt;
+        c.angle += c.angVel * dt;
+        if (c.y > FLOOR_Y - 2) { c.y = FLOOR_Y - 2; c.vy *= -0.45; c.vx *= 0.8; c.angVel *= 0.6; }
+        if (c.life <= 0) levelState.casings.splice(i, 1);
+      }
+
+      for (let i = levelState.rings.length - 1; i >= 0; i--) {
+        const r = levelState.rings[i];
+        r.life -= dt;
+        r.r = r.maxR * (1 - r.life / r.maxLife);
+        if (r.life <= 0) levelState.rings.splice(i, 1);
+      }
+
+      for (let i = levelState.muzzleFlashes.length - 1; i >= 0; i--) {
+        const mf = levelState.muzzleFlashes[i];
+        mf.life -= dt;
+        if (mf.life <= 0) levelState.muzzleFlashes.splice(i, 1);
+      }
+
+      for (let i = levelState.floatingTexts.length - 1; i >= 0; i--) {
+        const ft = levelState.floatingTexts[i];
+        ft.life -= dt;
+        ft.y += ft.vy * dt;
+        if (ft.life <= 0) levelState.floatingTexts.splice(i, 1);
+      }
+
+      for (let i = levelState.flyingHelmets.length - 1; i >= 0; i--) {
+        const h = levelState.flyingHelmets[i];
+        h.vy += GRAVITY * dt;
+        h.x += h.vx * dt;
+        h.y += h.vy * dt;
+        h.angle += h.angVel * dt;
+        if (h.y > FLOOR_Y) levelState.flyingHelmets.splice(i, 1);
+      }
+
+      // Win / Loss checks
+      const aliveEnemies = levelState.enemies.filter(e => e.alive).length;
+      if (aliveEnemies === 0 && levelState.player.alive && !levelState.winTriggered) {
+        if (slowMoTimer <= 0.05) {
+          levelState.winTriggered = true;
+          handleLevelWin();
+        }
+      } else if (!levelState.player.alive && !levelState.failTriggered) {
+        levelState.endCheckTimer -= rawDt;
+        if (levelState.endCheckTimer <= 0) {
+          levelState.failTriggered = true;
+          handleLevelFail(levelState.failReason || "Hit by Own Ricochet!");
+        }
+      } else if (
+        levelState.ammoLeft === 0 &&
+        levelState.bullets.length === 0 &&
+        levelState.pendingBursts.length === 0 &&
+        aliveEnemies > 0 &&
+        !levelState.failTriggered &&
+        !levelState.winTriggered
+      ) {
+        // Wait briefly in case a falling crate is about to crush the last enemy
+        const crateFalling = levelState.crates.some(c => c.ropeCut && !c.settled);
+        if (!crateFalling) {
+          levelState.endCheckTimer += rawDt;
+          if (levelState.endCheckTimer >= 0.65) {
+            levelState.failTriggered = true;
+            handleLevelFail("Out of Ammo");
+          }
+        }
+      } else {
+        if (levelState.player.alive) levelState.endCheckTimer = 0;
+      }
+    }
+
+    // =========================================================================
+    // 11. RENDERING (CANVAS 2D)
+    // =========================================================================
+    function drawBox(box) {
+      if (box.broken) return;
+      ctx.save();
+      ctx.translate(box.x, box.y);
+      ctx.rotate(box.angle);
+
+      const hw = box.w * 0.5;
+      const hh = box.h * 0.5;
+
+      if (box.mat === "steel") {
+        ctx.fillStyle = "#334155";
+        ctx.fillRect(-hw, -hh, box.w, box.h);
+        ctx.strokeStyle = "#94a3b8";
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(-hw + 0.5, -hh + 0.5, box.w - 1, box.h - 1);
+        // Subtle metallic bevel highlight
+        ctx.fillStyle = "rgba(255,255,255,0.08)";
+        ctx.fillRect(-hw + 2, -hh + 2, box.w - 4, Math.min(5, box.h * 0.25));
+      } else if (box.mat === "glass") {
+        ctx.fillStyle = "rgba(125, 211, 252, 0.26)";
+        ctx.fillRect(-hw, -hh, box.w, box.h);
+        ctx.strokeStyle = "rgba(186, 230, 253, 0.85)";
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(-hw, -hh, box.w, box.h);
+        // Diagonal glint
+        ctx.strokeStyle = "rgba(255,255,255,0.45)";
+        ctx.beginPath();
+        ctx.moveTo(-hw + 3, -hh + 10);
+        ctx.lineTo(hw - 3, -hh + 26);
+        ctx.stroke();
+      } else if (box.mat === "wood") {
+        ctx.fillStyle = box.hp === 1 ? "#78350f" : "#92400e";
+        ctx.fillRect(-hw, -hh, box.w, box.h);
+        ctx.strokeStyle = "#d97706";
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(-hw, -hh, box.w, box.h);
+        // Crack if damaged
+        if (box.maxHp > 1 && box.hp < box.maxHp) {
+          ctx.strokeStyle = "#1e293b";
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(-hw + 4, -hh + box.h * 0.35);
+          ctx.lineTo(0, -hh + box.h * 0.45);
+          ctx.lineTo(hw - 4, -hh + box.h * 0.38);
+          ctx.stroke();
+        }
+      } else if (box.mat === "crate") {
+        ctx.fillStyle = "#57534e";
+        ctx.fillRect(-hw, -hh, box.w, box.h);
+        ctx.strokeStyle = "#fbbf24";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(-hw + 1, -hh + 1, box.w - 2, box.h - 2);
+        // Cross brace
+        ctx.strokeStyle = "rgba(251, 191, 36, 0.35)";
+        ctx.beginPath();
+        ctx.moveTo(-hw + 4, -hh + 4);
+        ctx.lineTo(hw - 4, hh - 4);
+        ctx.moveTo(hw - 4, -hh + 4);
+        ctx.lineTo(-hw + 4, hh - 4);
+        ctx.stroke();
+      } else if (box.mat === "barrel") {
+        // Explosive Red Barrel
+        ctx.fillStyle = "#dc2626";
+        ctx.fillRect(-hw, -hh, box.w, box.h);
+        ctx.fillStyle = "#fbbf24";
+        ctx.fillRect(-hw, -5, box.w, 10);
+        ctx.strokeStyle = "#7f1d1d";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(-hw, -hh, box.w, box.h);
+      }
+
+      ctx.restore();
+    }
+
+    function drawRagdoll(ragdoll, color, accent, type = "grunt") {
+      const n = ragdoll.nodes;
+      ctx.save();
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 5.5;
+
+      const seg = (a, b) => {
+        ctx.beginPath();
+        ctx.moveTo(n[a].x, n[a].y);
+        ctx.lineTo(n[b].x, n[b].y);
+        ctx.stroke();
+      };
+
+      seg("neck", "pelvis");
+      seg("neck", "lElbow");
+      seg("lElbow", "lHand");
+      seg("neck", "rElbow");
+      seg("rElbow", "rHand");
+      seg("pelvis", "lKnee");
+      seg("lKnee", "lFoot");
+      seg("pelvis", "rKnee");
+      seg("rKnee", "rFoot");
+
+      // Head
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(n.head.x, n.head.y, 10.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Visor / VIP accent
+      ctx.fillStyle = accent;
+      ctx.beginPath();
+      ctx.arc(n.head.x + 3, n.head.y - 1, 3.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      if (type === "vip") {
+        ctx.fillStyle = "#fbbf24";
+        ctx.fillRect(n.head.x - 7, n.head.y - 15, 14, 5);
+      }
+
+      ctx.restore();
+    }
+
+    function drawPlayerAlive(p) {
+      const skin = getSkin();
+      const breath = Math.sin(levelState.elapsed * 3.2) * 1.4;
+      const sx = p.x;
+      const sy = p.floorY - 56 + breath;
+      const px = p.x;
+      const py = p.floorY - 33 + breath * 0.5;
+      const hx = p.x;
+      const hy = p.floorY - 72 + breath;
+
+      ctx.save();
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.strokeStyle = skin.body;
+      ctx.lineWidth = 5.5;
+
+      // Legs
+      ctx.beginPath();
+      ctx.moveTo(px, py); ctx.lineTo(px - 10, p.floorY - 16); ctx.lineTo(px - 12, p.floorY);
+      ctx.moveTo(px, py); ctx.lineTo(px + 9, p.floorY - 16); ctx.lineTo(px + 12, p.floorY);
+      // Torso + back arm
+      ctx.moveTo(sx, sy); ctx.lineTo(px, py);
+      ctx.moveTo(sx, sy + 4); ctx.lineTo(sx - 12, sy + 18); ctx.lineTo(sx - 6, sy + 28);
+      ctx.stroke();
+
+      // Ninja flowing headband tails
+      if (skin.id === "ninja") {
+        ctx.strokeStyle = skin.accent;
+        ctx.lineWidth = 3.5;
+        ctx.beginPath();
+        ctx.moveTo(hx - 8, hy - 3);
+        ctx.quadraticCurveTo(hx - 22, hy - 2 + Math.sin(levelState.elapsed * 6) * 5, hx - 32, hy + 4 + Math.cos(levelState.elapsed * 5) * 4);
+        ctx.stroke();
+      }
+
+      // Head
+      ctx.fillStyle = skin.body;
+      ctx.beginPath();
+      ctx.arc(hx, hy, 10.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Skin accessories
+      if (skin.id === "default" || skin.id === "cyber") {
+        ctx.fillStyle = skin.accent;
+        ctx.fillRect(hx + 2, hy - 3, 9, 4.5);
+        if (skin.id === "cyber") {
+          ctx.strokeStyle = skin.accent;
+          ctx.lineWidth = 2.5;
+          ctx.beginPath();
+          ctx.arc(sx, sy + 2, 7, Math.PI, 0);
+          ctx.stroke();
+        }
+      } else if (skin.id === "agent") {
+        ctx.fillStyle = "#0f172a";
+        ctx.fillRect(hx + 1, hy - 4, 9.5, 4.5);
+        ctx.fillStyle = skin.accent;
+        ctx.fillRect(sx - 1.5, sy + 2, 3, 14);
+      } else if (skin.id === "ninja") {
+        ctx.fillStyle = skin.accent;
+        ctx.fillRect(hx - 10.5, hy - 5, 21, 4.5);
+      } else if (skin.id === "cowboy") {
+        ctx.fillStyle = skin.accent;
+        ctx.fillRect(hx - 15, hy - 9, 30, 3.5);
+        ctx.fillRect(hx - 9, hy - 17, 18, 9);
+      }
+
+      // Aiming Weapon Arm + Gun
+      const recoilOffset = p.recoil * 5;
+      ctx.save();
+      ctx.translate(sx, sy);
+      ctx.rotate(aimAngle);
+      ctx.strokeStyle = skin.body;
+      ctx.lineWidth = 5;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(19 - recoilOffset, 0);
+      ctx.stroke();
+
+      // Gun silhouette
+      const w = getWeapon();
+      ctx.fillStyle = "#0f172a";
+      ctx.strokeStyle = w.color;
+      ctx.lineWidth = 1.6;
+      const gunLen = w.id === "sniper" ? 24 : w.id === "smg" ? 18 : 14;
+      ctx.fillRect(16 - recoilOffset, -4, gunLen, 5.5);
+      ctx.strokeRect(16 - recoilOffset, -4, gunLen, 5.5);
+      ctx.fillRect(16 - recoilOffset, 0, 5, 8);
+      ctx.restore();
+
+      ctx.restore();
+    }
+
+    function drawEnemyAlive(e) {
+      const breath = Math.sin(levelState.elapsed * 2.8 + e.phase) * 1.4;
+      const sx = e.x;
+      const sy = e.floorY - 56 + breath;
+      const px = e.x;
+      const py = e.floorY - 33 + breath * 0.5;
+      const hx = e.x;
+      const hy = e.floorY - 72 + breath;
+
+      const bodyCol = e.type === "vip" ? "#fde68a" : "#e2e8f0";
+      const visorCol = e.type === "vip" ? "#f59e0b" : "#f43f5e";
+
+      ctx.save();
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.strokeStyle = bodyCol;
+      ctx.lineWidth = 5.5;
+
+      ctx.beginPath();
+      ctx.moveTo(px, py); ctx.lineTo(px - 9, e.floorY - 16); ctx.lineTo(px - 11, e.floorY);
+      ctx.moveTo(px, py); ctx.lineTo(px + 9, e.floorY - 16); ctx.lineTo(px + 11, e.floorY);
+      ctx.moveTo(sx, sy); ctx.lineTo(px, py);
+      ctx.moveTo(sx, sy + 4); ctx.lineTo(sx - e.dir * 10, sy + 18); ctx.lineTo(sx - e.dir * 6, sy + 27);
+      ctx.moveTo(sx, sy + 4); ctx.lineTo(sx + e.dir * 14, sy + 12);
+      ctx.stroke();
+
+      // Head
+      ctx.fillStyle = bodyCol;
+      ctx.beginPath();
+      ctx.arc(hx, hy, 10.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Visor
+      ctx.fillStyle = visorCol;
+      ctx.fillRect(e.dir < 0 ? hx - 9.5 : hx + 1.5, hy - 3, 8, 4.5);
+
+      // Type gear
+      if (e.type === "vip") {
+        ctx.fillStyle = "#fbbf24";
+        ctx.beginPath();
+        ctx.moveTo(hx - 8, hy - 9);
+        ctx.lineTo(hx - 6, hy - 18);
+        ctx.lineTo(hx, hy - 12);
+        ctx.lineTo(hx + 6, hy - 18);
+        ctx.lineTo(hx + 8, hy - 9);
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      if (e.hasHelmet) {
+        ctx.fillStyle = "#64748b";
+        ctx.strokeStyle = "#cbd5e1";
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(hx, hy - 2, 13, Math.PI, 0);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+      }
+
+      if (e.type === "shield") {
+        const sb = getShieldBox(e);
+        ctx.fillStyle = "#1e3a8a";
+        ctx.fillRect(sb.x - sb.w * 0.5, sb.y - sb.h * 0.5, sb.w, sb.h);
+        ctx.strokeStyle = "#60a5fa";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(sb.x - sb.w * 0.5, sb.y - sb.h * 0.5, sb.w, sb.h);
+        // Visor slit
+        ctx.fillStyle = "#93c5fd";
+        ctx.fillRect(sb.x - 3, sb.y - 20, 6, 9);
+      }
+
+      ctx.restore();
+    }
+
+    function drawAimPreview() {
+      if (!isAiming || !levelState.player.alive || levelState.ammoLeft <= 0 || gameMode !== "PLAYING") return;
+
+      const w = getWeapon();
+      const { mx, my } = getMuzzlePos();
+      let curX = mx, curY = my;
+      let dx = Math.cos(aimAngle);
+      let dy = Math.sin(aimAngle);
+      let maxSegs = w.previewBounces + 1;
+      const previewIgnored = new Set();
+
+      ctx.save();
+      for (let seg = 0; seg < maxSegs && seg < 16; seg++) {
+        const endX = curX + dx * 1800;
+        const endY = curY + dy * 1800;
+        const hit = traceSegment(curX, curY, endX, endY, w, seg >= 1, previewIgnored);
+
+        const tx = hit ? hit.x : endX;
+        const ty = hit ? hit.y : endY;
+
+        ctx.strokeStyle = hit && hit.kind === "player"
+          ? "#ef4444"
+          : (seg === 0 ? w.color : "rgba(251, 191, 36, 0.55)");
+        ctx.lineWidth = seg === 0 ? 2.2 : 1.6;
+        ctx.setLineDash([7, 7]);
+        ctx.beginPath();
+        ctx.moveTo(curX, curY);
+        ctx.lineTo(tx, ty);
+        ctx.stroke();
+
+        if (!hit) break;
+
+        // Impact marker dot
+        ctx.setLineDash([]);
+        ctx.fillStyle = hit.kind === "player" ? "#ef4444" : w.color;
+        ctx.beginPath();
+        ctx.arc(tx, ty, 3.8, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (hit.kind === "box" && hit.obj.mat === "glass") {
+          previewIgnored.add(hit.obj);
+          curX = tx;
+          curY = ty;
+          maxSegs++;
+          continue;
+        }
+        if (hit.kind === "shield" && w.pierceShield) {
+          previewIgnored.add(hit.obj);
+          curX = tx;
+          curY = ty;
+          maxSegs++;
+          continue;
+        }
+        if (hit.kind === "box" && hit.obj.mat === "wood" && w.pierceWood) {
+          previewIgnored.add(hit.obj);
+          curX = tx;
+          curY = ty;
+          maxSegs++;
+          continue;
+        }
+        if (hit.kind === "rope") {
+          previewIgnored.add(hit.obj);
+          curX = tx;
+          curY = ty;
+          maxSegs++;
+          continue;
+        }
+
+        if ((hit.kind === "box" && hit.obj.mat !== "wood") || hit.kind === "shield") {
+          const dot = dx * hit.nx + dy * hit.ny;
+          dx -= 2 * dot * hit.nx;
+          dy -= 2 * dot * hit.ny;
+          curX = tx + hit.nx * 1.2;
+          curY = ty + hit.ny * 1.2;
+        } else {
+          break;
+        }
+      }
+      ctx.restore();
+    }
+
+    function renderScene() {
+      ctx.save();
+      ctx.clearRect(0, 0, LOGICAL_W, LOGICAL_H);
+
+      // Camera shake + slow-mo zoom
+      const sx = (Math.random() - 0.5) * shakeMag;
+      const sy = (Math.random() - 0.5) * shakeMag;
+      ctx.translate(LOGICAL_W / 2 + sx, LOGICAL_H / 2 + sy);
+      ctx.scale(camZoom, camZoom);
+      ctx.translate(-camFocus.x, -camFocus.y);
+
+      // Tactical hangar grid background
+      ctx.fillStyle = "#111822";
+      ctx.fillRect(0, 0, LOGICAL_W, LOGICAL_H);
+      ctx.strokeStyle = "rgba(148, 163, 184, 0.055)";
+      ctx.lineWidth = 1;
+      for (let gx = 40; gx < LOGICAL_W; gx += 60) {
+        ctx.beginPath(); ctx.moveTo(gx, 24); ctx.lineTo(gx, FLOOR_Y); ctx.stroke();
+      }
+      for (let gy = 80; gy < FLOOR_Y; gy += 60) {
+        ctx.beginPath(); ctx.moveTo(24, gy); ctx.lineTo(LOGICAL_W - 24, gy); ctx.stroke();
+      }
+
+      if (!levelState) {
+        ctx.restore();
+        return;
+      }
+
+      // Hint text on arena top
+      ctx.fillStyle = "rgba(148, 163, 184, 0.65)";
+      ctx.font = "600 14px system-ui, sans-serif";
+      ctx.textAlign = "left";
+      ctx.fillText(levelState.def.hint, 42, 52);
+
+      // Ropes
+      for (const c of levelState.crates) {
+        if (!c.ropeCut) {
+          ctx.strokeStyle = "#d97706";
+          ctx.lineWidth = 2.5;
+          ctx.beginPath();
+          ctx.moveTo(c.anchorX, c.anchorY);
+          ctx.lineTo(c.x, c.y - c.h * 0.5);
+          ctx.stroke();
+
+          ctx.fillStyle = "#94a3b8";
+          ctx.beginPath();
+          ctx.arc(c.anchorX, c.anchorY, 5, 0, Math.PI * 2);
+          ctx.fill();
+        } else if (c.ropeSnapTimer > 0) {
+          ctx.strokeStyle = "rgba(217, 119, 6, 0.7)";
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(c.anchorX, c.anchorY);
+          ctx.lineTo(c.anchorX + 6, c.anchorY + 42);
+          ctx.stroke();
+        }
+      }
+
+      // Draw Obstacles & Props
+      for (const w of levelState.walls) drawBox(w);
+      for (const m of levelState.moving) drawBox(m);
+      for (const r of levelState.rotating) {
+        drawBox(r);
+        ctx.fillStyle = "#fbbf24";
+        ctx.beginPath();
+        ctx.arc(r.x, r.y, 5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      for (const c of levelState.crates) drawBox(c);
+      for (const b of levelState.barrels) drawBox(b);
+
+      // Draw Enemies
+      for (const e of levelState.enemies) {
+        if (e.alive) drawEnemyAlive(e);
+        else if (e.ragdoll) {
+          drawRagdoll(
+            e.ragdoll,
+            e.type === "vip" ? "#fde68a" : "#cbd5e1",
+            e.type === "vip" ? "#f59e0b" : "#f43f5e",
+            e.type
+          );
+        }
+      }
+
+      // Draw Player
+      if (levelState.player.alive) drawPlayerAlive(levelState.player);
+      else if (levelState.player.ragdoll) {
+        const skin = getSkin();
+        drawRagdoll(levelState.player.ragdoll, skin.body, skin.accent, "player");
+      }
+
+      // Aim Preview
+      drawAimPreview();
+
+      // Muzzle Flashes
+      for (const mf of levelState.muzzleFlashes) {
+        const a = mf.life / mf.maxLife;
+        ctx.save();
+        ctx.translate(mf.x, mf.y);
+        ctx.rotate(mf.angle);
+        ctx.globalAlpha = a;
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath();
+        ctx.moveTo(0, -4);
+        ctx.lineTo(22 * a + 8, 0);
+        ctx.lineTo(0, 4);
+        ctx.closePath();
+        ctx.fill();
+        ctx.fillStyle = mf.color;
+        ctx.beginPath();
+        ctx.arc(4, 0, 9 * a, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // Bullet Trails & Bullets
+      for (const b of levelState.bullets) {
+        if (b.trail.length > 1) {
+          ctx.strokeStyle = b.weapon.color;
+          ctx.lineWidth = b.weapon.id === "revolver" ? 3.2 : 2.4;
+          ctx.globalAlpha = 0.75;
+          ctx.beginPath();
+          ctx.moveTo(b.trail[0].x, b.trail[0].y);
+          for (let i = 1; i < b.trail.length; i++) ctx.lineTo(b.trail[i].x, b.trail[i].y);
+          ctx.stroke();
+          ctx.globalAlpha = 1.0;
+        }
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, 3.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Explosion shockwaves
+      for (const r of levelState.rings) {
+        ctx.strokeStyle = `rgba(251, 191, 36, ${r.life / r.maxLife})`;
+        ctx.lineWidth = 5 * (r.life / r.maxLife);
+        ctx.beginPath();
+        ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // Shards & Casings
+      for (const s of levelState.shards) {
+        ctx.save();
+        ctx.translate(s.x, s.y);
+        ctx.rotate(s.angle);
+        ctx.globalAlpha = Math.min(1, s.life);
+        ctx.fillStyle = s.color;
+        ctx.fillRect(-s.w * 0.5, -s.h * 0.5, s.w, s.h);
+        ctx.restore();
+      }
+
+      for (const c of levelState.casings) {
+        ctx.save();
+        ctx.translate(c.x, c.y);
+        ctx.rotate(c.angle);
+        ctx.globalAlpha = Math.min(1, c.life);
+        ctx.fillStyle = "#fbbf24";
+        ctx.fillRect(-3.5, -1.5, 7, 3);
+        ctx.restore();
+      }
+
+      // Flying Helmets
+      for (const h of levelState.flyingHelmets) {
+        ctx.save();
+        ctx.translate(h.x, h.y);
+        ctx.rotate(h.angle);
+        ctx.fillStyle = "#64748b";
+        ctx.beginPath();
+        ctx.arc(0, 0, 12, Math.PI, 0);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // Particles
+      for (const p of levelState.particles) {
+        ctx.globalAlpha = Math.max(0, p.life / p.maxLife);
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+
+      // Floating Callouts
+      ctx.textAlign = "center";
+      ctx.font = "800 16px system-ui, sans-serif";
+      for (const ft of levelState.floatingTexts) {
+        ctx.globalAlpha = Math.min(1, ft.life / ft.maxLife * 1.4);
+        ctx.fillStyle = ft.color;
+        ctx.fillText(ft.text, ft.x, ft.y);
+      }
+      ctx.globalAlpha = 1;
+
+      ctx.restore();
+    }
+
+    // =========================================================================
+    // 12. UI, OVERLAYS, LEVEL PROGRESSION & SHOP LOGIC
+    // =========================================================================
+    function starSVG(filled) {
+      return `<svg class="star-icon" viewBox="0 0 24 24" fill="${filled ? "#f59e0b" : "rgba(148,163,184,0.2)"}"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01L12 2z"/></svg>`;
+    }
+
+    function updateHUD() {
+      const lvlNum = currentLevelIdx + 1;
+      const lvlName = LEVELS[currentLevelIdx].name;
+      document.getElementById("hud-level-title").textContent = `Level ${lvlNum} · ${lvlName}`;
+      document.getElementById("hud-coins").textContent = `Coins: ${save.coins}`;
+      document.getElementById("btn-mute").textContent = save.muted ? "Sound: Off" : "Sound: On";
+
+      const bulletsEl = document.getElementById("hud-bullets");
+      if (levelState) {
+        let html = "";
+        const totalShow = Math.max(levelState.maxAmmo, levelState.ammoLeft);
+        for (let i = 0; i < totalShow; i++) {
+          const used = i >= levelState.ammoLeft;
+          html += `<div class="bullet-pip ${used ? "used" : ""}"></div>`;
+        }
+        bulletsEl.innerHTML = html;
+
+        const hintEl = document.getElementById("hud-star-hint");
+        if (levelState.shotsFired === 0) hintEl.innerHTML = "<strong>3★</strong> in 1 shot";
+        else if (levelState.shotsFired === 1) hintEl.innerHTML = "<strong>2★</strong> on this shot";
+        else hintEl.innerHTML = "<strong>1★</strong> clear";
+      }
+
+      // Title summary
+      const totalStars = Object.values(save.stars).reduce((a, b) => a + b, 0);
+      document.getElementById("title-unlocked").textContent = `${save.unlockedLevel} / 25`;
+      document.getElementById("title-stars").textContent = `${totalStars} / 75`;
+      document.getElementById("title-coins").textContent = String(save.coins);
+      document.getElementById("btn-play-main").textContent = `Play Level ${save.unlockedLevel}`;
+    }
+
+    function hideAllOverlays() {
+      document.querySelectorAll(".overlay").forEach(el => {
+        if (el.id !== "ad-overlay") el.classList.remove("active");
+      });
+    }
+
+    function showOverlay(id) {
+      hideAllOverlays();
+      document.getElementById(id).classList.add("active");
+    }
+
+    function calcEarnedStars(shotsFired) {
+      if (shotsFired <= 1) return 3;
+      if (shotsFired === 2) return 2;
+      return 1;
+    }
+
+    function completeCurrentLevel(skipped = false) {
+      const lvlNum = currentLevelIdx + 1;
+      const stars = skipped ? 1 : calcEarnedStars(levelState.shotsFired);
+      const prevStars = save.stars[lvlNum] || 0;
+      if (stars > prevStars) save.stars[lvlNum] = stars;
+
+      if (lvlNum >= save.unlockedLevel && lvlNum < 25) {
+        save.unlockedLevel = lvlNum + 1;
+      }
+
+      const baseReward = skipped ? 0 : (20 + stars * 15);
+      const totalEarned = skipped ? 0 : (baseReward + levelState.bonusCoins);
+      save.coins += totalEarned;
+      save.completedCount = (save.completedCount || 0) + 1;
+      persistSave();
+      updateHUD();
+
+      if (skipped) {
+        if (currentLevelIdx < 24) {
+          initLevel(currentLevelIdx + 1);
+          gameMode = "PLAYING";
+          hideAllOverlays();
+        } else {
+          showLevelGrid();
+        }
+        return;
+      }
+
+      gameMode = "WIN";
+      AudioEngine.playVictory();
+      document.getElementById("win-title").textContent = lvlNum === 25 ? "Citadel Conquered!" : `Level ${lvlNum} Cleared`;
+      document.getElementById("win-sub").textContent = stars === 3 ? "Master marksman! Perfect 1-shot efficiency." : "Stage complete. Aim for a 1-shot 3-star clear!";
+      document.getElementById("win-stars").innerHTML = [1, 2, 3].map(n => starSVG(n <= stars)).join("");
+      document.getElementById("win-shots").textContent = String(levelState.shotsFired);
+      document.getElementById("win-headshots").textContent = String(levelState.headshots);
+      document.getElementById("win-coins").textContent = `+${totalEarned}`;
+      document.getElementById("btn-next-level").textContent = lvlNum === 25 ? "All Stages Complete" : "Next Level";
+      showOverlay("win-overlay");
+    }
+
+    function handleLevelWin() {
+      completeCurrentLevel(false);
+    }
+
+    function handleLevelFail(reason) {
+      gameMode = "FAIL";
+      AudioEngine.playFail();
+      document.getElementById("fail-title").textContent = reason;
+      document.getElementById("fail-sub").textContent =
+        reason === "Out of Ammo"
+          ? "Targets remain in the arena. Reload or try a sharper ricochet angle."
+          : "Your own shot or blast took you down. Watch those rebound angles!";
+      showOverlay("fail-overlay");
+    }
+
+    function showLevelGrid() {
+      const grid = document.getElementById("level-grid");
+      const totalStars = Object.values(save.stars).reduce((a, b) => a + b, 0);
+      document.getElementById("levels-summary").textContent = `${totalStars} / 75 Stars Earned · 25 Tactical Stages`;
+      grid.innerHTML = "";
+      LEVELS.forEach((lvl, idx) => {
+        const num = idx + 1;
+        const unlocked = num <= save.unlockedLevel;
+        const st = save.stars[num] || 0;
+        const btn = document.createElement("button");
+        btn.className = "lvl-cell" + (idx === currentLevelIdx ? " current" : "");
+        btn.disabled = !unlocked;
+        btn.innerHTML = `
+          <span class="lvl-num">${unlocked ? num : "Locked"}</span>
+          <span class="lvl-stars" style="color:${st > 0 ? "#f59e0b" : "rgba(148,163,184,0.3)"}">${unlocked ? "★".repeat(st) + "☆".repeat(3 - st) : ""}</span>
+          <span class="lvl-name">${lvl.name}</span>
+        `;
+        btn.onclick = () => {
+          initLevel(idx);
+          gameMode = "PLAYING";
+          hideAllOverlays();
+        };
+        grid.appendChild(btn);
+      });
+      showOverlay("levels-overlay");
+    }
+
+    let shopTab = "weapons";
+    function showShop(tab = shopTab) {
+      shopTab = tab;
+      document.getElementById("shop-coins").textContent = String(save.coins);
+      document.getElementById("tab-weapons").classList.toggle("active", tab === "weapons");
+      document.getElementById("tab-skins").classList.toggle("active", tab === "skins");
+
+      const items = tab === "weapons" ? WEAPONS : SKINS;
+      const unlockedList = tab === "weapons" ? save.unlockedWeapons : save.unlockedSkins;
+      const equippedId = tab === "weapons" ? save.equippedWeapon : save.equippedSkin;
+
+      const grid = document.getElementById("shop-grid");
+      grid.innerHTML = "";
+      items.forEach(item => {
+        const owned = unlockedList.includes(item.id);
+        const equipped = equippedId === item.id;
+        const card = document.createElement("div");
+        card.className = "shop-card" + (equipped ? " equipped" : "");
+
+        const btnLabel = equipped ? "Equipped" : owned ? "Equip" : `Unlock · ${item.cost} Coins`;
+        const btnClass = equipped ? "btn-secondary" : owned ? "btn-primary" : "btn-primary";
+        const canAfford = save.coins >= item.cost;
+
+        card.innerHTML = `
+          <div class="shop-card-top">
+            <div>
+              <div class="shop-item-name" style="color:${item.color || item.accent}">${item.name}</div>
+              <div class="shop-item-desc">${item.desc}</div>
+            </div>
+          </div>
+          <button class="${btnClass}" style="height:38px;font-size:13px;" ${(!owned && !canAfford) || equipped ? "disabled" : ""}>${btnLabel}</button>
+        `;
+
+        card.querySelector("button").onclick = () => {
+          if (owned) {
+            if (tab === "weapons") save.equippedWeapon = item.id;
+            else save.equippedSkin = item.id;
+          } else if (canAfford) {
+            save.coins -= item.cost;
+            unlockedList.push(item.id);
+            if (tab === "weapons") save.equippedWeapon = item.id;
+            else save.equippedSkin = item.id;
+          }
+          persistSave();
+          updateHUD();
+          showShop(tab);
+        };
+        grid.appendChild(card);
+      });
+
+      showOverlay("shop-overlay");
+    }
+
+    // =========================================================================
+    // 13. INPUT HANDLERS (MOUSE + TOUCH + KEYBOARD)
+    // =========================================================================
+    function clientToLogical(clientX, clientY) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: ((clientX - rect.left) / rect.width) * LOGICAL_W,
+        y: ((clientY - rect.top) / rect.height) * LOGICAL_H
+      };
+    }
+
+    function updateAimFromPointer(clientX, clientY) {
+      if (!levelState) return;
+      pointerPos = clientToLogical(clientX, clientY);
+      const sx = levelState.player.x;
+      const sy = levelState.player.floorY - 56;
+      aimAngle = Math.atan2(pointerPos.y - sy, pointerPos.x - sx);
+    }
+
+    canvas.addEventListener("pointerdown", (e) => {
+      AudioEngine.unlock();
+      if (gameMode !== "PLAYING" || adPaused || !levelState || !levelState.player.alive) return;
+      if (levelState.ammoLeft <= 0 || levelState.winTriggered || levelState.failTriggered) return;
+      canvas.setPointerCapture(e.pointerId);
+      isAiming = true;
+      updateAimFromPointer(e.clientX, e.clientY);
+    });
+
+    canvas.addEventListener("pointermove", (e) => {
+      if (!isAiming) return;
+      updateAimFromPointer(e.clientX, e.clientY);
+    });
+
+    canvas.addEventListener("pointerup", (e) => {
+      if (!isAiming) return;
+      updateAimFromPointer(e.clientX, e.clientY);
+      isAiming = false;
+      fireWeapon();
+    });
+
+    canvas.addEventListener("pointercancel", () => {
+      isAiming = false;
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "r" || e.key === "R") {
+        if (gameMode === "PLAYING" || gameMode === "FAIL" || gameMode === "WIN" || gameMode === "PAUSED") {
+          initLevel(currentLevelIdx);
+          gameMode = "PLAYING";
+          hideAllOverlays();
+        }
+      } else if (e.key === "Escape") {
+        if (gameMode === "PLAYING") {
+          gameMode = "PAUSED";
+          showOverlay("pause-overlay");
+        } else if (gameMode === "PAUSED") {
+          gameMode = "PLAYING";
+          hideAllOverlays();
+        }
+      }
+    });
+
+    // Button Bindings
+    let returnTargetAfterModal = "TITLE";
+
+    document.getElementById("btn-play-main").onclick = () => {
+      AudioEngine.unlock();
+      initLevel(save.unlockedLevel - 1);
+      gameMode = "PLAYING";
+      hideAllOverlays();
+    };
+
+    document.getElementById("btn-title-levels").onclick = () => { returnTargetAfterModal = "TITLE"; showLevelGrid(); };
+    document.getElementById("btn-title-shop").onclick = () => { returnTargetAfterModal = "TITLE"; showShop(); };
+
+    document.getElementById("btn-levels").onclick = () => {
+      if (gameMode === "PLAYING") gameMode = "PAUSED";
+      returnTargetAfterModal = levelState ? "PLAYING" : "TITLE";
+      showLevelGrid();
+    };
+
+    document.getElementById("btn-shop").onclick = () => {
+      if (gameMode === "PLAYING") gameMode = "PAUSED";
+      returnTargetAfterModal = levelState ? "PLAYING" : "TITLE";
+      showShop();
+    };
+
+    document.getElementById("btn-close-levels").onclick = () => {
+      if (returnTargetAfterModal === "TITLE") { gameMode = "TITLE"; showOverlay("title-overlay"); }
+      else { gameMode = "PLAYING"; hideAllOverlays(); }
+    };
+
+    document.getElementById("btn-close-shop").onclick = () => {
+      if (returnTargetAfterModal === "TITLE") { gameMode = "TITLE"; showOverlay("title-overlay"); }
+      else { gameMode = "PLAYING"; hideAllOverlays(); }
+    };
+
+    document.getElementById("tab-weapons").onclick = () => showShop("weapons");
+    document.getElementById("tab-skins").onclick = () => showShop("skins");
+
+    document.getElementById("btn-restart").onclick = () => {
+      AudioEngine.unlock();
+      initLevel(currentLevelIdx);
+      gameMode = "PLAYING";
+      hideAllOverlays();
+    };
+
+    document.getElementById("btn-mute").onclick = () => {
+      save.muted = !save.muted;
+      persistSave();
+      updateHUD();
+    };
+
+    document.getElementById("btn-pause").onclick = () => {
+      if (gameMode === "PLAYING") {
+        gameMode = "PAUSED";
+        showOverlay("pause-overlay");
+      } else if (gameMode === "PAUSED") {
+        gameMode = "PLAYING";
+        hideAllOverlays();
+      }
+    };
+
+    document.getElementById("btn-resume").onclick = () => {
+      gameMode = "PLAYING";
+      hideAllOverlays();
+    };
+
+    document.getElementById("btn-pause-restart").onclick = () => {
+      initLevel(currentLevelIdx);
+      gameMode = "PLAYING";
+      hideAllOverlays();
+    };
+
+    document.getElementById("btn-pause-levels").onclick = () => {
+      returnTargetAfterModal = "PLAYING";
+      showLevelGrid();
+    };
+
+    document.getElementById("btn-pause-shop").onclick = () => {
+      returnTargetAfterModal = "PLAYING";
+      showShop();
+    };
+
+    // Win Screen Actions
+    document.getElementById("btn-next-level").onclick = () => {
+      const advance = () => {
+        if (currentLevelIdx < 24) {
+          initLevel(currentLevelIdx + 1);
+          gameMode = "PLAYING";
+          hideAllOverlays();
+        } else {
+          showLevelGrid();
+        }
+      };
+
+      // Hook AdSense Interstitial every 3 completed levels
+      if (save.completedCount > 0 && save.completedCount % 3 === 0) {
+        window.GameAds.showInterstitial(advance);
+      } else {
+        advance();
+      }
+    };
+
+    document.getElementById("btn-win-replay").onclick = () => {
+      initLevel(currentLevelIdx);
+      gameMode = "PLAYING";
+      hideAllOverlays();
+    };
+
+    document.getElementById("btn-win-shop").onclick = () => {
+      returnTargetAfterModal = "PLAYING";
+      showShop();
+    };
+
+    // Fail Screen Actions + Rewarded Ad Hooks
+    document.getElementById("btn-fail-retry").onclick = () => {
+      initLevel(currentLevelIdx);
+      gameMode = "PLAYING";
+      hideAllOverlays();
+    };
+
+    document.getElementById("btn-reward-bullets").onclick = () => {
+      window.GameAds.showRewarded(
+        () => {
+          if (!levelState) return;
+          if (!levelState.player.alive) {
+            levelState.player.alive = true;
+            levelState.player.ragdoll = null;
+          }
+          levelState.ammoLeft += 2;
+          levelState.failTriggered = false;
+          levelState.endCheckTimer = 0;
+          gameMode = "PLAYING";
+          hideAllOverlays();
+          updateHUD();
+          addFloatingText(levelState.player.x, levelState.player.floorY - 96, "+2 BONUS BULLETS", "#10b981");
+        },
+        () => {}
+      );
+    };
+
+    const handleSkipReward = () => {
+      window.GameAds.showRewarded(
+        () => {
+          completeCurrentLevel(true);
+        },
+        () => {}
+      );
+    };
+
+    document.getElementById("btn-reward-skip-fail").onclick = handleSkipReward;
+    document.getElementById("btn-reward-skip-pause").onclick = handleSkipReward;
+
+    // =========================================================================
+    // 14. RESPONSIVE SCALING & MAIN LOOP
+    // =========================================================================
+    function resizeCanvas() {
+      const wrap = document.getElementById("canvas-wrap");
+      const availW = wrap.clientWidth;
+      const availH = wrap.clientHeight;
+      const scale = Math.min(availW / LOGICAL_W, availH / LOGICAL_H);
+      const cssW = Math.floor(LOGICAL_W * scale);
+      const cssH = Math.floor(LOGICAL_H * scale);
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+
+      canvas.style.width = cssW + "px";
+      canvas.style.height = cssH + "px";
+      canvas.width = Math.floor(LOGICAL_W * dpr);
+      canvas.height = Math.floor(LOGICAL_H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    initLevel(save.unlockedLevel - 1);
+    updateHUD();
+
+    let lastTime = performance.now();
+    function loop(now) {
+      const rawDt = Math.min(0.05, (now - lastTime) / 1000);
+      lastTime = now;
+      updateSimulation(rawDt);
+      renderScene();
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  })();
+  </script>
+</body>
+</html>
