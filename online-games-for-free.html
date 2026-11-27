@@ -2,22 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Online Games for Free: 5 Best Sites to Play Free Online Games (2026)</title>
   <meta name="description" content="Looking for online games for free? Compare the top 5 sites to play free online games instantly in your browser: CrazyGames, GravityGamez.fun, Poki, Friv, and Yandex Games.">
   <meta name="keywords" content="online games for free, play free online games, free browser games, no download games, free games to play online, play games without installing">
+  <meta name="theme-color" content="#0E1016">
   <link rel="canonical" href="https://gravitygamez.fun/online-games-for-free">
+  <link rel="manifest" href="manifest.webmanifest">
 
   <!-- Open Graph / Social Meta Tags -->
   <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Gravity Games">
   <meta property="og:url" content="https://gravitygamez.fun/online-games-for-free">
   <meta property="og:title" content="Online Games for Free: 5 Best Sites to Play Free Online Games (2026)">
   <meta property="og:description" content="Compare the top 5 sites to play free online games instantly in your browser: CrazyGames, GravityGamez.fun, Poki, Friv, and Yandex Games.">
-  <meta property="og:image" content="https://gravitygamez.fun/favicon.png">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://gravitygamez.fun/Images/GravityGamez.png">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Online Games for Free: 5 Best Sites to Play Free Online Games (2026)">
   <meta name="twitter:description" content="Compare the top 5 sites to play free online games instantly in your browser with no downloads or logins.">
-  <meta name="twitter:image" content="https://gravitygamez.fun/favicon.png">
+  <meta name="twitter:image" content="https://gravitygamez.fun/Images/GravityGamez.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png">
@@ -26,7 +29,7 @@
   <!-- Fonts & Stylesheet -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 
   <!-- Structured Data: FAQ Schema -->
@@ -92,17 +95,22 @@
   <!-- 1. TOP NAVIGATION BAR -->
   <header class="site-header">
     <div class="brand-group">
-      <a href="index.html" class="brand-link" title="Gravity Games">
+      <a href="index.html" class="brand-link" title="Gravity Games Home">
         <img src="logo.png" alt="Gravity Games" class="brand-logo-img">
       </a>
     </div>
 
-    <!-- Quick Navigation -->
-    <nav class="header-actions">
-      <a href="index.html" class="filter-pill">Play Games</a>
-      <a href="index.html?cat=trending" class="filter-pill">Trending</a>
-      <a href="blog.html" class="filter-pill pill-action">Guides &amp; Blog</a>
-    </nav>
+    <div class="header-nav-group">
+      <nav class="header-actions" aria-label="Primary navigation">
+        <a href="index.html" class="nav-link">All Games</a>
+        <a href="index.html?cat=trending" class="nav-link">Trending</a>
+        <a href="index.html?cat=favorites" class="nav-link">Favorites</a>
+        <a href="blog.html" class="nav-link active">Guides</a>
+      </nav>
+      <button type="button" class="btn-surprise js-random-game" title="Launch a random game">
+        <span>Surprise Me</span>
+      </button>
+    </div>
   </header>
 
   <!-- 2. MAIN APPLICATION CONTAINER -->
@@ -126,11 +134,11 @@
 
         <!-- Featured Guide Hero Banner -->
         <div style="margin-bottom: 24px;">
-          <img src="Images/GravityGamez.png" alt="Online Games for Free - Top 5 Browser Gaming Sites in 2026" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: var(--radius-md); border: var(--border-subtle); display: block;" loading="eager">
+          <img src="Images/GravityGamez.png" alt="Online Games for Free - Top 5 Browser Gaming Sites in 2026" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: var(--radius-md); border: var(--border-subtle); display: block;" loading="eager" referrerpolicy="no-referrer">
         </div>
 
         <!-- Quick Answer Callout Box -->
-        <div style="background: rgba(115, 87, 255, 0.1); border: 1px solid rgba(115, 87, 255, 0.35); border-left: 4px solid var(--accent-primary); border-radius: var(--radius-md); padding: 18px 20px; margin-bottom: 24px;">
+        <div style="background: rgba(115, 87, 255, 0.1); border: 1px solid rgba(115, 87, 255, 0.35); border-radius: var(--radius-md); padding: 18px 20px; margin-bottom: 24px;">
           <h2 style="font-family: var(--font-heading); font-size: 1.1rem; color: #FFFFFF; margin-bottom: 8px;">Quick Answer: Where Can You Play Online Games for Free?</h2>
           <p style="color: #D1D5DB; font-size: 0.95rem; line-height: 1.6; margin: 0;">
             You can play online games for free on <strong>CrazyGames</strong>, <strong>GravityGamez.fun</strong>, <strong>Poki</strong>, <strong>Friv</strong>, and <strong>Yandex Games</strong>. All five run directly in your web browser, so there is nothing to download, install, or pay for. Open the site, pick a game, and start playing on a PC, laptop, tablet, or phone.
@@ -246,7 +254,7 @@
         </div>
 
         <!-- In-Article Ad Slot -->
-        <div class="ad-slot-container ad-in-feed" id="adArticleInContent" aria-label="Advertisement" style="margin: 32px 0;"></div>
+        <div class="ad-slot-container ad-in-feed ad-hidden" id="adArticleInContent" aria-label="Advertisement" style="margin: 32px 0;"></div>
 
         <div class="article-prose">
           <h2>Quick Comparison Table</h2>
@@ -444,7 +452,41 @@
     </div>
   </footer>
 
+  <!-- Mobile Thumb-Zone Bottom Navigation -->
+  <nav class="mobile-bottom-nav" aria-label="Mobile quick navigation">
+    <a href="index.html" class="mobile-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+        <circle cx="8" cy="12" r="2"></circle>
+        <path d="M15 9v6"></path>
+        <path d="M12 12h6"></path>
+      </svg>
+      <span>Games</span>
+    </a>
+    <a href="index.html?cat=trending" class="mobile-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+      </svg>
+      <span>Trending</span>
+    </a>
+    <a href="index.html?cat=favorites" class="mobile-tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+      </svg>
+      <span>Saved</span>
+    </a>
+    <a href="blog.html" class="mobile-tab-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+      </svg>
+      <span>Guides</span>
+    </a>
+  </nav>
+
+  <script src="games-data.js"></script>
   <script src="ads-config.js"></script>
+  <script src="app-core.js"></script>
   <script>
     if (window.AdManager) {
       AdManager.init();

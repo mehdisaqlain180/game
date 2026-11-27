@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Gravity Games - Core Application Logic
  * gravitygamez.fun
  * Zero-Auth localStorage State, Event Handling & UI Utilities
@@ -126,6 +126,46 @@ function showToast(message, type = "info") {
 }
 
 /**
+ * Random Game Launcher
+ */
+function launchRandomGame(excludeSlug = null) {
+  if (!window.GamesRegistry) return;
+  const all = window.GamesRegistry.getAll();
+  const pool = excludeSlug ? all.filter(g => g.slug !== excludeSlug) : all;
+  if (!pool.length) return;
+  const pick = pool[Math.floor(Math.random() * pool.length)];
+  window.location.href = `play.html?game=${encodeURIComponent(pick.slug)}`;
+}
+
+/**
+ * Global Header & Keyboard Interactions
+ */
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".js-random-game").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const params = new URLSearchParams(window.location.search);
+      launchRandomGame(params.get("game"));
+    });
+  });
+
+  // Press "/" to focus search bar
+  const searchInput = document.getElementById("searchInput");
+  if (searchInput) {
+    document.addEventListener("keydown", (e) => {
+      if (
+        e.key === "/" &&
+        document.activeElement !== searchInput &&
+        !/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName || "")
+      ) {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    });
+  }
+});
+
+/**
  * Service Worker Registration for PWA & Asset Rewrites
  */
 if ("serviceWorker" in navigator) {
@@ -140,4 +180,5 @@ if ("serviceWorker" in navigator) {
 if (typeof window !== "undefined") {
   window.AppState = AppState;
   window.showToast = showToast;
+  window.launchRandomGame = launchRandomGame;
 }

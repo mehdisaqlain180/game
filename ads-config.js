@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Gravity Games - Google AdSense Ready Placement Architecture
  * gravitygamez.fun
  * Zero-CLS, Policy-Compliant Plug-and-Play Ad Configuration
@@ -45,6 +45,7 @@ const AdManager = {
     const slotId = ADSENSE_CONFIG.slots[slotKey] || "";
 
     if (ADSENSE_CONFIG.enabled) {
+      container.classList.remove("ad-hidden");
       container.innerHTML = "";
       const ins = document.createElement("ins");
       ins.className = "adsbygoogle";
@@ -63,13 +64,9 @@ const AdManager = {
         console.warn("AdSense push error:", e);
       }
     } else {
-      // Render discreet placeholder with exact pre-allocated dimensions to prevent CLS
-      container.innerHTML = `
-        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:8px;text-align:center;color:var(--text-muted);font-size:0.75rem;">
-          <span style="text-transform:uppercase;letter-spacing:0.06em;font-weight:700;margin-bottom:2px;color:rgba(255,255,255,0.25);">Advertisement</span>
-          <span style="font-size:0.68rem;opacity:0.6;">Ready for AdSense Slot: ${slotKey}</span>
-        </div>
-      `;
+      // Keep layout clean until AdSense is enabled
+      container.classList.add("ad-hidden");
+      container.innerHTML = "";
     }
   }
 };

@@ -1,0 +1,17 @@
+{
+  "name": "Gravity Games — Free HTML5 Browser Games",
+  "short_name": "Gravity Games",
+  "description": "Play 17 free instant HTML5 browser games on mobile and desktop with zero downloads or logins.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0E1016",
+  "theme_color": "#0E1016",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

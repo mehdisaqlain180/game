@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Gravity Games - Dedicated Blog Guides Registry (17 Games = 17 Guides)
  * gravitygamez.fun
  */
@@ -32,7 +32,7 @@ const BLOG_ARTICLES = [
     category: "PLATFORMER GUIDE",
     date: "November 26, 2026",
     readTime: "5 min read",
-    banner: "Don't-Trust-The-Floor/banner.jpg",
+    banner: "Don't-Trust-The-Floor/cover.jpg",
     excerpt: "Discover frame-perfect jumping cues, hidden gravity inversion traps, and route memorization techniques to conquer all 50 chambers.",
     meta: "Beat all 50 deceptive chambers in Don't Trust The Floor with our survival breakdown and trap guide.",
     body: `
@@ -58,7 +58,7 @@ const BLOG_ARTICLES = [
     category: "ARCADE MASTERY",
     date: "November 26, 2026",
     readTime: "4 min read",
-    banner: "Neon-Wave-Legends/banner.jpg",
+    banner: "Neon-Wave-Legends/cover.jpg",
     excerpt: "Learn how to feather your wave angle, survive tight laser corridors, and chain clean runs in Neon Wave Legends.",
     meta: "Master one-button wave physics and beat high scores in Neon Wave Legends on Gravity Games.",
     body: `
@@ -83,7 +83,7 @@ const BLOG_ARTICLES = [
     category: "SKILL GUIDE",
     date: "November 25, 2026",
     readTime: "5 min read",
-    banner: "One-Button-Hell/banner.jpg",
+    banner: "One-Button-Hell/cover.jpg",
     excerpt: "With automatic forward momentum and only one jump button, timing is everything. Here is how to survive One Button Hell.",
     meta: "Complete strategy guide for One Button Hell's 50-level single-button rage platformer challenge.",
     body: `
@@ -108,7 +108,7 @@ const BLOG_ARTICLES = [
     category: "3D RUNNER GUIDE",
     date: "November 25, 2026",
     readTime: "4 min read",
-    banner: "Prism-Rush/banner.jpg",
+    banner: "Prism-Rush/cover.jpg",
     excerpt: "Master 360-degree cylindrical steering, color-shift telegraphing, and 2-player split-screen tactics in Prism Rush.",
     meta: "High-speed tips and reflex strategies for Prism Rush 3D Tunnel Dodger on Gravity Games.",
     body: `
@@ -133,7 +133,7 @@ const BLOG_ARTICLES = [
     category: "ACTION GUIDE",
     date: "November 24, 2026",
     readTime: "4 min read",
-    banner: "Stealth-Ninja/banner.jpg",
+    banner: "Stealth-Ninja/cover.jpg",
     excerpt: "Slip past laser grids, conserve shurikens, and chain undetected combos in Stealth Ninja's cyber-infiltration missions.",
     meta: "Master stealth takedowns, shadow dashes, and shuriken aim in Stealth Ninja.",
     body: `
@@ -158,7 +158,7 @@ const BLOG_ARTICLES = [
     category: "PHYSICS SHOOTER",
     date: "November 24, 2026",
     readTime: "4 min read",
-    banner: "stickman-bullet-warriors/banner.jpg",
+    banner: "stickman-bullet-warriors/cover.jpg",
     excerpt: "Bank shots off steel beams, detonate explosive barrels, and clear all 25 ragdoll puzzle chambers with minimal ammo.",
     meta: "Ricochet aiming tips and environmental trap strategies for Stickman Bullet Warriors.",
     body: `
@@ -183,7 +183,7 @@ const BLOG_ARTICLES = [
     category: "RUNNER GUIDE",
     date: "November 23, 2026",
     readTime: "4 min read",
-    banner: "vector-flip/banner.jpg",
+    banner: "vector-flip/cover.jpg",
     excerpt: "Survive camera rotations, nail ceiling-to-floor transitions, and collect all 7 secret orbs in Vector Flip.",
     meta: "Tips for story sectors, endless mode, and local multiplayer in Vector Flip.",
     body: `
@@ -208,7 +208,7 @@ const BLOG_ARTICLES = [
     category: "PHYSICS ARCADE",
     date: "November 23, 2026",
     readTime: "4 min read",
-    banner: "swingline/banner.jpg",
+    banner: "swingline/cover.jpg",
     excerpt: "Build speed on every grapple arc, clear laser pits cleanly, and unlock every stickman skin in Swingline.",
     meta: "Master pendulum grapple physics and 50 fast-paced stages in Swingline.",
     body: `
@@ -233,7 +233,7 @@ const BLOG_ARTICLES = [
     category: "SANDBOX GUIDE",
     date: "November 22, 2026",
     readTime: "4 min read",
-    banner: "terravox-3d-sandbox/banner.jpg",
+    banner: "terravox-3d-sandbox/cover.jpg",
     excerpt: "Explore procedural voxel terrain, master quick hotbar building, and sculpt custom 3D fortresses right in your browser.",
     meta: "Getting started with TerraVox 3D Sandbox controls, flight mode, and voxel building.",
     body: `
@@ -258,7 +258,7 @@ const BLOG_ARTICLES = [
     category: "PUZZLE PLATFORMER",
     date: "November 22, 2026",
     readTime: "5 min read",
-    banner: "the-fake-exit/banner.jpg",
+    banner: "the-fake-exit/cover.jpg",
     excerpt: "The obvious exit is almost never the real one. Learn how to outsmart deceptive doors and hidden hazards in The Fake Exit.",
     meta: "Tips and survival tactics for all 40 troll levels in The Fake Exit on Gravity Games.",
     body: `
@@ -283,7 +283,7 @@ const BLOG_ARTICLES = [
     category: "PSYCHOLOGICAL 3D",
     date: "November 21, 2026",
     readTime: "4 min read",
-    banner: "threshold-shift/banner.jpg",
+    banner: "threshold-shift/cover.jpg",
     excerpt: "Read perspective illusions, shift harmonic frequencies, and outrun the encroaching void in Threshold // Shift.",
     meta: "Survival guide for Threshold // Shift first-person liminal illusion runner.",
     body: `
@@ -308,7 +308,7 @@ const BLOG_ARTICLES = [
     category: "TROLL PLATFORMER",
     date: "November 21, 2026",
     readTime: "4 min read",
-    banner: "trust-issues/banner.jpg",
+    banner: "trust-issues/cover.jpg",
     excerpt: "Nothing in Trust Issues behaves as expected. Here is how to anticipate troll mechanics and reach the goal.",
     meta: "Beat deceptive traps and reverse-physics surprises in Trust Issues on Gravity Games.",
     body: `
@@ -333,7 +333,7 @@ const BLOG_ARTICLES = [
     category: "3D SIMULATOR",
     date: "November 20, 2026",
     readTime: "5 min read",
-    banner: "Savannah-Sovereign/banner.jpg",
+    banner: "Savannah-Sovereign/cover.jpg",
     excerpt: "Stalk prey across the sunlit African plains, manage stamina, and grow from a young cub into a dominant lion sovereign.",
     meta: "Complete gameplay guide for Savannah Sovereign 3D Lion Life Simulator.",
     body: `
@@ -358,7 +358,7 @@ const BLOG_ARTICLES = [
     category: "GLITCH PLATFORMER",
     date: "November 20, 2026",
     readTime: "4 min read",
-    banner: "Reality-Changes/banner.jpg",
+    banner: "Reality-Changes/cover.jpg",
     excerpt: "Adapt on the fly as gravity flips, tiles glitch out of existence, and portals shift in Reality Changes.",
     meta: "Master unstable physics and reality pulses in Reality Changes on Gravity Games.",
     body: `
@@ -383,7 +383,7 @@ const BLOG_ARTICLES = [
     category: "STRATEGY GUIDE",
     date: "November 19, 2026",
     readTime: "5 min read",
-    banner: "Obsidian-Chess/banner.jpg",
+    banner: "Obsidian-Chess/cover.jpg",
     excerpt: "Control the center, develop pieces efficiently, and outcalculate the Alpha-Beta AI in Obsidian Chess.",
     meta: "Chess strategy tips and FIDE rule features for Obsidian Chess on Gravity Games.",
     body: `
@@ -408,7 +408,7 @@ const BLOG_ARTICLES = [
     category: "BOARD STRATEGY",
     date: "November 19, 2026",
     readTime: "4 min read",
-    banner: "Connect-Four/banner.jpg",
+    banner: "Connect-Four/cover.jpg",
     excerpt: "Control the middle column, build 7-traps, and outthink the Alpha-Beta AI in Connect Four.",
     meta: "Winning Connect Four strategies, center control, and double-threat setups.",
     body: `
@@ -433,7 +433,7 @@ const BLOG_ARTICLES = [
     category: "PUZZLE GUIDE",
     date: "November 18, 2026",
     readTime: "4 min read",
-    banner: "Neon-Grid-Tic-Tac-Toe/banner.jpg",
+    banner: "Neon-Grid-Tic-Tac-Toe/cover.jpg",
     excerpt: "Conquer classic 3x3 theory and learn how disappearing marks change everything in Infinite 3-Piece Mode.",
     meta: "Strategies for Infinite 3-Piece Mode and Minimax AI in Neon Grid Tic-Tac-Toe.",
     body: `
@@ -454,16 +454,17 @@ const BLOG_ARTICLES = [
     {
         id: "free-browser-games-like-minecraft",
         customUrl: "free-browser-games-like-minecraft.html",
+        gameSlug: "terravox-3d-sandbox",
         title: "10 Free Browser Games Like Minecraft You Can Play With No Download (2026)",
         category: "SANDBOX GUIDE",
         date: "November 27, 2026",
         readTime: "8 min read",
-        banner: "Images/GravityGamez.png",
-        excerpt: "Explore the top 10 free browser games like Minecraft, from TerraVox to GrindCraft, all playable without downloads.",
+        banner: "Images/terravox-3d-sandbox.png",
+        excerpt: "Explore the top 10 free browser games like Minecraft, from TerraVox 3D Sandbox to GrindCraft, all playable without downloads.",
         meta: "A guide to the best free Minecraft-style browser games in 2026.",
         body: '',
         followUp: ''
-    },
+    }
 ];
 
 if (typeof window !== "undefined") {

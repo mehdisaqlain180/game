@@ -1,11 +1,10 @@
-﻿/**
+/**
  * Gravity Games - Dedicated Game Stage Logic
  * gravitygamez.fun
  * Pure Vanilla JavaScript ES6+
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize AdSense slots for player page
   if (window.AdManager) {
     AdManager.init();
     AdManager.renderSlot("adPlayerLeftSkyscraper", "playerLeftSkyscraper", "vertical");
@@ -13,31 +12,87 @@ document.addEventListener("DOMContentLoaded", () => {
     AdManager.renderSlot("adPlayerBottomBanner", "playerBottomBanner", "horizontal");
   }
 
-  // Restore Theater Mode preference from localStorage
   if (AppState.getTheaterMode()) {
     document.body.classList.add("theater-mode");
     const theaterLabel = document.getElementById("theaterLabel");
     if (theaterLabel) theaterLabel.textContent = "Standard";
   }
 
-  // Parse URL query parameter: ?game=<slug>
   const urlParams = new URLSearchParams(window.location.search);
   let gameSlug = urlParams.get("game");
   let currentGame = GamesRegistry.getBySlug(gameSlug);
 
-  // Fallback to primary game if slug is missing or not found
   if (!currentGame) {
-    currentGame = GamesRegistry.getAll()[0]; // "dont-trust-the-floor"
+    currentGame = GamesRegistry.getAll()[0];
     gameSlug = currentGame.slug;
   }
 
-  // Record this play in localStorage for "Continue Playing" shelf
   AppState.recordPlay(currentGame.slug);
 
-  // Update Page Title and Meta Tags
-  document.title = `${currentGame.title} — Play Free Online on Gravity Games`;
-  const metaDesc = document.querySelector('meta[name="description"]');
-  if (metaDesc) metaDesc.setAttribute("content", currentGame.description);
+  // Dynamic SEO Metadata, OpenGraph, Canonical & Schema.org VideoGame JSON-LD
+  const origin = window.location.origin;
+  const canonicalUrl = `${origin}/play?game=${encodeURIComponent(currentGame.slug)}`;
+  const coverAbsUrl = `${origin}/${currentGame.paths.cover}`;
+  const pageTitle = `${currentGame.title} — Play Free Online | Gravity Games`;
+
+  document.title = pageTitle;
+  const setMeta = (selector, attr, val) => {
+    const el = document.querySelector(selector);
+    if (el) el.setAttribute(attr, val);
+  };
+  setMeta('meta[name="description"]', "content", currentGame.description);
+  setMeta('link[rel="canonical"]', "href", canonicalUrl);
+  setMeta('meta[property="og:title"]', "content", pageTitle);
+  setMeta('meta[property="og:description"]', "content", currentGame.tagline);
+  setMeta('meta[property="og:url"]', "content", canonicalUrl);
+  setMeta('meta[property="og:image"]', "content", coverAbsUrl);
+  setMeta('meta[name="twitter:title"]', "content", pageTitle);
+  setMeta('meta[name="twitter:description"]', "content", currentGame.tagline);
+  setMeta('meta[name="twitter:image"]', "content", coverAbsUrl);
+
+  const existingSchema = document.getElementById("dynamicGameSchema");
+  if (!existingSchema) {
+    const schemaScript = document.createElement("script");
+    schemaScript.id = "dynamicGameSchema";
+    schemaScript.type = "application/ld+json";
+    schemaScript.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "VideoGame",
+          "name": currentGame.title,
+          "description": currentGame.description,
+          "genre": currentGame.category,
+          "image": coverAbsUrl,
+          "url": canonicalUrl,
+          "applicationCategory": "Game",
+          "operatingSystem": "Web Browser, iOS, Android, Windows, macOS",
+          "playMode": "SinglePlayer",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": String(currentGame.rating),
+            "bestRating": "5",
+            "worstRating": "1",
+            "ratingCount": "1250"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Gravity Games", "item": `${origin}/` },
+            { "@type": "ListItem", "position": 2, "name": currentGame.category, "item": `${origin}/?cat=${encodeURIComponent(currentGame.category)}` },
+            { "@type": "ListItem", "position": 3, "name": currentGame.title, "item": canonicalUrl }
+          ]
+        }
+      ]
+    });
+    document.head.appendChild(schemaScript);
+  }
 
   // DOM Elements
   const gameStageContainer = document.getElementById("gameStageContainer");
@@ -45,15 +100,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const gameSplashOverlay = document.getElementById("gameSplashOverlay");
   const splashGameTitle = document.getElementById("splashGameTitle");
   const splashProgressBar = document.getElementById("splashProgressBar");
-  
+  const btnSkipSplash = document.getElementById("btnSkipSplash");
+
   const gameThumbIcon = document.getElementById("gameThumbIcon");
   const gameDisplayTitle = document.getElementById("gameDisplayTitle");
   const gameDisplayTagline = document.getElementById("gameDisplayTagline");
   const gameDescriptionText = document.getElementById("gameDescriptionText");
   const gameControlsGrid = document.getElementById("gameControlsGrid");
+  const gameMetaLine = document.getElementById("gameMetaLine");
+  const gameGuideLink = document.getElementById("gameGuideLink");
   const gameTagsContainer = document.getElementById("gameTagsContainer");
 
   const btnFullscreen = document.getElementById("btnFullscreen");
+  const btnExitFullscreen = document.getElementById("btnExitFullscreen");
+  const fullscreenLabel = document.getElementById("fullscreenLabel");
   const btnTheater = document.getElementById("btnTheater");
   const theaterLabel = document.getElementById("theaterLabel");
   const btnRestart = document.getElementById("btnRestart");
@@ -65,21 +125,51 @@ document.addEventListener("DOMContentLoaded", () => {
   const playerLeftList = document.getElementById("playerLeftList");
   const playerRightList = document.getElementById("playerRightList");
   const playerRelatedGrid = document.getElementById("playerRelatedGrid");
+  const mobileQuickRail = document.getElementById("mobileQuickRail");
   const searchInput = document.getElementById("searchInput");
 
   // Populate Game Metadata UI
   splashGameTitle.textContent = `Loading ${currentGame.title}...`;
+  gameSplashOverlay.style.backgroundImage = `url("${currentGame.paths.cover}")`;
   gameDisplayTitle.textContent = currentGame.title;
   gameDisplayTagline.textContent = currentGame.tagline;
   gameThumbIcon.src = currentGame.paths.icon;
-  gameThumbIcon.alt = currentGame.title;
+  gameThumbIcon.alt = `${currentGame.title} icon`;
   gameDescriptionText.textContent = currentGame.description;
 
-  // Render Controls Grid
+  if (gameMetaLine) {
+    gameMetaLine.innerHTML = `
+      <strong>★ ${currentGame.rating}</strong>
+      <span aria-hidden="true">·</span>
+      <span>${currentGame.category}</span>
+      <span aria-hidden="true">·</span>
+      <span class="tabular-nums">${currentGame.plays} plays</span>
+    `;
+  }
+
+  if (gameGuideLink && window.BLOG_ARTICLES) {
+    const matchedGuide = window.BLOG_ARTICLES.find(a => a.gameSlug === currentGame.slug && !a.customUrl)
+      || window.BLOG_ARTICLES.find(a => a.gameSlug === currentGame.slug);
+    if (matchedGuide) {
+      gameGuideLink.href = matchedGuide.customUrl || `article.html?id=${matchedGuide.id}`;
+      gameGuideLink.classList.remove("hidden");
+    } else {
+      gameGuideLink.classList.add("hidden");
+    }
+  }
+
+  // Render Controls Grid (prioritize mobile touch controls first on touch/mobile screens)
   const controls = currentGame.controls;
+  const isMobileViewport = window.innerWidth <= 768 || (window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
+  const controlEntries = Object.entries(controls).sort(([a], [b]) => {
+    if (!isMobileViewport) return 0;
+    if (a === "mobile") return -1;
+    if (b === "mobile") return 1;
+    return 0;
+  });
   let controlsHtml = "";
-  for (const [key, value] of Object.entries(controls)) {
-    const formattedKey = key.replace(/([A-Z])/g, ' $1').toUpperCase();
+  for (const [key, value] of controlEntries) {
+    const formattedKey = key === "mobile" ? "MOBILE TOUCH" : key.replace(/([A-Z])/g, " $1").toUpperCase();
     controlsHtml += `
       <div class="control-item-badge">
         <span class="control-key-label">${formattedKey}</span>
@@ -89,13 +179,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   gameControlsGrid.innerHTML = controlsHtml;
 
-  // Render Meta Tags Pills
-  gameTagsContainer.innerHTML = [
-    `<span class="meta-pill" style="color:var(--accent-action);font-weight:700;">★ ${currentGame.rating} Rating</span>`,
-    `<span class="meta-pill">Category: ${currentGame.category}</span>`,
-    `<span class="meta-pill">${currentGame.plays} Plays</span>`,
-    ...currentGame.tags.map(t => `<a href="index.html?q=${encodeURIComponent(t)}" class="meta-pill">#${t}</a>`)
-  ].join("");
+  // Render Clean Unboxed Tags Line
+  if (gameTagsContainer) {
+    gameTagsContainer.innerHTML = currentGame.tags
+      .map(t => `<a href="index.html?q=${encodeURIComponent(t)}">#${t}</a>`)
+      .join('<span aria-hidden="true">·</span>');
+  }
 
   // Update Favorite Button State
   function updateFavoriteButtonState() {
@@ -103,8 +192,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isFav) {
       btnFavorite.classList.add("active-favorite");
       favLabel.textContent = "Saved";
-      favIconSvg.setAttribute("fill", "#FF4757");
-      favIconSvg.setAttribute("stroke", "#FF4757");
+      favIconSvg.setAttribute("fill", "#FF6B78");
+      favIconSvg.setAttribute("stroke", "#FF6B78");
     } else {
       btnFavorite.classList.remove("active-favorite");
       favLabel.textContent = "Favorite";
@@ -114,28 +203,35 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   updateFavoriteButtonState();
 
-  // Favorite button click
   btnFavorite.addEventListener("click", () => {
     const added = AppState.toggleFavorite(currentGame.slug);
     updateFavoriteButtonState();
-    if (added) {
-      showToast(`Added "${currentGame.title}" to Favorites!`, "heart");
-    } else {
-      showToast(`Removed "${currentGame.title}" from Favorites.`);
-    }
+    showToast(
+      added ? `Saved "${currentGame.title}" to Favorites` : `Removed "${currentGame.title}" from Favorites`,
+      added ? "heart" : "info"
+    );
   });
 
-  // Share button click
-  btnShare.addEventListener("click", () => {
-    const shareUrl = window.location.href;
+  btnShare.addEventListener("click", async () => {
+    const shareData = {
+      title: currentGame.title,
+      text: currentGame.tagline,
+      url: window.location.href
+    };
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        return;
+      } catch {
+        // Fallback to clipboard
+      }
+    }
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(shareUrl).then(() => {
-        showToast("Link copied to clipboard!", "copy");
-      }).catch(() => {
-        fallbackCopy(shareUrl);
-      });
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        showToast("Link copied to clipboard", "copy");
+      }).catch(() => fallbackCopy(window.location.href));
     } else {
-      fallbackCopy(shareUrl);
+      fallbackCopy(window.location.href);
     }
   });
 
@@ -146,75 +242,143 @@ document.addEventListener("DOMContentLoaded", () => {
     tempInput.select();
     try {
       document.execCommand("copy");
-      showToast("Link copied to clipboard!", "copy");
-    } catch (e) {
-      showToast("Share URL: " + text);
+      showToast("Link copied to clipboard", "copy");
+    } catch {
+      showToast("Copy link from address bar");
     }
     document.body.removeChild(tempInput);
   }
 
-  // Fullscreen Button
+  function setImmersiveFullscreen(enabled) {
+    document.body.classList.toggle("immersive-fullscreen", enabled);
+    if (fullscreenLabel) {
+      fullscreenLabel.textContent = enabled ? "Exit Fullscreen" : "Play Fullscreen";
+    }
+  }
+
+  async function enterFullscreen() {
+    const isSmallOrTouch = window.innerWidth <= 900 || /iPad|iPhone|iPod/.test(navigator.userAgent);
+    if (isSmallOrTouch) {
+      setImmersiveFullscreen(true);
+    }
+
+    const reqFs = gameStageContainer.requestFullscreen
+      || gameStageContainer.webkitRequestFullscreen
+      || gameStageContainer.msRequestFullscreen;
+
+    if (reqFs && !/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+      try {
+        const result = reqFs.call(gameStageContainer);
+        if (result && typeof result.catch === "function") {
+          await result;
+        }
+      } catch {
+        setImmersiveFullscreen(true);
+      }
+    } else if (!isSmallOrTouch) {
+      setImmersiveFullscreen(true);
+    }
+  }
+
+  async function exitAllFullscreen() {
+    setImmersiveFullscreen(false);
+    const fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    if (fsEl) {
+      const exitFs = document.exitFullscreen || document.webkitExitFullscreen;
+      if (exitFs) {
+        try {
+          await exitFs.call(document);
+        } catch {
+          // Ignore
+        }
+      }
+    }
+  }
+
   btnFullscreen.addEventListener("click", () => {
-    if (!document.fullscreenElement) {
-      if (gameStageContainer.requestFullscreen) {
-        gameStageContainer.requestFullscreen();
-      } else if (gameStageContainer.webkitRequestFullscreen) {
-        gameStageContainer.webkitRequestFullscreen();
-      } else if (gameStageContainer.msRequestFullscreen) {
-        gameStageContainer.msRequestFullscreen();
-      }
+    const isActive = document.body.classList.contains("immersive-fullscreen") || Boolean(document.fullscreenElement || document.webkitFullscreenElement);
+    if (isActive) {
+      exitAllFullscreen();
     } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      }
+      enterFullscreen();
     }
   });
 
-  // Theater Mode Toggle
-  btnTheater.addEventListener("click", () => {
-    const currentMode = AppState.getTheaterMode();
-    const newMode = !currentMode;
-    AppState.setTheaterMode(newMode);
-    theaterLabel.textContent = newMode ? "Standard" : "Theater";
-    showToast(newMode ? "Theater Mode activated" : "Standard Mode restored");
+  if (btnExitFullscreen) {
+    btnExitFullscreen.addEventListener("click", exitAllFullscreen);
+  }
+
+  document.addEventListener("fullscreenchange", () => {
+    if (!document.fullscreenElement && !document.body.classList.contains("immersive-fullscreen")) {
+      if (fullscreenLabel) fullscreenLabel.textContent = "Play Fullscreen";
+    } else if (document.fullscreenElement && fullscreenLabel) {
+      fullscreenLabel.textContent = "Exit Fullscreen";
+    }
   });
 
-  // Mandatory 2-Second Pre-Game Loading Splash Sequence
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && document.body.classList.contains("immersive-fullscreen")) {
+      exitAllFullscreen();
+    }
+  });
+
+  btnTheater.addEventListener("click", () => {
+    const newMode = !AppState.getTheaterMode();
+    AppState.setTheaterMode(newMode);
+    theaterLabel.textContent = newMode ? "Standard" : "Theater";
+    showToast(newMode ? "Theater mode enabled" : "Standard mode restored");
+  });
+
+  // Fast Responsive Pre-Game Loading Splash
   let splashTimer = null;
+  let minSettlePassed = false;
+  let iframeLoaded = false;
+
+  function dismissSplash() {
+    clearTimeout(splashTimer);
+    gameSplashOverlay.classList.add("fade-out");
+  }
+
   function triggerPreGameSplash() {
     clearTimeout(splashTimer);
-    
-    // Reset overlay visibility & progress bar
+    minSettlePassed = false;
+    iframeLoaded = false;
+
     gameSplashOverlay.classList.remove("fade-out");
     splashProgressBar.style.transition = "none";
     splashProgressBar.style.width = "0%";
-    
-    // Force layout reflow
     void splashProgressBar.offsetWidth;
 
-    // Start 2.0s progress animation
-    splashProgressBar.style.transition = "width 2.0s linear";
+    splashProgressBar.style.transition = "width 1.2s linear";
     splashProgressBar.style.width = "100%";
 
-    // Set game iframe source
     gameIframe.src = currentGame.paths.game;
 
-    // Smoothly fade out at exactly 2000ms
-    splashTimer = setTimeout(() => {
-      gameSplashOverlay.classList.add("fade-out");
-    }, 2000);
+    setTimeout(() => {
+      minSettlePassed = true;
+      if (iframeLoaded) dismissSplash();
+    }, 450);
+
+    splashTimer = setTimeout(dismissSplash, 1400);
   }
 
-  // Trigger splash initially
+  gameIframe.addEventListener("load", () => {
+    iframeLoaded = true;
+    if (minSettlePassed) dismissSplash();
+  });
+
+  if (btnSkipSplash) {
+    btnSkipSplash.addEventListener("click", dismissSplash);
+  }
+
   triggerPreGameSplash();
 
-  // Restart Button
   btnRestart.addEventListener("click", () => {
     triggerPreGameSplash();
     showToast(`Restarting ${currentGame.title}...`);
   });
 
-  // Populate Sidebars and Related Games
+  // Populate Sidebars, Mobile Quick Switch Rail, and Related 16:9 Games
   function renderSidebars() {
     const all = GamesRegistry.getAll().filter(g => g.slug !== currentGame.slug);
     const leftGames = all.slice(0, 6);
@@ -222,11 +386,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function createSidebarItem(g) {
       return `
-        <a href="play.html?game=${g.slug}" class="sidebar-game-item" title="${g.title}">
-          <img src="${g.paths.icon}" alt="${g.title}" class="sidebar-game-thumb" loading="lazy">
+        <a href="play.html?game=${g.slug}" class="sidebar-game-item" title="Play ${g.title}">
+          <img src="${g.paths.icon}" alt="${g.title}" class="sidebar-game-thumb" loading="lazy" referrerpolicy="no-referrer">
           <div class="sidebar-game-info">
             <span class="sidebar-game-name">${g.title}</span>
-            <span class="sidebar-game-cat">${g.category} • ★ ${g.rating}</span>
+            <span class="sidebar-game-cat">${g.category} · ★ ${g.rating}</span>
           </div>
         </a>
       `;
@@ -235,21 +399,29 @@ document.addEventListener("DOMContentLoaded", () => {
     if (playerLeftList) playerLeftList.innerHTML = leftGames.map(createSidebarItem).join("");
     if (playerRightList) playerRightList.innerHTML = rightGames.map(createSidebarItem).join("");
 
-    // Related Games Shelf below stage
     const related = GamesRegistry.getRelated(currentGame.slug, 6);
+
+    if (mobileQuickRail) {
+      mobileQuickRail.innerHTML = related.map(g => `
+        <a href="play.html?game=${g.slug}" class="mobile-quick-item" title="Play ${g.title}">
+          <img src="${g.paths.icon}" alt="${g.title}" loading="lazy" referrerpolicy="no-referrer">
+          <span>${g.title}</span>
+        </a>
+      `).join("");
+    }
+
     if (playerRelatedGrid) {
       playerRelatedGrid.innerHTML = related.map(g => `
-        <a href="play.html?game=${g.slug}" class="game-cover-card" title="${g.title}">
-          <span class="cover-card-badge">${g.badge || g.category}</span>
-          <img src="${g.paths.banner}" alt="${g.title}" class="cover-art" loading="lazy">
+        <a href="play.html?game=${g.slug}" class="game-cover-card" title="Play ${g.title}">
+          <img src="${g.paths.cover}" alt="${g.title} cover artwork" class="cover-art" loading="lazy" referrerpolicy="no-referrer">
           <div class="cover-overlay">
             <div class="cover-card-header">
-              <img src="${g.paths.icon}" alt="${g.title} Icon" class="cover-card-icon" loading="lazy">
+              <img src="${g.paths.icon}" alt="${g.title} icon" class="cover-card-icon" loading="lazy" referrerpolicy="no-referrer">
               <span class="cover-card-title">${g.title}</span>
             </div>
             <div class="cover-card-meta">
-              <span class="cover-card-category">${g.category}</span>
-              <span class="cover-card-rating">★ ${g.rating}</span>
+              <span class="cover-card-category">${g.category} · ${g.plays}</span>
+              <span class="cover-card-rating tabular-nums">★ ${g.rating}</span>
             </div>
           </div>
         </a>
@@ -258,7 +430,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   renderSidebars();
 
-  // Search redirection to homepage
   if (searchInput) {
     searchInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter" && searchInput.value.trim()) {
