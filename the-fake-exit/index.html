@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>THE FAKE EXIT</title>
+    <meta name="description" content="A handcrafted 40-level 2D rage platformer where platforms vanish, exits lie, and gravity betrays you." />
+    <meta property="og:title" content="THE FAKE EXIT" />
+    <meta property="og:description" content="A handcrafted 40-level 2D rage platformer where platforms vanish, exits lie, and gravity betrays you." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="/assets/logo-CmA8_L1Q.svg" />
+    <script type="module" crossorigin src="/assets/index-BT-Kubhw.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DdEPpUf8.css">
+  </head>
+  <body>
+    <main id="app">
+      <!-- SCREEN 1: MAIN MENU -->
+      <section id="screen-menu" class="screen active" aria-label="Main Menu">
+        <div class="menu-shell">
+          <div class="brand-lockup">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%20shape-rendering='crispEdges'%3e%3crect%20width='64'%20height='64'%20fill='%23070B14'%20rx='8'/%3e%3c!--%20Outer%20neon%20green%20door%20frame%20--%3e%3crect%20x='16'%20y='10'%20width='32'%20height='46'%20fill='%2300FF7F'/%3e%3crect%20x='20'%20y='14'%20width='24'%20height='42'%20fill='%230A1424'/%3e%3c!--%20Glitch%20split%20--%3e%3crect%20x='22'%20y='16'%20width='20'%20height='18'%20fill='%2300FF7F'%20opacity='0.22'/%3e%3crect%20x='24'%20y='34'%20width='20'%20height='20'%20fill='%23FF2A4B'%20opacity='0.25'/%3e%3c!--%20Cyan%20player%20silhouette%20peeking%20--%3e%3crect%20x='25'%20y='34'%20width='12'%20height='16'%20fill='%2300F0FF'/%3e%3crect%20x='31'%20y='38'%20width='4'%20height='4'%20fill='%23070B14'/%3e%3c!--%20Red%20X%20troll%20mark%20--%3e%3crect%20x='40'%20y='14'%20width='4'%20height='4'%20fill='%23FF2A4B'/%3e%3crect%20x='44'%20y='18'%20width='4'%20height='4'%20fill='%23FF2A4B'/%3e%3crect%20x='44'%20y='14'%20width='4'%20height='4'%20fill='%23FF2A4B'%20opacity='0.5'/%3e%3c/svg%3e" alt="THE FAKE EXIT emblem" class="brand-logo" />
+            <h1 class="game-title">THE FAKE <span>EXIT</span></h1>
+            <p class="game-tagline">Reach the glowing green exit door. Do not trust the floor, the ceiling, the checkpoints, or the door itself.</p>
+          </div>
+
+          <div class="menu-actions">
+            <button id="btn-play" class="btn btn-primary" type="button">Start Game</button>
+            <button id="btn-level-select" class="btn" type="button">Level Select</button>
+            <button id="btn-howto" class="btn" type="button">How to Play</button>
+            <button id="btn-achievements" class="btn" type="button">Achievements</button>
+            <button id="btn-settings" class="btn" type="button">Settings</button>
+          </div>
+
+          <div class="menu-stats-strip">
+            <div class="stat-item">
+              <span class="stat-label">Cleared</span>
+              <span id="menu-stat-cleared" class="stat-value">0 / 40</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Total Deaths</span>
+              <span id="menu-stat-deaths" class="stat-value">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Best Total Time</span>
+              <span id="menu-stat-best" class="stat-value">--</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Achievements</span>
+              <span id="menu-stat-ach" class="stat-value">0 / 10</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN 2: LEVEL SELECTION -->
+      <section id="screen-levels" class="screen" aria-label="Level Selection">
+        <div class="panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Select Level</h2>
+            <button id="btn-levels-back" class="btn" type="button">Back</button>
+          </div>
+          <div id="world-tabs" class="world-tabs"></div>
+          <p id="world-description" class="panel-sub"></p>
+          <div id="levels-grid" class="levels-grid"></div>
+        </div>
+      </section>
+
+      <!-- SCREEN 3: GAMEPLAY -->
+      <section id="screen-gameplay" class="screen" aria-label="Gameplay">
+        <header class="gameplay-hud">
+          <div class="hud-left">
+            <span id="hud-level" class="hud-level">1-1 · Just Walk Right</span>
+            <span class="hud-sep" aria-hidden="true">·</span>
+            <span id="hud-taunt" class="hud-taunt"></span>
+          </div>
+
+          <div class="hud-metrics">
+            <span class="hud-metric" title="Deaths on this level">
+              <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%20shape-rendering='crispEdges'%3e%3crect%20x='8'%20y='6'%20width='16'%20height='14'%20fill='%23FF2A4B'/%3e%3crect%20x='6'%20y='10'%20width='20'%20height='8'%20fill='%23FF2A4B'/%3e%3crect%20x='10'%20y='20'%20width='12'%20height='6'%20fill='%23FF2A4B'/%3e%3crect%20x='10'%20y='12'%20width='4'%20height='4'%20fill='%23070B14'/%3e%3crect%20x='18'%20y='12'%20width='4'%20height='4'%20fill='%23070B14'/%3e%3crect%20x='12'%20y='23'%20width='2'%20height='3'%20fill='%23070B14'/%3e%3crect%20x='15'%20y='23'%20width='2'%20height='3'%20fill='%23070B14'/%3e%3crect%20x='18'%20y='23'%20width='2'%20height='3'%20fill='%23070B14'/%3e%3c/svg%3e" alt="Deaths" class="hud-icon" />
+              <span id="hud-deaths">0</span>
+            </span>
+            <span class="hud-metric" title="Level time">
+              <span id="hud-timer">0.00s</span>
+            </span>
+          </div>
+
+          <div class="hud-actions">
+            <button id="btn-hud-mute" class="btn hud-btn" type="button">Sound On</button>
+            <button id="btn-hud-restart" class="btn hud-btn" type="button" title="Restart (R)">Restart</button>
+            <button id="btn-hud-pause" class="btn hud-btn" type="button" title="Pause (ESC)">Pause</button>
+          </div>
+        </header>
+
+        <div class="canvas-stage">
+          <canvas id="game-canvas" width="960" height="540"></canvas>
+        </div>
+
+        <div id="touch-controls" class="touch-controls" aria-label="Touch Controls">
+          <div class="touch-pad">
+            <button id="touch-left" class="touch-btn" type="button" aria-label="Move Left">&#9664;</button>
+            <button id="touch-right" class="touch-btn" type="button" aria-label="Move Right">&#9654;</button>
+          </div>
+          <button id="touch-jump" class="touch-btn touch-btn-jump" type="button" aria-label="Jump">JUMP</button>
+        </div>
+      </section>
+
+      <!-- SCREEN 4: LEVEL COMPLETE -->
+      <section id="screen-complete" class="screen overlay" aria-label="Level Complete">
+        <div class="panel panel-narrow">
+          <h2 id="complete-title" class="panel-title">REAL EXIT REACHED</h2>
+          <p id="complete-subtitle" class="panel-sub"></p>
+
+          <div class="complete-stats">
+            <div class="complete-stat-box">
+              <div class="stat-label">Time Taken</div>
+              <div id="complete-time" class="stat-value">0.00s</div>
+              <span id="complete-best-tag" class="best-flag">NEW BEST TIME</span>
+            </div>
+            <div class="complete-stat-box">
+              <div class="stat-label">Deaths</div>
+              <div id="complete-deaths" class="stat-value">0</div>
+            </div>
+          </div>
+
+          <div class="modal-stack">
+            <button id="btn-complete-next" class="btn btn-primary btn-block" type="button">Next Level</button>
+            <button id="btn-complete-replay" class="btn btn-block" type="button">Replay Level</button>
+            <button id="btn-complete-levels" class="btn btn-block" type="button">Level Select</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN 5: PAUSE -->
+      <section id="screen-pause" class="screen overlay" aria-label="Pause Menu">
+        <div class="panel panel-narrow">
+          <h2 class="panel-title">Paused</h2>
+          <p class="panel-sub">Take a breath. The traps will wait for you.</p>
+          <div class="modal-stack">
+            <button id="btn-pause-resume" class="btn btn-primary btn-block" type="button">Resume</button>
+            <button id="btn-pause-restart" class="btn btn-block" type="button">Restart Level</button>
+            <button id="btn-pause-levels" class="btn btn-block" type="button">Level Select</button>
+            <button id="btn-pause-settings" class="btn btn-block" type="button">Settings</button>
+            <button id="btn-pause-menu" class="btn btn-block" type="button">Main Menu</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SETTINGS SCREEN -->
+      <section id="screen-settings" class="screen" aria-label="Settings">
+        <div class="panel panel-narrow">
+          <div class="panel-header">
+            <h2 class="panel-title">Settings</h2>
+            <button id="btn-settings-back" class="btn" type="button">Back</button>
+          </div>
+          <div class="settings-list">
+            <div class="setting-row">
+              <span class="setting-label">Background Music</span>
+              <button id="toggle-music" class="btn toggle-btn active" type="button">Music: ON</button>
+            </div>
+            <div class="setting-row">
+              <span class="setting-label">Sound Effects</span>
+              <button id="toggle-sfx" class="btn toggle-btn active" type="button">Sound FX: ON</button>
+            </div>
+            <div class="setting-row">
+              <span class="setting-label">Screen Shake</span>
+              <button id="toggle-shake" class="btn toggle-btn active" type="button">Screen Shake: ON</button>
+            </div>
+            <div class="setting-row">
+              <span class="setting-label">On-Screen Touch Pad</span>
+              <button id="toggle-touch" class="btn toggle-btn active" type="button">Touch Controls: AUTO</button>
+            </div>
+            <div class="setting-row">
+              <span class="setting-label">Save Data</span>
+              <button id="btn-reset-progress" class="btn btn-danger" type="button">Reset All Progress</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOW TO PLAY SCREEN -->
+      <section id="screen-howto" class="screen" aria-label="How to Play">
+        <div class="panel">
+          <div class="panel-header">
+            <h2 class="panel-title">How to Play</h2>
+            <button id="btn-howto-back" class="btn" type="button">Back</button>
+          </div>
+          <div class="howto-list">
+            <div class="howto-card">
+              <h3>Controls</h3>
+              <p>Move with A / D or Left / Right Arrows. Jump with Space, W, or Up Arrow. Hold Jump longer for higher arcs. Press R to instant-restart and ESC to pause.</p>
+            </div>
+            <div class="howto-card">
+              <h3>The Game Lies</h3>
+              <p>Floors may crumble or vanish. Exits may run away, teleport you, or turn out to be traps. Watch closely—every trick has a learnable pattern.</p>
+            </div>
+            <div class="howto-card">
+              <h3>Purple Objects</h3>
+              <p>Purple bounce pads launch you upward. Purple pads flip gravity. Purple keys unlock sealed exits or transform the room.</p>
+            </div>
+            <div class="howto-card">
+              <h3>Survival Tip</h3>
+              <p>Nothing is random. If a trap surprises you once, bait it out on your next run. Stay patient across all 40 levels.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ACHIEVEMENTS SCREEN -->
+      <section id="screen-achievements" class="screen" aria-label="Achievements">
+        <div class="panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Achievements</h2>
+            <button id="btn-achievements-back" class="btn" type="button">Back</button>
+          </div>
+          <div id="achievements-list" class="ach-grid"></div>
+        </div>
+      </section>
+
+      <div id="achievement-toast" class="achievement-toast" role="status" aria-live="polite"></div>
+    </main>
+
+  </body>
+</html>
