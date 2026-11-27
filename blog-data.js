@@ -1,5 +1,6 @@
 /**
- * Gravity Games - Dedicated Blog Guides Registry (17 Games = 17 Guides)
+ * Gravity Games - Editorial Blog, Listicles & Game Guides Registry (29 Articles)
+ * 12 Curated SEO Listicles & Roundups + 17 Dedicated Game Strategy Guides
  * gravitygamez.fun
  */
 
@@ -10,6 +11,7 @@ const BLOG_ARTICLES = [
     gameSlug: "dont-trust-the-floor",
     title: "Online Games for Free: 5 Best Sites to Play Free Online Games (2026)",
     category: "FEATURED GUIDE",
+    group: "lists",
     date: "November 27, 2026",
     readTime: "6 min read",
     banner: "Images/GravityGamez.png",
@@ -26,10 +28,773 @@ const BLOG_ARTICLES = [
     `
   },
   {
+    id: "best-rage-platformer-browser-games",
+    gameSlug: "dont-trust-the-floor",
+    title: "Best Rage Platformer Browser Games to Test Your Patience (2026)",
+    category: "TOP LISTS",
+    group: "lists",
+    date: "November 27, 2026",
+    readTime: "7 min read",
+    banner: "Don't-Trust-The-Floor/cover.jpg",
+    excerpt: "Compare the hardest no-download rage platformers you can play free on phone and PC—from collapsing floors to single-button sawblade gauntlets.",
+    meta: "Compare the best free rage platformer browser games on phone and PC, including Don't Trust The Floor, One Button Hell, and The Fake Exit.",
+    body: `
+      <p>Great rage platformers walk a razor-thin line between unfair chaos and brilliant level design. The best browser platformers make every failure feel crisp, predictable, and immediately retryable—whether you are grinding on a desktop keyboard or tapping on a phone during a commute.</p>
+      <p>We ranked the top five free HTML5 rage platformers on Gravity Games across level count, trap creativity, quick-restart speed, and mobile touch ergonomics. Browse the full <a href="/games/action">Action &amp; Rage Games hub</a> or test your single-input timing in our <a href="/games/skill">Skill Games collection</a>.</p>
+
+      <h2>Quick Comparison: Top 5 Rage Platformers</h2>
+      <div class="comparison-table-wrap">
+        <table class="comparison-table tabular-nums">
+          <thead>
+            <tr>
+              <th>Game</th>
+              <th>Stages</th>
+              <th>Signature Twist</th>
+              <th>Mobile Controls</th>
+              <th>Difficulty</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight-row">
+              <td><a href="play.html?game=dont-trust-the-floor">Don't Trust The Floor</a></td>
+              <td>50</td>
+              <td>Collapsing tiles &amp; gravity flips</td>
+              <td>On-screen D-pad + jump</td>
+              <td>S-Tier</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=one-button-hell">One Button Hell</a></td>
+              <td>50</td>
+              <td>Auto-run single-input timing</td>
+              <td>Tap anywhere to jump</td>
+              <td>S-Tier</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=the-fake-exit">The Fake Exit</a></td>
+              <td>40</td>
+              <td>Counterfeit exit doors &amp; riddles</td>
+              <td>Touch D-pad + jump</td>
+              <td>A-Tier</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=trust-issues">Trust Issues</a></td>
+              <td>Multi-room</td>
+              <td>Lying signposts &amp; drop-spikes</td>
+              <td>Responsive touch pad</td>
+              <td>A-Tier</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=reality-changes">Reality Changes</a></td>
+              <td>Multi-stage</td>
+              <td>Glitching tiles &amp; relocating portals</td>
+              <td>Virtual arrow buttons</td>
+              <td>A-Tier</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>1. Don't Trust The Floor — Best Overall Deceptive Platformer</h2>
+      <p><a href="play.html?game=dont-trust-the-floor">Don't Trust The Floor</a> earns top spot with 50 handcrafted trial chambers where solid pixels drop out from under your boots or flip gravity upside down mid-jump. On PC, micro-tapping <strong>W</strong> or <strong>Space</strong> lets you clear ceiling spikes cleanly; on mobile, responsive thumb buttons make instant restarts painless.</p>
+
+      <h2>2. One Button Hell — Purest Single-Tap Execution</h2>
+      <p>If virtual D-pads slow your reactions on a smartphone, <a href="play.html?game=one-button-hell">One Button Hell</a> eliminates horizontal movement completely. Because your runner sprints automatically, every one of its 50 chambers tests one thing: exact frame timing with a single tap or spacebar press.</p>
+
+      <h2>3. The Fake Exit — Best Mind-Bending Puzzle Traps</h2>
+      <p>Reaching the exit door in <a href="play.html?game=the-fake-exit">The Fake Exit</a> usually springs a trap instead of clearing the room. It is ideal if you prefer lateral thinking and noticing wall cracks over pure speedrun reflexes.</p>
+    `,
+    followUp: `
+      <h2>4. Trust Issues &amp; 5. Reality Changes</h2>
+      <p><a href="play.html?game=trust-issues">Trust Issues</a> punishes autopilot habits with decoy arrows and sliding ceiling spikes, while <a href="play.html?game=reality-changes">Reality Changes</a> lets you trigger reality pulses (<strong>S</strong> / <strong>Down</strong>) when the floor literally flickers away. Both reset instantaneously with <strong>R</strong> so momentum never stalls.</p>
+    `
+  },
+  {
+    id: "best-3d-webgl-browser-games",
+    gameSlug: "prism-rush",
+    title: "Best No-Download 3D & WebGL Browser Games for Phone and PC",
+    category: "TOP LISTS",
+    group: "lists",
+    date: "November 27, 2026",
+    readTime: "6 min read",
+    banner: "Prism-Rush/cover.jpg",
+    excerpt: "No massive installs or app store waits—compare the sharpest native WebGL 3D tunnels, voxel worlds, and wilderness sims playable right in your browser.",
+    meta: "Play the best no-download 3D and WebGL browser games on desktop or mobile, from Prism Rush 3D to TerraVox Voxel Sandbox and Savannah Sovereign.",
+    body: `
+      <p>Modern HTML5 and WebGL allow full 3D worlds, procedural lighting, and smooth 60 FPS movement inside Chrome, Safari, or Edge with zero plugins. Whether you want hypnotic high-speed tunnel dodging or open terrain voxel crafting, these four native 3D browser titles run cleanly on both laptops and modern smartphones.</p>
+
+      <h2>3D &amp; WebGL Browser Games Side-by-Side</h2>
+      <div class="comparison-table-wrap">
+        <table class="comparison-table tabular-nums">
+          <thead>
+            <tr>
+              <th>Game</th>
+              <th>3D Perspective</th>
+              <th>Best For</th>
+              <th>Desktop vs. Mobile</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight-row">
+              <td><a href="play.html?game=prism-rush">Prism Rush</a></td>
+              <td>First-person 3D tunnel</td>
+              <td>High-speed reflex &amp; 2P races</td>
+              <td>A/D keys or swipe/tilt</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=terravox-3d-sandbox">TerraVox 3D Sandbox</a></td>
+              <td>First-person voxel world</td>
+              <td>Creative mining &amp; building</td>
+              <td>WASD + mouse or dual touch sticks</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=savannah-sovereign">Savannah Sovereign</a></td>
+              <td>Third-person low-poly 3D</td>
+              <td>Wildlife survival &amp; hunting</td>
+              <td>WASD + Shift/Space or dual analog touch</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=threshold-shift">Threshold // Shift</a></td>
+              <td>First-person Three.js</td>
+              <td>Surreal illusion &amp; audio puzzles</td>
+              <td>WASD + E/Click or on-screen walk/look</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>1. Prism Rush — Best High-Speed 3D Arcade Tunnel</h2>
+      <p><a href="play.html?game=prism-rush">Prism Rush</a> drops you down a kaleidoscopic cylindrical track where rotating your perspective fast enough to thread kinetic pillars becomes second nature. It even packs 2-player local split-screen on desktop alongside intuitive swipe steering on phones. Explore similar titles in the <a href="/games/arcade">Arcade &amp; 3D hub</a>.</p>
+
+      <h2>2. TerraVox 3D Sandbox — Best Open Voxel Building</h2>
+      <p>Want Minecraft-style block sculpting without waiting on multi-gigabyte launchers? <a href="play.html?game=terravox-3d-sandbox">TerraVox 3D Sandbox</a> renders procedural voxel cliffs, trees, and caverns right in WebGL, complete with double-tap Spacebar flight mode and keys <strong>1–9</strong> block swapping.</p>
+    `,
+    followUp: `
+      <h2>3. Savannah Sovereign &amp; 4. Threshold // Shift</h2>
+      <p>For open-world exploration, <a href="play.html?game=savannah-sovereign">Savannah Sovereign</a> puts you in charge of a lion pride across dynamic day/night savanna hunts in the <a href="/games/adventure">Adventure hub</a>. If you crave atmospheric tension, <a href="play.html?game=threshold-shift">Threshold // Shift</a> pairs Three.js perspective illusions with reactive Web Audio frequencies.</p>
+    `
+  },
+  {
+    id: "best-one-button-mobile-browser-games",
+    gameSlug: "neon-wave-legends",
+    title: "Top 5 One-Button & Tap-to-Play Browser Games for Mobile",
+    category: "MOBILE PICKS",
+    group: "lists",
+    date: "November 27, 2026",
+    readTime: "6 min read",
+    banner: "Neon-Wave-Legends/cover.jpg",
+    excerpt: "Skip awkward virtual joysticks—these five browser games are engineered around pure single-tap or tap-and-hold timing on iOS, Android, and desktop.",
+    meta: "Discover 5 addictive one-button and tap-to-play browser games built for one-handed phone sessions with instant restarts and zero downloads.",
+    body: `
+      <p>Playing browser games on a smartphone works best when controls feel native to glass rather than cramped ports of multi-key PC setups. Single-input and direct-tap games shine on mobile because your thumb never blocks the action or misses a tiny virtual button.</p>
+
+      <h2>Best Single-Input &amp; Direct-Tap Browser Games</h2>
+      <div class="comparison-table-wrap">
+        <table class="comparison-table tabular-nums">
+          <thead>
+            <tr>
+              <th>Rank &amp; Title</th>
+              <th>Input Mechanic</th>
+              <th>Session Pace</th>
+              <th>Desktop Equivalent</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight-row">
+              <td>1. <a href="play.html?game=neon-wave-legends">Neon Wave Legends</a></td>
+              <td>Hold to climb, release to dive</td>
+              <td>Fast cyber-cavern runs</td>
+              <td>Spacebar or Left-Click</td>
+            </tr>
+            <tr>
+              <td>2. <a href="play.html?game=one-button-hell">One Button Hell</a></td>
+              <td>Single tap to jump</td>
+              <td>50 bite-sized obstacle rooms</td>
+              <td>Spacebar or Left-Click</td>
+            </tr>
+            <tr>
+              <td>3. <a href="play.html?game=swingline">Swingline</a></td>
+              <td>Touch &amp; hold grapple, release to soar</td>
+              <td>50 pendulum stages</td>
+              <td>Hold &amp; release Space/Mouse</td>
+            </tr>
+            <tr>
+              <td>4. <a href="play.html?game=vector-flip">Vector Flip</a></td>
+              <td>Tap top to flip gravity, bottom to slide</td>
+              <td>12 story sectors + endless</td>
+              <td>Up/Space &amp; Down/S</td>
+            </tr>
+            <tr>
+              <td>5. <a href="play.html?game=connect-four">Connect Four</a></td>
+              <td>Tap any column header</td>
+              <td>2–4 minute tactical matches</td>
+              <td>Click column header</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Why Tap-and-Hold Mechanics Beat Virtual D-Pads on Phones</h2>
+      <p>Games like <a href="play.html?game=neon-wave-legends">Neon Wave Legends</a> and <a href="play.html?game=swingline">Swingline</a> let you tap anywhere on the lower edge of the screen, keeping the full obstacle lane unobstructed. Meanwhile, <a href="play.html?game=one-button-hell">One Button Hell</a> translates frame-accurate platforming into a single responsive thumb tap—making fullscreen portrait or landscape play effortless.</p>
+    `,
+    followUp: `
+      <h2>Pro Tip for Mobile Browser Players</h2>
+      <p>Tap <strong>Play Fullscreen</strong> beneath any game viewport on Gravity Games to hide browser chrome, and bookmark your favorites locally so you can relaunch them from the Saved tab in one tap.</p>
+    `
+  },
+  {
+    id: "best-browser-board-strategy-games",
+    gameSlug: "obsidian-chess",
+    title: "Best Free Browser Chess & Strategy Games With Smart AI",
+    category: "STRATEGY ROUNDUP",
+    group: "lists",
+    date: "November 27, 2026",
+    readTime: "6 min read",
+    banner: "Obsidian-Chess/cover.jpg",
+    excerpt: "Train tactics without paywalls or mandatory accounts—compare full FIDE Alpha-Beta chess, Connect Four, and Infinite 3-Piece Tic-Tac-Toe.",
+    meta: "Challenge Alpha-Beta chess, Connect Four, and Minimax Tic-Tac-Toe AI opponents free in your browser on mobile or desktop.",
+    body: `
+      <p>Many online board game portals lock deeper AI levels or undo hints behind subscriptions and login walls. Gravity Games' <a href="/games/puzzle">Puzzle &amp; Chess hub</a> gives you instant, ad-light classic strategy titles powered by deterministic Alpha-Beta and Minimax algorithms right inside your browser tab.</p>
+
+      <h2>Classic Strategy Games Compared</h2>
+      <div class="comparison-table-wrap">
+        <table class="comparison-table tabular-nums">
+          <thead>
+            <tr>
+              <th>Game</th>
+              <th>AI Engine</th>
+              <th>Standout Features</th>
+              <th>Local 2P</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight-row">
+              <td><a href="play.html?game=obsidian-chess">Obsidian Chess</a></td>
+              <td>Alpha-Beta Search</td>
+              <td>Full FIDE rules, move notation, hints</td>
+              <td>Pass &amp; Play</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=connect-four">Connect Four</a></td>
+              <td>Alpha-Beta Minimax</td>
+              <td>Physics disc drops, depth selector, hints</td>
+              <td>Yes (1P / 2P toggle)</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=neon-grid-tic-tac-toe">Neon Grid Tic-Tac-Toe</a></td>
+              <td>Unbeatable Minimax</td>
+              <td>Infinite 3-Piece Mode (no stale draws)</td>
+              <td>Yes (2P duel)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>1. Obsidian Chess — Distraction-Free FIDE Rules &amp; Tactics</h2>
+      <p><a href="play.html?game=obsidian-chess">Obsidian Chess</a> enforces complete tournament mechanics including castling, en passant captures, legal-square highlights, pawn promotion, and clean move notation history. Touch players can tap a piece and tap the destination square without accidental mis-drags.</p>
+
+      <h2>2. Connect Four &amp; 3. Neon Grid Tic-Tac-Toe</h2>
+      <p><a href="play.html?game=connect-four">Connect Four</a> pairs smooth disc physics with a surprisingly sharp Alpha-Beta opponent that punishes missed diagonal traps, while <a href="play.html?game=neon-grid-tic-tac-toe">Neon Grid Tic-Tac-Toe</a> introduces Infinite 3-Piece Mode—removing your oldest mark on your fourth turn so every round ends decisively.</p>
+    `,
+    followUp: `
+      <h2>Sharpening Your Edge</h2>
+      <p>Use the built-in Hint buttons in both <a href="play.html?game=obsidian-chess">Obsidian Chess</a> and <a href="play.html?game=connect-four">Connect Four</a> when analyzing critical mid-game forks—and rate each board game locally to track your top picks in My Stats.</p>
+    `
+  },
+  {
+    id: "best-physics-ragdoll-browser-games",
+    gameSlug: "stickman-bullet-warriors",
+    title: "Best Physics & Ragdoll Browser Games You Can Play Instantly",
+    category: "PHYSICS ROUNDUP",
+    group: "lists",
+    date: "November 27, 2026",
+    readTime: "6 min read",
+    banner: "stickman-bullet-warriors/cover.jpg",
+    excerpt: "Love calculating ricochet bank shots, chaining pendulum grapples, or flipping momentum mid-air? Here are the best physics browser games on desktop and phone.",
+    meta: "Play the best HTML5 physics and ragdoll browser games free online, including Stickman Bullet Warriors, Swingline, and Vector Flip.",
+    body: `
+      <p>Physics games stay endlessly replayable because small changes in angle, timing, or velocity create completely fresh outcomes. Whether you enjoy lining up bank shots around steel beams or conserving pendulum momentum above laser pits, these four browser games deliver satisfying tactile physics with zero install time.</p>
+
+      <h2>Physics &amp; Momentum Showcase</h2>
+      <div class="comparison-table-wrap">
+        <table class="comparison-table tabular-nums">
+          <thead>
+            <tr>
+              <th>Game</th>
+              <th>Core Physics System</th>
+              <th>Levels / Mode</th>
+              <th>Control Feel</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight-row">
+              <td><a href="play.html?game=stickman-bullet-warriors">Stickman Bullet Warriors</a></td>
+              <td>Ricochet geometry &amp; ragdolls</td>
+              <td>25 puzzle chambers</td>
+              <td>Drag-to-aim trajectory guide</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=swingline">Swingline</a></td>
+              <td>Pendulum grapple momentum</td>
+              <td>50 stages + skins</td>
+              <td>Hold to hook, release at apex</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=vector-flip">Vector Flip</a></td>
+              <td>Gravity inversion &amp; rotation</td>
+              <td>12 sectors + endless</td>
+              <td>Flip ceiling/floor + slide</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=reality-changes">Reality Changes</a></td>
+              <td>Unstable gravity &amp; phase pulses</td>
+              <td>Multi-stage anomalies</td>
+              <td>Run, jump &amp; pulse key</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>1. Stickman Bullet Warriors — Best Ricochet Chaos</h2>
+      <p>Across 25 stages, <a href="play.html?game=stickman-bullet-warriors">Stickman Bullet Warriors</a> turns every room into a ballistic puzzle. Bank rounds off angled girders, shoot ropes holding heavy crates, and trigger chain-reaction explosive barrels that send enemy stickmen flying in full ragdoll motion.</p>
+
+      <h2>2. Swingline — Best Pendulum Flow</h2>
+      <p><a href="play.html?game=swingline">Swingline</a> rewards clean physics intuition: releasing your grapple right as your stickman climbs past the bottom of the arc converts downward drop speed into huge horizontal launches.</p>
+    `,
+    followUp: `
+      <h2>3. Vector Flip &amp; 4. Reality Changes</h2>
+      <p>If you love gravity-bending speed, <a href="play.html?game=vector-flip">Vector Flip</a> twists the camera across multiple axes as you invert between ceiling and floor, while <a href="play.html?game=reality-changes">Reality Changes</a> combines classic platforming physics with active reality-shifting pulses.</p>
+    `
+  },
+  {
+    id: "best-2-player-local-browser-games",
+    gameSlug: "connect-four",
+    title: "Best 2-Player Local Multiplayer Browser Games on One Screen",
+    category: "MULTIPLAYER GUIDE",
+    group: "lists",
+    date: "November 27, 2026",
+    readTime: "6 min read",
+    banner: "Connect-Four/cover.jpg",
+    excerpt: "Grab a friend on the same laptop or pass a single phone back and forth—compare the top no-download 2-player local browser games.",
+    meta: "Play free 2-player local multiplayer and pass-and-play browser games on one keyboard or phone, including Prism Rush, Vector Flip, and Connect Four.",
+    body: `
+      <p>You do not need two consoles, matchmaking servers, or user accounts to settle a rivalry. Several games in the Gravity Games library include built-in split-screen keyboard battles and pass-and-play phone modes so two (or even four) people can play right away on one screen.</p>
+
+      <h2>Local 2-Player &amp; Pass-and-Play Comparison</h2>
+      <div class="comparison-table-wrap">
+        <table class="comparison-table tabular-nums">
+          <thead>
+            <tr>
+              <th>Game</th>
+              <th>Player Count</th>
+              <th>Multiplayer Style</th>
+              <th>Best Device Setup</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight-row">
+              <td><a href="play.html?game=prism-rush">Prism Rush</a></td>
+              <td>1–2 Players</td>
+              <td>Real-time split-screen tunnel race</td>
+              <td>Shared PC keyboard (A/D/W vs Arrows)</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=vector-flip">Vector Flip</a></td>
+              <td>1–4 Players</td>
+              <td>Simultaneous shared-screen runner</td>
+              <td>Shared desktop keyboard</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=connect-four">Connect Four</a></td>
+              <td>2 Players</td>
+              <td>Turn-based 2P mode</td>
+              <td>Phone pass-and-play or mouse</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=neon-grid-tic-tac-toe">Neon Grid Tic-Tac-Toe</a></td>
+              <td>2 Players</td>
+              <td>Fast 2P &amp; Infinite 3-Piece duels</td>
+              <td>Phone pass-and-play or desktop</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Best Shared-Keyboard Action Picks</h2>
+      <p>On laptops or desktops, <a href="play.html?game=prism-rush">Prism Rush</a> pits Player 1 (<strong>A / D / W</strong>) against Player 2 (<strong>Arrow Keys</strong>) inside dual hyperspace lanes, while <a href="play.html?game=vector-flip">Vector Flip</a> scales up to four local players flipping gravity together at full speed.</p>
+
+      <h2>Best Phone Pass-and-Play Picks</h2>
+      <p>Sharing a phone on a bus or lunch break? Switch <a href="play.html?game=connect-four">Connect Four</a> to 2P mode or turn on Infinite 3-Piece Mode inside <a href="play.html?game=neon-grid-tic-tac-toe">Neon Grid Tic-Tac-Toe</a> for zero-draw tactical rematches in under 60 seconds.</p>
+    `,
+    followUp: `
+      <h2>Looking for More Competitive Options?</h2>
+      <p>You can also play pass-and-play matches on the full board in <a href="play.html?game=obsidian-chess">Obsidian Chess</a> or swap turns chasing lower shot counts in <a href="play.html?game=stickman-bullet-warriors">Stickman Bullet Warriors</a>.</p>
+    `
+  },
+  {
+    id: "best-chromebook-low-end-browser-games",
+    gameSlug: "swingline",
+    title: "Best Free Browser Games for Chromebooks & Low-End Laptops",
+    category: "LIGHTWEIGHT PICKS",
+    group: "lists",
+    date: "November 27, 2026",
+    readTime: "6 min read",
+    banner: "swingline/cover.jpg",
+    excerpt: "Need smooth 60 FPS games that load fast on school Chromebooks or older laptops without frying the battery? Check out these lightweight HTML5 picks.",
+    meta: "Run smooth 60 FPS HTML5 browser games on Chromebooks and school or budget laptops with zero downloads, fast loading, and tiny RAM usage.",
+    body: `
+      <p>Chromebooks, older ultrabooks, and shared classroom laptops often struggle with heavy bloated WebGL portals or massive asset downloads. Every title below runs natively in lightweight Canvas 2D or lean HTML5 bundles—launching in a couple of seconds with crisp keyboard or trackpad responsiveness.</p>
+
+      <h2>Lightweight Chromebook &amp; Laptop Performance Guide</h2>
+      <div class="comparison-table-wrap">
+        <table class="comparison-table tabular-nums">
+          <thead>
+            <tr>
+              <th>Game</th>
+              <th>Engine Footprint</th>
+              <th>Trackpad Friendly?</th>
+              <th>Why It Shines on Chromebooks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight-row">
+              <td><a href="play.html?game=neon-wave-legends">Neon Wave Legends</a></td>
+              <td>Ultra-light 2D Canvas</td>
+              <td>Yes (Spacebar or Tap)</td>
+              <td>Instant restarts, zero frame drops</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=dont-trust-the-floor">Don't Trust The Floor</a></td>
+              <td>Crisp 2D Pixel Engine</td>
+              <td>Keyboard only (WASD/Arrows)</td>
+              <td>50 deep levels, low battery drain</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=swingline">Swingline</a></td>
+              <td>Minimalist 2D Physics</td>
+              <td>Yes (Spacebar or Click)</td>
+              <td>Single-key grapple flow</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=obsidian-chess">Obsidian Chess</a></td>
+              <td>Pure HTML5 Board + Audio</td>
+              <td>Yes (Click-to-move)</td>
+              <td>Click-then-click beats trackpad drag</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=stickman-bullet-warriors">Stickman Bullet Warriors</a></td>
+              <td>2D Ragdoll Canvas</td>
+              <td>Yes (Aim &amp; Click)</td>
+              <td>Turn-paced aiming with zero twitch lag</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Trackpad vs. Keyboard Ergonomics on Laptops</h2>
+      <p>On laptops without an external mouse, keyboard-driven titles like <a href="play.html?game=dont-trust-the-floor">Don't Trust The Floor</a>, <a href="play.html?game=one-button-hell">One Button Hell</a>, and <a href="play.html?game=neon-wave-legends">Neon Wave Legends</a> avoid awkward trackpad swipes altogether. For strategy breaks, <a href="play.html?game=obsidian-chess">Obsidian Chess</a> lets you tap a piece and tap its destination square rather than holding down a trackpad click.</p>
+    `,
+    followUp: `
+      <h2>Bookmark Quick Tip</h2>
+      <p>Press <strong>Play Fullscreen</strong> on the stage bar whenever playing on a 11-inch or 13-inch Chromebook screen to reclaim every pixel of vertical play space.</p>
+    `
+  },
+  {
+    id: "best-troll-deceptive-platformer-games",
+    gameSlug: "the-fake-exit",
+    title: "Top Deceptive Troll Platformers Where Floors & Exits Lie",
+    category: "TROLL GAMES",
+    group: "lists",
+    date: "November 27, 2026",
+    readTime: "6 min read",
+    banner: "the-fake-exit/cover.jpg",
+    excerpt: "Nothing is safe—not the floor, not the arrows, and definitely not the exit door. Compare the cleverest troll platformers you can play free right now.",
+    meta: "Outsmart lying doors, collapsing floors, and reverse signposts in the best free troll platformer browser games on Gravity Games.",
+    body: `
+      <p>Troll platformers take every instinct you have built from decades of side-scrolling games—follow the arrow, jump onto safe ledges, sprint into the glowing door—and twist it into a comedy of traps. The best ones make you grin right after you fall for the gag, then reward careful observation on the next attempt.</p>
+
+      <h2>Troll Mechanic Breakdown</h2>
+      <div class="comparison-table-wrap">
+        <table class="comparison-table tabular-nums">
+          <thead>
+            <tr>
+              <th>Game</th>
+              <th>Primary Deception</th>
+              <th>Total Challenge</th>
+              <th>Key Survival Mindset</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight-row">
+              <td><a href="play.html?game=the-fake-exit">The Fake Exit</a></td>
+              <td>Counterfeit doors &amp; hidden ledges</td>
+              <td>40 puzzle-troll levels</td>
+              <td>Inspect walls before entering doors</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=trust-issues">Trust Issues</a></td>
+              <td>Misleading signs &amp; drop-spikes</td>
+              <td>Unforgiving trap rooms</td>
+              <td>Bait triggers, then step back</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=dont-trust-the-floor">Don't Trust The Floor</a></td>
+              <td>Vanishing tiles &amp; inverted gravity</td>
+              <td>50 deceptive chambers</td>
+              <td>Watch for 1px tile tremors</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=reality-changes">Reality Changes</a></td>
+              <td>Glitching platforms &amp; moving exits</td>
+              <td>Shifting anomaly stages</td>
+              <td>Track portal glow &amp; pulse shifts</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>1. The Fake Exit — When the Goal Is the Trap</h2>
+      <p><a href="play.html?game=the-fake-exit">The Fake Exit</a> is built for players who love cracking visual riddles. If a level looks suspiciously easy, look above your starting spawn, check for false walls, or test whether the door triggers ceiling spikes when approached.</p>
+
+      <h2>2. Trust Issues &amp; 3. Don't Trust The Floor</h2>
+      <p><a href="play.html?game=trust-issues">Trust Issues</a> turns helpful-looking signposts into pure misdirection, whereas <a href="play.html?game=dont-trust-the-floor">Don't Trust The Floor</a> demands both pattern recognition and fast micro-hops across collapsing pixel corridors.</p>
+    `,
+    followUp: `
+      <h2>4. Reality Changes</h2>
+      <p>When even the screen geometry refuses to stay solid, <a href="play.html?game=reality-changes">Reality Changes</a> adds glitch-flicker telegraphs and relocating exit portals. Find all four in the <a href="/games/action">Action &amp; Rage Games hub</a>.</p>
+    `
+  },
+  {
+    id: "best-quick-5-minute-browser-games",
+    gameSlug: "stealth-ninja",
+    title: "Best Quick 5-Minute Browser Games for Short Breaks",
+    category: "QUICK PLAY",
+    group: "lists",
+    date: "November 27, 2026",
+    readTime: "5 min read",
+    banner: "Stealth-Ninja/cover.jpg",
+    excerpt: "Only have five minutes between meetings or classes? These five instant-load browser games deliver complete, satisfying rounds in minutes.",
+    meta: "Jump into quick 5-minute browser games that load in seconds on phone or desktop, from Stealth Ninja to Neon Wave Legends and Connect Four.",
+    body: `
+      <p>Not every gaming break leaves time for 45-minute campaigns or lengthy tutorials. The ideal 5-minute browser game loads in under three seconds, explains itself visually in the first five seconds, and lets you wrap up cleanly—or hit Today's Daily Challenge—without losing progress.</p>
+
+      <h2>Best 5-Minute Break Games</h2>
+      <div class="comparison-table-wrap">
+        <table class="comparison-table tabular-nums">
+          <thead>
+            <tr>
+              <th>Game</th>
+              <th>Avg. Round Time</th>
+              <th>Play Style</th>
+              <th>Why It Fits Short Breaks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight-row">
+              <td><a href="play.html?game=stealth-ninja">Stealth Ninja</a></td>
+              <td>1–3 min per stronghold</td>
+              <td>Top-down cyber stealth</td>
+              <td>Fast guard loops, crisp shuriken clears</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=neon-wave-legends">Neon Wave Legends</a></td>
+              <td>30–90 sec per run</td>
+              <td>High-speed wave arcade</td>
+              <td>Pure adrenaline flow in seconds</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=stickman-bullet-warriors">Stickman Bullet Warriors</a></td>
+              <td>45 sec per chamber</td>
+              <td>Ricochet puzzle shooter</td>
+              <td>Clear 3–5 rooms in one coffee break</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=connect-four">Connect Four</a></td>
+              <td>2–4 min per match</td>
+              <td>Board tactics vs. AI</td>
+              <td>Complete a full match before returning</td>
+            </tr>
+            <tr>
+              <td><a href="play.html?game=one-button-hell">One Button Hell</a></td>
+              <td>20–60 sec per stage</td>
+              <td>Single-tap precision</td>
+              <td>Zero travel time between obstacles</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Stealth, Arcade Flow, or Brain Refresh?</h2>
+      <p>Want focused tactical action? Sneak behind neon guard patrols in <a href="play.html?game=stealth-ninja">Stealth Ninja</a> using Shadow Step dashes and timed shurikens. Need to clear your head with pure reflexes? Launch <a href="play.html?game=neon-wave-legends">Neon Wave Legends</a> or bank three clean shots in <a href="play.html?game=stickman-bullet-warriors">Stickman Bullet Warriors</a>.</p>
+    `,
+    followUp: `
+      <h2>Track Your Daily Streak in 5 Minutes</h2>
+      <p>Opening today's <strong>Daily Challenge</strong> spotlight on the Gravity Games homepage automatically logs your streak locally—making a single 5-minute run enough to keep your streak alive.</p>
+    `
+  },
+  {
+    id: "gravity-games-difficulty-ranking",
+    gameSlug: "one-button-hell",
+    title: "Gravity Games Difficulty Tier List: All 17 Games Ranked",
+    category: "TIER LIST",
+    group: "lists",
+    date: "November 27, 2026",
+    readTime: "8 min read",
+    banner: "One-Button-Hell/cover.jpg",
+    excerpt: "From relaxed sandbox building and strategic board matches to brutal S-tier rage gauntlets—every single one of our 17 browser games ranked by skill ceiling.",
+    meta: "Explore our full difficulty tier list ranking all 17 free HTML5 games on Gravity Games from chill board classics to hardcore S-tier trials.",
+    body: `
+      <p>Not sure whether you are in the mood for a relaxing puzzle match or a frame-perfect precision trial? We ranked all 17 playable HTML5 and WebGL games on Gravity Games into four clear difficulty tiers—S-Tier Hardcore, A-Tier Tactical &amp; Precision, B-Tier Flow &amp; Physics, and C-Tier Chill &amp; Creative—so you can pick the exact challenge level you want.</p>
+
+      <h2>Complete 17-Game Difficulty &amp; Genre Matrix</h2>
+      <div class="comparison-table-wrap">
+        <table class="comparison-table tabular-nums">
+          <thead>
+            <tr>
+              <th>Tier</th>
+              <th>Game Title</th>
+              <th>Genre</th>
+              <th>Rating</th>
+              <th>What Tests You Most</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight-row">
+              <td><strong>S-Tier</strong></td>
+              <td><a href="play.html?game=one-button-hell">One Button Hell</a></td>
+              <td><a href="/games/skill">Skill</a></td>
+              <td>★ 4.9</td>
+              <td>Single-frame jump timing across 50 chambers</td>
+            </tr>
+            <tr class="highlight-row">
+              <td><strong>S-Tier</strong></td>
+              <td><a href="play.html?game=dont-trust-the-floor">Don't Trust The Floor</a></td>
+              <td><a href="/games/action">Action</a></td>
+              <td>★ 4.9</td>
+              <td>Collapsing tiles &amp; mid-air gravity flips</td>
+            </tr>
+            <tr>
+              <td><strong>S-Tier</strong></td>
+              <td><a href="play.html?game=trust-issues">Trust Issues</a></td>
+              <td><a href="/games/action">Action</a></td>
+              <td>★ 4.9</td>
+              <td>Drop-spikes, reverse fields &amp; lying signs</td>
+            </tr>
+            <tr>
+              <td><strong>S-Tier</strong></td>
+              <td><a href="play.html?game=neon-wave-legends">Neon Wave Legends</a></td>
+              <td><a href="/games/arcade">Arcade</a></td>
+              <td>★ 4.8</td>
+              <td>45-degree wave feathering at breakneck speed</td>
+            </tr>
+            <tr>
+              <td><strong>A-Tier</strong></td>
+              <td><a href="play.html?game=the-fake-exit">The Fake Exit</a></td>
+              <td><a href="/games/action">Action</a></td>
+              <td>★ 4.9</td>
+              <td>Outsmarting 40 counterfeit-door puzzles</td>
+            </tr>
+            <tr>
+              <td><strong>A-Tier</strong></td>
+              <td><a href="play.html?game=reality-changes">Reality Changes</a></td>
+              <td><a href="/games/action">Action</a></td>
+              <td>★ 4.7</td>
+              <td>Glitch platforms &amp; relocating exit portals</td>
+            </tr>
+            <tr>
+              <td><strong>A-Tier</strong></td>
+              <td><a href="play.html?game=threshold-shift">Threshold // Shift</a></td>
+              <td><a href="/games/skill">Skill</a></td>
+              <td>★ 4.8</td>
+              <td>Reading perspective illusions under pressure</td>
+            </tr>
+            <tr>
+              <td><strong>A-Tier</strong></td>
+              <td><a href="play.html?game=prism-rush">Prism Rush</a></td>
+              <td><a href="/games/action">Action</a></td>
+              <td>★ 4.7</td>
+              <td>360-degree high-velocity tunnel rotation</td>
+            </tr>
+            <tr>
+              <td><strong>A-Tier</strong></td>
+              <td><a href="play.html?game=obsidian-chess">Obsidian Chess</a></td>
+              <td><a href="/games/puzzle">Puzzle</a></td>
+              <td>★ 4.9</td>
+              <td>Full FIDE calculation vs. Alpha-Beta AI</td>
+            </tr>
+            <tr>
+              <td><strong>B-Tier</strong></td>
+              <td><a href="play.html?game=swingline">Swingline</a></td>
+              <td><a href="/games/arcade">Arcade</a></td>
+              <td>★ 4.8</td>
+              <td>Apex grapple release timing over lasers</td>
+            </tr>
+            <tr>
+              <td><strong>B-Tier</strong></td>
+              <td><a href="play.html?game=vector-flip">Vector Flip</a></td>
+              <td><a href="/games/arcade">Arcade</a></td>
+              <td>★ 4.7</td>
+              <td>Multi-axis camera spins &amp; orb routes</td>
+            </tr>
+            <tr>
+              <td><strong>B-Tier</strong></td>
+              <td><a href="play.html?game=stealth-ninja">Stealth Ninja</a></td>
+              <td><a href="/games/action">Action</a></td>
+              <td>★ 4.8</td>
+              <td>Guard vision cones &amp; shuriken economy</td>
+            </tr>
+            <tr>
+              <td><strong>B-Tier</strong></td>
+              <td><a href="play.html?game=stickman-bullet-warriors">Stickman Bullet Warriors</a></td>
+              <td><a href="/games/action">Action</a></td>
+              <td>★ 4.8</td>
+              <td>Ricochet bank-shot geometry puzzles</td>
+            </tr>
+            <tr>
+              <td><strong>B-Tier</strong></td>
+              <td><a href="play.html?game=savannah-sovereign">Savannah Sovereign</a></td>
+              <td><a href="/games/adventure">Adventure</a></td>
+              <td>★ 4.7</td>
+              <td>Stamina stalking &amp; rival predator defense</td>
+            </tr>
+            <tr>
+              <td><strong>C-Tier</strong></td>
+              <td><a href="play.html?game=connect-four">Connect Four</a></td>
+              <td><a href="/games/puzzle">Puzzle</a></td>
+              <td>★ 4.8</td>
+              <td>Center-column parity &amp; double traps</td>
+            </tr>
+            <tr>
+              <td><strong>C-Tier</strong></td>
+              <td><a href="play.html?game=neon-grid-tic-tac-toe">Neon Grid Tic-Tac-Toe</a></td>
+              <td><a href="/games/puzzle">Puzzle</a></td>
+              <td>★ 4.6</td>
+              <td>Unbeatable Minimax &amp; Infinite 3-Piece reads</td>
+            </tr>
+            <tr>
+              <td><strong>C-Tier</strong></td>
+              <td><a href="play.html?game=terravox-3d-sandbox">TerraVox 3D Sandbox</a></td>
+              <td><a href="/games/arcade">Arcade</a></td>
+              <td>★ 4.6</td>
+              <td>Relaxed open-ended 3D voxel creativity</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>How to Pick Your Starting Tier</h2>
+      <p>New to Gravity Games? Warm up in C-Tier or B-Tier with <a href="play.html?game=swingline">Swingline</a>, <a href="play.html?game=stickman-bullet-warriors">Stickman Bullet Warriors</a>, or <a href="play.html?game=connect-four">Connect Four</a> before stepping up to A-Tier puzzle traps like <a href="play.html?game=the-fake-exit">The Fake Exit</a>. Ready for bragging rights? Conquer S-Tier in <a href="play.html?game=one-button-hell">One Button Hell</a> and <a href="play.html?game=dont-trust-the-floor">Don't Trust The Floor</a>.</p>
+    `,
+    followUp: `
+      <h2>Explore by Dedicated Genre Hub</h2>
+      <p>Dive straight into any collection: <a href="/games/action">Action</a>, <a href="/games/arcade">Arcade</a>, <a href="/games/puzzle">Puzzle</a>, <a href="/games/skill">Skill</a>, or <a href="/games/adventure">Adventure</a>.</p>
+    `
+  },
+  {
     id: "dont-trust-the-floor-guide",
     gameSlug: "dont-trust-the-floor",
     title: "Mastering Rage Platformers: Survival Guide for Don't Trust The Floor",
     category: "PLATFORMER GUIDE",
+    group: "action",
     date: "November 26, 2026",
     readTime: "5 min read",
     banner: "Don't-Trust-The-Floor/cover.jpg",
@@ -56,6 +821,7 @@ const BLOG_ARTICLES = [
     gameSlug: "neon-wave-legends",
     title: "Neon Wave Legends: Cadence, Micro-Holding & High-Score Cavern Routes",
     category: "ARCADE MASTERY",
+    group: "arcade",
     date: "November 26, 2026",
     readTime: "4 min read",
     banner: "Neon-Wave-Legends/cover.jpg",
@@ -81,6 +847,7 @@ const BLOG_ARTICLES = [
     gameSlug: "one-button-hell",
     title: "One Button Hell: Conquering All 50 Chambers with Single-Input Precision",
     category: "SKILL GUIDE",
+    group: "action",
     date: "November 25, 2026",
     readTime: "5 min read",
     banner: "One-Button-Hell/cover.jpg",
@@ -106,6 +873,7 @@ const BLOG_ARTICLES = [
     gameSlug: "prism-rush",
     title: "Prism Rush 3D: Tunnel Rotation & Hyperspace Reflex Training",
     category: "3D RUNNER GUIDE",
+    group: "arcade",
     date: "November 25, 2026",
     readTime: "4 min read",
     banner: "Prism-Rush/cover.jpg",
@@ -131,6 +899,7 @@ const BLOG_ARTICLES = [
     gameSlug: "stealth-ninja",
     title: "Stealth Ninja: Shadow Step Timing, Shurikens & Silent Takedowns",
     category: "ACTION GUIDE",
+    group: "action",
     date: "November 24, 2026",
     readTime: "4 min read",
     banner: "Stealth-Ninja/cover.jpg",
@@ -156,6 +925,7 @@ const BLOG_ARTICLES = [
     gameSlug: "stickman-bullet-warriors",
     title: "Stickman Bullet Warriors: Ricochet Angles & Chain-Reaction Shots",
     category: "PHYSICS SHOOTER",
+    group: "action",
     date: "November 24, 2026",
     readTime: "4 min read",
     banner: "stickman-bullet-warriors/cover.jpg",
@@ -181,6 +951,7 @@ const BLOG_ARTICLES = [
     gameSlug: "vector-flip",
     title: "Vector Flip: Multi-Axis Gravity Control & Secret Orb Hunting",
     category: "RUNNER GUIDE",
+    group: "arcade",
     date: "November 23, 2026",
     readTime: "4 min read",
     banner: "vector-flip/cover.jpg",
@@ -206,6 +977,7 @@ const BLOG_ARTICLES = [
     gameSlug: "swingline",
     title: "Swingline: Pendulum Momentum & Apex Release Techniques",
     category: "PHYSICS ARCADE",
+    group: "arcade",
     date: "November 23, 2026",
     readTime: "4 min read",
     banner: "swingline/cover.jpg",
@@ -231,6 +1003,7 @@ const BLOG_ARTICLES = [
     gameSlug: "terravox-3d-sandbox",
     title: "TerraVox 3D Sandbox: Building, Mining & Creative World Crafting",
     category: "SANDBOX GUIDE",
+    group: "arcade",
     date: "November 22, 2026",
     readTime: "4 min read",
     banner: "terravox-3d-sandbox/cover.jpg",
@@ -240,8 +1013,8 @@ const BLOG_ARTICLES = [
       <p><a href="play.html?game=terravox-3d-sandbox">TerraVox 3D Sandbox</a> brings procedural WebGL voxel exploration and building directly to your browser with zero downloads.</p>
       <h2>1. Essential Builder Controls</h2>
       <ul>
-        <li><strong>Walk & Fly:</strong> Use <strong>WASD</strong> to explore and double-tap <strong>Space</strong> to toggle flight mode for effortless aerial building.</li>
-        <li><strong>Mine & Place:</strong> Left-click to break blocks and right-click to place blocks from your <strong>1–9</strong> hotbar.</li>
+        <li><strong>Walk &amp; Fly:</strong> Use <strong>WASD</strong> to explore and double-tap <strong>Space</strong> to toggle flight mode for effortless aerial building.</li>
+        <li><strong>Mine &amp; Place:</strong> Left-click to break blocks and right-click to place blocks from your <strong>1–9</strong> hotbar.</li>
       </ul>
       <h2>2. Sculpting Landmarks</h2>
       <p>Use flight mode to frame cliffside bridges, towers, and underground caverns quickly. Click the canvas to lock pointer control for smooth 360-degree camera movement.</p>
@@ -256,6 +1029,7 @@ const BLOG_ARTICLES = [
     gameSlug: "the-fake-exit",
     title: "The Fake Exit: Spotting Lying Doors & Surviving 40 Troll Chambers",
     category: "PUZZLE PLATFORMER",
+    group: "action",
     date: "November 22, 2026",
     readTime: "5 min read",
     banner: "the-fake-exit/cover.jpg",
@@ -281,6 +1055,7 @@ const BLOG_ARTICLES = [
     gameSlug: "threshold-shift",
     title: "Threshold // Shift: Navigating Liminal Illusions & Frequency Shifts",
     category: "PSYCHOLOGICAL 3D",
+    group: "arcade",
     date: "November 21, 2026",
     readTime: "4 min read",
     banner: "threshold-shift/cover.jpg",
@@ -306,6 +1081,7 @@ const BLOG_ARTICLES = [
     gameSlug: "trust-issues",
     title: "Trust Issues: Outsmarting Drop-Spikes, Reverse Fields & Signpost Lies",
     category: "TROLL PLATFORMER",
+    group: "action",
     date: "November 21, 2026",
     readTime: "4 min read",
     banner: "trust-issues/cover.jpg",
@@ -331,6 +1107,7 @@ const BLOG_ARTICLES = [
     gameSlug: "savannah-sovereign",
     title: "Savannah Sovereign: Hunting, Day/Night Survival & Pride Leadership",
     category: "3D SIMULATOR",
+    group: "arcade",
     date: "November 20, 2026",
     readTime: "5 min read",
     banner: "Savannah-Sovereign/cover.jpg",
@@ -340,7 +1117,7 @@ const BLOG_ARTICLES = [
       <p><a href="play.html?game=savannah-sovereign">Savannah Sovereign</a> immerses you in a low-poly 3D African wilderness with dynamic day/night cycles, hunting mechanics, and pride management.</p>
       <h2>1. Stalk Before You Sprint</h2>
       <p>Charging from far away wastes stamina and alerts grazing herds early. Approach downwind using terrain cover, then hold <strong>Shift</strong> to sprint and press <strong>Space</strong> to pounce at close range.</p>
-      <h2>2. Manage Energy & Territory</h2>
+      <h2>2. Manage Energy &amp; Territory</h2>
       <ul>
         <li>Hunt during cooler dawn and dusk hours when visibility and stamina recovery favor stealth.</li>
         <li>Defend your territory from rival predators to protect your pride and advance through growth stages.</li>
@@ -356,6 +1133,7 @@ const BLOG_ARTICLES = [
     gameSlug: "reality-changes",
     title: "Reality Changes: Surviving Glitch Platforms & Relocating Exits",
     category: "GLITCH PLATFORMER",
+    group: "action",
     date: "November 20, 2026",
     readTime: "4 min read",
     banner: "Reality-Changes/cover.jpg",
@@ -381,6 +1159,7 @@ const BLOG_ARTICLES = [
     gameSlug: "obsidian-chess",
     title: "Obsidian Chess: Opening Principles & Beating the Alpha-Beta AI",
     category: "STRATEGY GUIDE",
+    group: "puzzle",
     date: "November 19, 2026",
     readTime: "5 min read",
     banner: "Obsidian-Chess/cover.jpg",
@@ -406,6 +1185,7 @@ const BLOG_ARTICLES = [
     gameSlug: "connect-four",
     title: "Connect Four: Center-Column Dominance & Double-Threat Traps",
     category: "BOARD STRATEGY",
+    group: "puzzle",
     date: "November 19, 2026",
     readTime: "4 min read",
     banner: "Connect-Four/cover.jpg",
@@ -431,6 +1211,7 @@ const BLOG_ARTICLES = [
     gameSlug: "neon-grid-tic-tac-toe",
     title: "Neon Grid Tic-Tac-Toe: Mastering Infinite 3-Piece Mode & Minimax",
     category: "PUZZLE GUIDE",
+    group: "puzzle",
     date: "November 18, 2026",
     readTime: "4 min read",
     banner: "Neon-Grid-Tic-Tac-Toe/cover.jpg",
@@ -451,20 +1232,21 @@ const BLOG_ARTICLES = [
       <p>Switch to 2-Player mode for fast tactical duels where every move shifts the board.</p>
     `
   },
-    {
-        id: "free-browser-games-like-minecraft",
-        customUrl: "free-browser-games-like-minecraft.html",
-        gameSlug: "terravox-3d-sandbox",
-        title: "10 Free Browser Games Like Minecraft You Can Play With No Download (2026)",
-        category: "SANDBOX GUIDE",
-        date: "November 27, 2026",
-        readTime: "8 min read",
-        banner: "Images/terravox-3d-sandbox.png",
-        excerpt: "Explore the top 10 free browser games like Minecraft, from TerraVox 3D Sandbox to GrindCraft, all playable without downloads.",
-        meta: "A guide to the best free Minecraft-style browser games in 2026.",
-        body: '',
-        followUp: ''
-    }
+  {
+    id: "free-browser-games-like-minecraft",
+    customUrl: "free-browser-games-like-minecraft.html",
+    gameSlug: "terravox-3d-sandbox",
+    title: "10 Free Browser Games Like Minecraft You Can Play With No Download (2026)",
+    category: "SANDBOX GUIDE",
+    group: "lists",
+    date: "November 27, 2026",
+    readTime: "8 min read",
+    banner: "Images/terravox-3d-sandbox.png",
+    excerpt: "Explore the top 10 free browser games like Minecraft, from TerraVox 3D Sandbox to GrindCraft, all playable without downloads.",
+    meta: "A guide to the best free Minecraft-style browser games in 2026.",
+    body: "",
+    followUp: ""
+  }
 ];
 
 if (typeof window !== "undefined") {

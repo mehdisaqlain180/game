@@ -202,7 +202,7 @@
         const playCta = document.getElementById("articlePlayCta");
         if (playCta && data.gameSlug) {
           playCta.href = `play.html?game=${data.gameSlug}`;
-          playCta.textContent = "Play This Game Now →";
+          playCta.textContent = data.group === "lists" ? "Play Featured Game →" : "Play This Game Now →";
         }
       }
 

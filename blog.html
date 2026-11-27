@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Gaming Guides &amp; Strategy Articles — Gravity Games</title>
-  <meta name="description" content="Explore strategy guides, controls breakdowns, and high-score tips for all 17 instant HTML5 browser games on Gravity Games.">
+  <title>Gaming Guides, Top Lists &amp; Walkthroughs — Gravity Games</title>
+  <meta name="description" content="Explore 29 strategy guides, top browser game listicles, difficulty tier lists, and controls breakdowns for all 17 free HTML5 games on Gravity Games.">
   <meta name="theme-color" content="#0E1016">
   <link rel="canonical" href="https://gravitygamez.fun/blog.html">
   <link rel="manifest" href="manifest.webmanifest">
@@ -12,12 +12,12 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Gravity Games">
   <meta property="og:url" content="https://gravitygamez.fun/blog.html">
-  <meta property="og:title" content="Gaming Guides &amp; Strategy Articles — Gravity Games">
-  <meta property="og:description" content="Strategy guides, trap breakdowns, and walkthroughs for every game on Gravity Games.">
+  <meta property="og:title" content="Gaming Guides, Top Lists &amp; Walkthroughs — Gravity Games">
+  <meta property="og:description" content="29 strategy guides, top browser game roundups, tier lists, and walkthroughs for every game on Gravity Games.">
   <meta property="og:image" content="https://gravitygamez.fun/Images/GravityGamez.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Gaming Guides &amp; Strategy Articles — Gravity Games">
-  <meta name="twitter:description" content="Strategy guides, trap breakdowns, and walkthroughs for every game on Gravity Games.">
+  <meta name="twitter:title" content="Gaming Guides, Top Lists &amp; Walkthroughs — Gravity Games">
+  <meta name="twitter:description" content="29 strategy guides, top browser game roundups, tier lists, and walkthroughs for every game on Gravity Games.">
   <meta name="twitter:image" content="https://gravitygamez.fun/Images/GravityGamez.png">
 
   <link rel="icon" type="image/png" href="favicon.png">
@@ -32,8 +32,8 @@
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "Gravity Games Guides & Walkthroughs",
-    "description": "Dedicated strategy guides, mechanics breakdowns, and high-score tips for HTML5 browser games.",
+    "name": "Gravity Games Guides, Top Lists & Walkthroughs",
+    "description": "29 dedicated strategy guides, top browser game roundups, difficulty tier lists, and high-score tips for HTML5 browser games.",
     "url": "https://gravitygamez.fun/blog.html"
   }
   </script>
@@ -65,11 +65,22 @@
     <main class="main-viewport">
 
       <section class="blog-hero">
-        <h1 class="blog-heading">Gravity Games Guides &amp; Walkthroughs</h1>
+        <h1 class="blog-heading">Gravity Games Guides, Top Lists &amp; Walkthroughs</h1>
         <p class="blog-subheading">
-          Dedicated strategy guides, mechanics breakdowns, and high-score tips for every game in our catalog.
+          Curated browser game roundups, difficulty tier lists, mechanics breakdowns, and high-score tips for phone and desktop players.
         </p>
       </section>
+
+      <div class="blog-filter-toolbar">
+        <nav class="category-strip" id="blogFilterBar" aria-label="Filter guides by topic">
+          <button type="button" class="filter-pill active" data-blog-group="all" aria-pressed="true">All Guides (29)</button>
+          <button type="button" class="filter-pill" data-blog-group="lists" aria-pressed="false">Top Lists (12)</button>
+          <button type="button" class="filter-pill" data-blog-group="action" aria-pressed="false">Action &amp; Platformers (7)</button>
+          <button type="button" class="filter-pill" data-blog-group="arcade" aria-pressed="false">Arcade &amp; 3D (7)</button>
+          <button type="button" class="filter-pill" data-blog-group="puzzle" aria-pressed="false">Puzzle &amp; Strategy (3)</button>
+        </nav>
+        <span class="blog-filter-count tabular-nums" id="blogFilterCount">Showing 29 guides</span>
+      </div>
 
       <section class="blog-grid" id="blogGrid" aria-label="Gaming articles"></section>
 
@@ -104,6 +115,8 @@
         <ul class="footer-nav-list">
           <li><a href="online-games-for-free.html" class="footer-nav-link">Online Games for Free</a></li>
           <li><a href="free-browser-games-like-minecraft.html" class="footer-nav-link">Games Like Minecraft</a></li>
+          <li><a href="article.html?id=gravity-games-difficulty-ranking" class="footer-nav-link">17-Game Difficulty Tier List</a></li>
+          <li><a href="article.html?id=best-rage-platformer-browser-games" class="footer-nav-link">Best Rage Platformers</a></li>
         </ul>
       </div>
 
@@ -160,8 +173,51 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const blogGrid = document.getElementById("blogGrid");
-      if (blogGrid && window.BLOG_ARTICLES) {
-        blogGrid.innerHTML = window.BLOG_ARTICLES.map(article => {
+      const filterBar = document.getElementById("blogFilterBar");
+      const filterCount = document.getElementById("blogFilterCount");
+      const allArticles = window.BLOG_ARTICLES || [];
+      const validGroups = new Set(["all", "lists", "action", "arcade", "puzzle"]);
+      const urlGroup = new URLSearchParams(window.location.search).get("group");
+      let activeGroup = validGroups.has(urlGroup) ? urlGroup : "all";
+
+      function updateFilterUI(visibleCount) {
+        if (filterBar) {
+          filterBar.querySelectorAll("[data-blog-group]").forEach(btn => {
+            const isMatch = btn.getAttribute("data-blog-group") === activeGroup;
+            btn.classList.toggle("active", isMatch);
+            btn.setAttribute("aria-pressed", String(isMatch));
+          });
+        }
+        if (filterCount) {
+          filterCount.textContent = `Showing ${visibleCount} ${visibleCount === 1 ? "guide" : "guides"}`;
+        }
+      }
+
+      function renderArticles(group) {
+        activeGroup = validGroups.has(group) ? group : "all";
+        const filtered = activeGroup === "all"
+          ? allArticles
+          : allArticles.filter(article => (article.group || "action") === activeGroup);
+
+        updateFilterUI(filtered.length);
+        if (!blogGrid) return;
+
+        if (filtered.length === 0) {
+          blogGrid.innerHTML = `
+            <div style="grid-column: 1 / -1; padding: 48px 20px; text-align: center; color: var(--text-secondary);">
+              <h2 style="color: #FFFFFF; font-size: 1.2rem; font-family: var(--font-heading); margin-bottom: 8px;">No guides in this category</h2>
+              <p style="font-size: 0.92rem; max-width: 420px; margin: 0 auto 16px;">Reset your filter to explore all 29 strategy guides and game roundups.</p>
+              <button type="button" id="resetBlogFilterBtn" class="filter-pill active" style="min-height: 44px; padding: 10px 20px;">Show All Guides</button>
+            </div>
+          `;
+          const resetBtn = document.getElementById("resetBlogFilterBtn");
+          if (resetBtn) {
+            resetBtn.addEventListener("click", () => renderArticles("all"));
+          }
+          return;
+        }
+
+        blogGrid.innerHTML = filtered.map(article => {
           const articleUrl = article.customUrl || `article.html?id=${article.id}`;
           return `
             <article class="blog-card">
@@ -174,7 +230,7 @@
                   <span aria-hidden="true">·</span>
                   <span>${article.date}</span>
                   <span aria-hidden="true">·</span>
-                  <span>${article.readTime || "4 min read"}</span>
+                  <span class="tabular-nums">${article.readTime || "4 min read"}</span>
                 </div>
                 <h2 class="blog-card-title">
                   <a href="${articleUrl}">${article.title}</a>
@@ -189,6 +245,17 @@
           `;
         }).join("");
       }
+
+      if (filterBar) {
+        filterBar.addEventListener("click", (e) => {
+          const btn = e.target.closest("[data-blog-group]");
+          if (!btn) return;
+          const nextGroup = btn.getAttribute("data-blog-group") || "all";
+          renderArticles(nextGroup);
+        });
+      }
+
+      renderArticles(activeGroup);
 
       if (window.AdManager) {
         AdManager.init();

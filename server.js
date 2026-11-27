@@ -39,7 +39,15 @@ function safeJsonLd(data) {
 }
 
 function replaceMetaTag(html, regex, replacement) {
-  return regex.test(html) ? html.replace(regex, replacement) : html;
+  return regex.test(html) ? html.replace(regex, () => replacement) : html;
+}
+
+function toIsoDate(dateStr = '') {
+  const parsed = new Date(dateStr);
+  if (!Number.isNaN(parsed.getTime())) {
+    return parsed.toISOString().slice(0, 10);
+  }
+  return '2026-11-27';
 }
 
 function buildPlayHtml(gameSlug) {
@@ -181,7 +189,13 @@ function buildArticleHtml(articleId) {
   const pageTitle = `${article.title} — Gravity Games`;
   const pageDesc = article.meta || article.excerpt || '';
   const canonicalUrl = `${SITE_ORIGIN}/article.html?id=${encodeURIComponent(article.id)}`;
-  const bannerUrl = `${SITE_ORIGIN}/${encodeURI(article.banner || 'Images/GravityGamez.png')}`;
+  const bannerRel = article.banner || 'Images/GravityGamez.png';
+  const bannerUrl = `${SITE_ORIGIN}/${encodeURI(bannerRel)}`;
+  const isoDate = toIsoDate(article.date);
+  const ctaHref = article.gameSlug ? `play.html?game=${encodeURIComponent(article.gameSlug)}` : 'index.html';
+  const ctaLabel = article.gameSlug
+    ? (article.group === 'lists' ? 'Play Featured Game &rarr;' : 'Play This Game Now &rarr;')
+    : 'Browse Games &rarr;';
 
   const schema = {
     '@context': 'https://schema.org',
@@ -191,8 +205,8 @@ function buildArticleHtml(articleId) {
         headline: article.title,
         description: pageDesc,
         image: bannerUrl,
-        datePublished: '2026-11-26',
-        dateModified: '2026-11-27',
+        datePublished: isoDate,
+        dateModified: isoDate,
         author: {
           '@type': 'Organization',
           name: 'Gravity Games',
@@ -298,9 +312,39 @@ function buildArticleHtml(articleId) {
     /<span id="articleCategory"([^>]*)>[^<]*<\/span>/,
     `<span id="articleCategory"$1>${escapeHtml(article.category)}</span>`
   );
+  html = replaceMetaTag(
+    html,
+    /<span id="articleDate">[^<]*<\/span>/,
+    `<span id="articleDate">${escapeHtml(article.date || 'November 27, 2026')}</span>`
+  );
+  html = replaceMetaTag(
+    html,
+    /<span id="articleReadTime">[^<]*<\/span>/,
+    `<span id="articleReadTime">${escapeHtml(article.readTime || '4 min read')}</span>`
+  );
+  html = replaceMetaTag(
+    html,
+    /<img id="articleBannerImg"[^>]*>/,
+    `<img id="articleBannerImg" src="${escapeHtml(bannerRel)}" alt="${escapeHtml(article.title)}" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:var(--radius-md); margin-bottom:24px; border:var(--border-subtle);" referrerpolicy="no-referrer">`
+  );
+  html = replaceMetaTag(
+    html,
+    /<div class="article-prose" id="articleBody"><\/div>/,
+    `<div class="article-prose" id="articleBody">${article.body || ''}</div>`
+  );
+  html = replaceMetaTag(
+    html,
+    /<div id="articleFollowUp" class="article-prose"><\/div>/,
+    `<div id="articleFollowUp" class="article-prose">${article.followUp || ''}</div>`
+  );
+  html = replaceMetaTag(
+    html,
+    /<a id="articlePlayCta"[^>]*>[\s\S]*?<\/a>/,
+    `<a id="articlePlayCta" href="${escapeHtml(ctaHref)}" class="bento-play-btn" style="margin-top: 0;">${ctaLabel}</a>`
+  );
 
   const schemaTag = `  <script id="dynamicArticleSchema" type="application/ld+json">${safeJsonLd(schema)}</script>\n</head>`;
-  html = html.replace('</head>', schemaTag);
+  html = html.replace('</head>', () => schemaTag);
   return html;
 }
 
