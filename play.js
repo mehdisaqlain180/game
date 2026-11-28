@@ -43,7 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const el = document.querySelector(selector);
     if (el) el.setAttribute(attr, val);
   };
-  setMeta('meta[name="description"]', "content", currentGame.description);
+  const shortMetaDesc = `${currentGame.tagline} ${currentGame.description}`.replace(/\s+/g, " ").trim().slice(0, 158);
+  setMeta('meta[name="description"]', "content", shortMetaDesc);
   setMeta('link[rel="canonical"]', "href", canonicalUrl);
   setMeta('meta[property="og:title"]', "content", pageTitle);
   setMeta('meta[property="og:description"]', "content", currentGame.tagline);
@@ -144,6 +145,26 @@ document.addEventListener("DOMContentLoaded", () => {
   gameThumbIcon.src = currentGame.paths.icon;
   gameThumbIcon.alt = `${currentGame.title} icon`;
   gameDescriptionText.textContent = currentGame.description;
+
+  const gameDescriptionWrap = document.getElementById("gameDescriptionWrap");
+  const btnReadMoreDesc = document.getElementById("btnReadMoreDesc");
+  const readMoreLabel = document.getElementById("readMoreLabel");
+  if (gameDescriptionWrap && btnReadMoreDesc) {
+    gameDescriptionWrap.classList.add("is-collapsed");
+    btnReadMoreDesc.setAttribute("aria-expanded", "false");
+    if (readMoreLabel) readMoreLabel.textContent = "Read More";
+    btnReadMoreDesc.classList.toggle("hidden", currentGame.description.length < 220);
+
+    btnReadMoreDesc.addEventListener("click", () => {
+      if (window.ArcadeAudio) ArcadeAudio.playClick();
+      const willExpand = gameDescriptionWrap.classList.contains("is-collapsed");
+      gameDescriptionWrap.classList.toggle("is-collapsed", !willExpand);
+      btnReadMoreDesc.setAttribute("aria-expanded", String(willExpand));
+      if (readMoreLabel) {
+        readMoreLabel.textContent = willExpand ? "Show Less" : "Read More";
+      }
+    });
+  }
 
   if (gameMetaLine) {
     const genreSlug = encodeURIComponent(currentGame.category.toLowerCase());
