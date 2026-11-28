@@ -589,6 +589,189 @@ const GENRE_METADATA = [
   }
 ];
 
+const TAG_METADATA = [
+  {
+    slug: "platformer",
+    name: "Platformer",
+    matchTags: ["Platformer"],
+    headline: "Free Browser Platformer Games — Play Instantly",
+    seoTitle: "Free Browser Platformer Games | Gravity Games",
+    metaDescription: "Play 5 free HTML5 platformer games online including collapsing floors, grapple swings, fake exits, and glitch worlds with zero downloads.",
+    intro: "Leap across deceptive traps, pendulum grapple arenas, and multi-axis pixel chambers built for crisp keyboard and touchscreen timing.",
+    ogImage: "Don't-Trust-The-Floor/cover.jpg",
+    faqs: [
+      {
+        q: "Are Gravity Games platformers playable on smartphones?",
+        a: "Yes. Every browser platformer includes responsive on-screen touch controls or single-tap mechanics alongside fullscreen mode."
+      },
+      {
+        q: "Which platformer is best for beginners?",
+        a: "Swingline eases you in with smooth grapple momentum, while Don't Trust The Floor and The Fake Exit escalate into trickier precision rooms."
+      }
+    ]
+  },
+  {
+    slug: "rage",
+    name: "Rage",
+    matchTags: ["Rage", "Hardcore"],
+    headline: "Hardcore Browser Rage Games — Zero-Lag Trials",
+    seoTitle: "Best Free Browser Rage Games | Gravity Games",
+    metaDescription: "Test your nerves with 4 brutal HTML5 rage platformers featuring collapsing tiles, single-button gauntlets, and instant R-key restarts.",
+    intro: "Deterministic trap rooms, zero-mercy obstacles, and instant restarts designed for speedrunners and patient perfectionists.",
+    ogImage: "One-Button-Hell/cover.jpg",
+    faqs: [
+      {
+        q: "Which rage game has the simplest controls?",
+        a: "One Button Hell uses a single jump input—press Space, click, or tap anywhere on screen to survive all 50 levels."
+      },
+      {
+        q: "How fast can I retry after a trap?",
+        a: "Press R on desktop or tap the quick-restart control on touchscreens to reset any chamber instantaneously."
+      }
+    ]
+  },
+  {
+    slug: "3d",
+    name: "3D & WebGL",
+    matchTags: ["3D", "WebGL", "First-Person"],
+    headline: "Free 3D & WebGL Browser Games — No Download",
+    seoTitle: "Free 3D & WebGL Browser Games | Gravity Games",
+    metaDescription: "Play 4 native 3D WebGL browser games free online: hyperspace tunnel dodging, voxel crafting, lion survival, and liminal illusions.",
+    intro: "Experience real-time Three.js and WebGL worlds running smoothly in Chrome, Safari, and Edge with zero installation.",
+    ogImage: "Prism-Rush/cover.jpg",
+    faqs: [
+      {
+        q: "Do 3D browser games work on phones without an app?",
+        a: "Yes. WebGL games like Prism Rush, TerraVox 3D Sandbox, and Savannah Sovereign render natively in modern mobile browsers."
+      },
+      {
+        q: "Can two people play Prism Rush 3D on one PC?",
+        a: "Yes. Prism Rush includes a built-in 2-player local split-screen mode on desktop keyboards."
+      }
+    ]
+  },
+  {
+    slug: "physics",
+    name: "Physics",
+    matchTags: ["Physics", "Grapple", "Ragdoll"],
+    headline: "Free HTML5 Physics & Momentum Browser Games",
+    seoTitle: "Free Physics Browser Games — Play Online | Gravity Games",
+    metaDescription: "Master ricochet ballistics, pendulum grapple momentum, and ragdoll chaos in free HTML5 physics browser games on desktop and phone.",
+    intro: "Aim bank shots around steel beams and conserve pendulum launch arcs across handcrafted physics stages.",
+    ogImage: "stickman-bullet-warriors/cover.jpg",
+    faqs: [
+      {
+        q: "Which physics game focuses on shooting puzzles?",
+        a: "Stickman Bullet Warriors challenges you to clear 25 ragdoll stages using ricochet bank shots and explosive barrels."
+      },
+      {
+        q: "How do pendulum physics work in Swingline?",
+        a: "Hold to grapple an overhead anchor and release just after the bottom swing arc to launch forward at peak speed."
+      }
+    ]
+  },
+  {
+    slug: "multiplayer",
+    name: "Multiplayer",
+    matchTags: ["Multiplayer", "2-Player", "Split-Screen"],
+    headline: "Best Local 2-Player & Split-Screen Browser Games",
+    seoTitle: "Free 2-Player Local Browser Games | Gravity Games",
+    metaDescription: "Play free 2-player local multiplayer and pass-and-play browser games on one device: split-screen 3D racing, gravity runs, and Connect Four.",
+    intro: "Share a single keyboard or pass one phone back and forth for instant local duels with zero matchmaking waits.",
+    ogImage: "Connect-Four/cover.jpg",
+    faqs: [
+      {
+        q: "Which games support 2 players on one phone?",
+        a: "Connect Four and Neon Grid Tic-Tac-Toe feature dedicated local pass-and-play modes tailored for touchscreens."
+      },
+      {
+        q: "Which games offer simultaneous split-screen on PC?",
+        a: "Prism Rush supports 2-player split-screen, and Vector Flip supports up to 4 players sharing one keyboard."
+      }
+    ]
+  },
+  {
+    slug: "one-button",
+    name: "One Button",
+    matchTags: ["One Button"],
+    headline: "Top One-Button Browser Games for Phone & PC",
+    seoTitle: "Free One-Button Browser Games | Gravity Games",
+    metaDescription: "Play crisp one-button browser games built for single-tap mobile ergonomics and razor-sharp rhythm timing on Gravity Games.",
+    intro: "Maximum precision from a single input—ideal for one-handed mobile sessions or pure focus on laptops.",
+    ogImage: "Neon-Wave-Legends/cover.jpg",
+    faqs: [
+      {
+        q: "How does Neon Wave Legends differ from One Button Hell?",
+        a: "Neon Wave Legends uses hold-to-climb and release-to-dive wave flight, while One Button Hell uses discrete timed jumps across 50 chambers."
+      }
+    ]
+  },
+  {
+    slug: "strategy",
+    name: "Strategy & Board",
+    matchTags: ["Strategy", "Chess", "Board", "Minimax"],
+    headline: "Free Browser Chess & Strategy Board Games",
+    seoTitle: "Free Chess & Strategy Browser Games | Gravity Games",
+    metaDescription: "Play full FIDE Obsidian Chess, Alpha-Beta Connect Four, and unbeatable Minimax Tic-Tac-Toe free in your browser on mobile or desktop.",
+    intro: "Train tactical calculation against deterministic Alpha-Beta and Minimax engines with zero paywalls or sign-ins.",
+    ogImage: "Obsidian-Chess/cover.jpg",
+    faqs: [
+      {
+        q: "Do I need an account to play Obsidian Chess?",
+        a: "No. Launch Obsidian Chess directly for full FIDE rules, move history, and built-in hints with zero login required."
+      }
+    ]
+  },
+  {
+    slug: "troll",
+    name: "Troll & Deceptive",
+    matchTags: ["Troll", "Deceptive"],
+    headline: "Deceptive Troll Platformer Browser Games",
+    seoTitle: "Free Troll Platformer Browser Games | Gravity Games",
+    metaDescription: "Outsmart lying doors, misleading signposts, and vanishing floors across our trickiest HTML5 troll platformers on Gravity Games.",
+    intro: "Expect traps behind helpful arrows, counterfeit exit doors, and vanishing floor tiles that test observation over autopilot.",
+    ogImage: "the-fake-exit/cover.jpg",
+    faqs: [
+      {
+        q: "Which troll game has the most levels?",
+        a: "Don't Trust The Floor spans 50 chambers and The Fake Exit offers 40 deceptive riddle rooms."
+      }
+    ]
+  },
+  {
+    slug: "gravity",
+    name: "Gravity & Runner",
+    matchTags: ["Gravity", "Runner", "Tunnel Dodger"],
+    headline: "Gravity-Flip & High-Speed Runner Browser Games",
+    seoTitle: "Gravity & Runner Browser Games | Gravity Games",
+    metaDescription: "Invert gravity mid-flight, dodge twisting corridors, and outrun glitch anomalies in fast HTML5 runner games on Gravity Games.",
+    intro: "Quick-reflex runners and unstable gravity worlds where flipping ceilings and floors keeps every second electric.",
+    ogImage: "vector-flip/cover.jpg",
+    faqs: [
+      {
+        q: "Which gravity game supports endless high-score runs?",
+        a: "Vector Flip includes 12 story sectors, an endless survival track with 7 secret orbs, and 1–4 player local modes."
+      }
+    ]
+  },
+  {
+    slug: "casual",
+    name: "Casual & Creative",
+    matchTags: ["Casual", "Classic", "Sandbox", "Voxel", "Stealth"],
+    headline: "Casual, Sandbox & Stealth Browser Games",
+    seoTitle: "Free Casual & Sandbox Browser Games | Gravity Games",
+    metaDescription: "Relax or plan your next move with TerraVox 3D Voxel Sandbox, Stealth Ninja infiltration, Connect Four, and Infinite Tic-Tac-Toe.",
+    intro: "Unwind with voxel world building, quick tactical matches, or methodical top-down stealth runs at your own pace.",
+    ogImage: "terravox-3d-sandbox/cover.jpg",
+    faqs: [
+      {
+        q: "Are there creative building games with no downloads?",
+        a: "Yes. TerraVox 3D Sandbox runs native WebGL voxel mining and aerial building directly inside your browser tab."
+      }
+    ]
+  }
+];
+
 function parsePlaysCount(playsStr) {
   if (typeof playsStr === "number") return playsStr;
   const raw = String(playsStr || "").trim().toUpperCase();
@@ -620,6 +803,29 @@ const GamesRegistry = {
     if (!slug) return null;
     const clean = String(slug).toLowerCase().trim();
     return GENRE_METADATA.find(g => g.slug === clean) || null;
+  },
+  getTags() {
+    return TAG_METADATA;
+  },
+  getTag(slug) {
+    if (!slug) return null;
+    const clean = String(slug).toLowerCase().trim();
+    return TAG_METADATA.find(t => t.slug === clean) || null;
+  },
+  getTagByLabel(label) {
+    if (!label) return null;
+    const lower = String(label).toLowerCase().trim();
+    return TAG_METADATA.find(t =>
+      t.slug === lower ||
+      t.name.toLowerCase() === lower ||
+      (t.matchTags || []).some(mt => mt.toLowerCase() === lower)
+    ) || null;
+  },
+  getByTag(tagSlug) {
+    const tagMeta = this.getTag(tagSlug);
+    if (!tagMeta) return [];
+    const matchSet = new Set((tagMeta.matchTags || []).map(t => t.toLowerCase()));
+    return GAMES_DATA.filter(g => (g.tags || []).some(t => matchSet.has(String(t).toLowerCase())));
   },
   getFeatured() {
     return GAMES_DATA.filter(g => g.featured);
@@ -677,5 +883,6 @@ const GamesRegistry = {
 if (typeof window !== "undefined") {
   window.GAMES_DATA = GAMES_DATA;
   window.GENRE_METADATA = GENRE_METADATA;
+  window.TAG_METADATA = TAG_METADATA;
   window.GamesRegistry = GamesRegistry;
 }

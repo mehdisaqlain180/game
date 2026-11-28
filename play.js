@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const playResult = AppState.recordPlay(currentGame.slug);
   const dailyChallenge = AppState.getDailyChallenge();
   const isDailyChallengeGame = Boolean(dailyChallenge && dailyChallenge.game && dailyChallenge.game.slug === currentGame.slug);
-  let pendingDailyToast = Boolean(playResult && playResult.newlyCompletedDaily);
+  let pendingPlayRewards = true;
 
   // Dynamic SEO Metadata, OpenGraph, Canonical & Schema.org VideoGame JSON-LD
   const origin = window.location.origin;
@@ -124,6 +124,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const favIconSvg = document.getElementById("favIconSvg");
   const favLabel = document.getElementById("favLabel");
   const btnShare = document.getElementById("btnShare");
+  const btnStageSound = document.getElementById("btnStageSound");
+  const stageSoundIcon = document.getElementById("stageSoundIcon");
+  const stageSoundLabel = document.getElementById("stageSoundLabel");
+  const mobileRotateHint = document.getElementById("mobileRotateHint");
+  const btnDismissRotate = document.getElementById("btnDismissRotate");
 
   const playerLeftList = document.getElementById("playerLeftList");
   const playerRightList = document.getElementById("playerRightList");
@@ -173,9 +178,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     if (ratingStatusText) {
-      ratingStatusText.textContent = saved > 0
-        ? `Your rating: ${saved}/5 ★`
-        : "Tap 1–5 stars to save locally";
+      ratingStatusText.textContent = saved > 0 ? `Your rating: ${saved}/5 ★` : "";
+      ratingStatusText.classList.toggle("hidden", saved === 0);
     }
     if (btnClearRating) {
       btnClearRating.classList.toggle("hidden", saved === 0);
@@ -236,12 +240,62 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   gameControlsGrid.innerHTML = controlsHtml;
 
-  // Render Clean Unboxed Tags Line
+  // Render Clean Unboxed Tags Line linking to curated /tags/:slug hubs
   if (gameTagsContainer) {
     gameTagsContainer.innerHTML = currentGame.tags
-      .map(t => `<a href="index.html?q=${encodeURIComponent(t)}">#${t}</a>`)
+      .map(t => {
+        const tagMeta = GamesRegistry.getTagByLabel ? GamesRegistry.getTagByLabel(t) : null;
+        const href = tagMeta ? `/tags/${tagMeta.slug}` : `/index.html?q=${encodeURIComponent(t)}`;
+        return `<a href="${href}">#${t}</a>`;
+      })
       .join('<span aria-hidden="true">·</span>');
   }
+
+  // Mobile Portrait Rotate Hint Dismissal
+  if (mobileRotateHint) {
+    try {
+      if (sessionStorage.getItem("gravity_rotate_hint_dismissed") === "1") {
+        mobileRotateHint.classList.add("is-dismissed");
+      }
+    } catch {
+      // Ignore storage availability
+    }
+    if (btnDismissRotate) {
+      btnDismissRotate.addEventListener("click", () => {
+        mobileRotateHint.classList.add("is-dismissed");
+        if (window.ArcadeAudio) ArcadeAudio.playClick();
+        try {
+          sessionStorage.setItem("gravity_rotate_hint_dismissed", "1");
+        } catch {
+          // Ignore
+        }
+      });
+    }
+  }
+
+  // Stage Sound Effects Toggle
+  function updateStageSoundUI() {
+    if (!btnStageSound || !window.AppState) return;
+    const enabled = AppState.isSoundEnabled();
+    btnStageSound.classList.toggle("is-muted", !enabled);
+    btnStageSound.setAttribute("aria-pressed", String(enabled));
+    if (stageSoundLabel) {
+      stageSoundLabel.textContent = enabled ? "SFX On" : "Muted";
+    }
+    if (stageSoundIcon) {
+      stageSoundIcon.innerHTML = enabled
+        ? `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>`
+        : `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>`;
+    }
+  }
+  updateStageSoundUI();
+  if (btnStageSound) {
+    btnStageSound.addEventListener("click", () => {
+      const enabled = AppState.toggleSound();
+      showToast(enabled ? "Arcade sound effects enabled" : "Sound effects muted");
+    });
+  }
+  window.addEventListener("sound-updated", updateStageSoundUI);
 
   // Update Favorite Button State
   function updateFavoriteButtonState() {
@@ -270,6 +324,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   btnShare.addEventListener("click", async () => {
+    if (window.ArcadeAudio) ArcadeAudio.playClick();
     const shareData = {
       title: currentGame.title,
       text: currentGame.tagline,
@@ -353,6 +408,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   btnFullscreen.addEventListener("click", () => {
+    if (window.ArcadeAudio) ArcadeAudio.playClick();
     const isActive = document.body.classList.contains("immersive-fullscreen") || Boolean(document.fullscreenElement || document.webkitFullscreenElement);
     if (isActive) {
       exitAllFullscreen();
@@ -362,7 +418,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   if (btnExitFullscreen) {
-    btnExitFullscreen.addEventListener("click", exitAllFullscreen);
+    btnExitFullscreen.addEventListener("click", () => {
+      if (window.ArcadeAudio) ArcadeAudio.playClick();
+      exitAllFullscreen();
+    });
   }
 
   document.addEventListener("fullscreenchange", () => {
@@ -380,6 +439,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   btnTheater.addEventListener("click", () => {
+    if (window.ArcadeAudio) ArcadeAudio.playClick();
     const newMode = !AppState.getTheaterMode();
     AppState.setTheaterMode(newMode);
     theaterLabel.textContent = newMode ? "Standard" : "Theater";
@@ -394,10 +454,34 @@ document.addEventListener("DOMContentLoaded", () => {
   function dismissSplash() {
     clearTimeout(splashTimer);
     gameSplashOverlay.classList.add("fade-out");
-    if (pendingDailyToast) {
-      pendingDailyToast = false;
-      const streak = playResult && playResult.stats ? playResult.stats.currentStreak : 1;
-      showToast(`Daily Challenge completed! Streak: ${streak} ${streak === 1 ? "day" : "days"}`, "success");
+    if (pendingPlayRewards && playResult) {
+      pendingPlayRewards = false;
+      let delayMs = 0;
+
+      if (playResult.newlyCompletedDaily) {
+        const streak = playResult.stats ? playResult.stats.currentStreak : 1;
+        if (window.ArcadeAudio) ArcadeAudio.playDailyWin();
+        showToast(`Daily Challenge completed! Streak: ${streak} ${streak === 1 ? "day" : "days"}`, "success");
+        delayMs += 500;
+      }
+
+      if (playResult.leveledUp && playResult.levelInfo) {
+        setTimeout(() => {
+          showToast(`Level Up! Rank ${playResult.levelInfo.level} · ${playResult.levelInfo.rankTitle}`, "badge");
+        }, delayMs);
+        delayMs += 500;
+      }
+
+      if (playResult.newlyUnlocked && playResult.newlyUnlocked.length) {
+        setTimeout(() => {
+          if (window.ArcadeAudio) ArcadeAudio.playBadgeUnlock();
+          playResult.newlyUnlocked.slice(0, 2).forEach((badge, idx) => {
+            setTimeout(() => {
+              showToast(`Badge Unlocked: ${badge.title} (+${badge.xp} XP)`, "badge");
+            }, idx * 450);
+          });
+        }, delayMs);
+      }
     }
   }
 
@@ -430,12 +514,16 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   if (btnSkipSplash) {
-    btnSkipSplash.addEventListener("click", dismissSplash);
+    btnSkipSplash.addEventListener("click", () => {
+      if (window.ArcadeAudio) ArcadeAudio.playClick();
+      dismissSplash();
+    });
   }
 
   triggerPreGameSplash();
 
   btnRestart.addEventListener("click", () => {
+    if (window.ArcadeAudio) ArcadeAudio.playClick();
     triggerPreGameSplash();
     showToast(`Restarting ${currentGame.title}...`);
   });

@@ -1,16 +1,16 @@
 /**
- * Gravity Games - SSR Genre Landing Page Progressive Enhancement
+ * Gravity Games - SSR Genre & Tag Hub Progressive Enhancement
  * gravitygamez.fun
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-  const grid = document.getElementById("genreGamesGrid");
-  const sortButtons = document.querySelectorAll("[data-genre-sort]");
-  const searchInput = document.getElementById("searchInput");
-  const genreSlug = grid ? grid.getAttribute("data-genre") : "";
+  function setupCollectionGrid({ gridId, dataAttr, sortAttr, fetchGames }) {
+    const grid = document.getElementById(gridId);
+    const sortButtons = document.querySelectorAll(`[${sortAttr}]`);
+    const slug = grid ? grid.getAttribute(dataAttr) : "";
+    if (!grid || !slug || !window.GamesRegistry) return;
 
-  if (grid && genreSlug && window.GamesRegistry) {
-    const baseGames = GamesRegistry.getByCategory(genreSlug);
+    const baseGames = fetchGames(slug);
 
     function renderSorted(sortMode) {
       const ratings = window.AppState ? AppState.getAllRatings() : {};
@@ -38,7 +38,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     sortButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
-        const mode = btn.getAttribute("data-genre-sort") || "featured";
+        if (window.ArcadeAudio) ArcadeAudio.playClick();
+        const mode = btn.getAttribute(sortAttr) || "featured";
         sortButtons.forEach((b) => {
           const isActive = b === btn;
           b.classList.toggle("active", isActive);
@@ -48,12 +49,26 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // Hydrate with local personal ratings if user has rated any genre titles
     if (window.AppState && Object.keys(AppState.getAllRatings()).length > 0) {
       renderSorted("featured");
     }
   }
 
+  setupCollectionGrid({
+    gridId: "genreGamesGrid",
+    dataAttr: "data-genre",
+    sortAttr: "data-genre-sort",
+    fetchGames: (slug) => GamesRegistry.getByCategory(slug)
+  });
+
+  setupCollectionGrid({
+    gridId: "tagGamesGrid",
+    dataAttr: "data-tag",
+    sortAttr: "data-tag-sort",
+    fetchGames: (slug) => (GamesRegistry.getByTag ? GamesRegistry.getByTag(slug) : [])
+  });
+
+  const searchInput = document.getElementById("searchInput");
   if (searchInput) {
     searchInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter" && searchInput.value.trim()) {

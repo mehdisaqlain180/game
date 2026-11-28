@@ -25,14 +25,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const recentCounter = document.getElementById("recentCounter");
 
   const dailyChallengeSpotlight = document.getElementById("dailyChallengeSpotlight");
+  const statLevelValue = document.getElementById("statLevelValue");
   const statStreakValue = document.getElementById("statStreakValue");
-  const statExploredValue = document.getElementById("statExploredValue");
+  const statBadgesValue = document.getElementById("statBadgesValue");
   const statDailyValue = document.getElementById("statDailyValue");
+  const btnToggleSound = document.getElementById("btnToggleSound");
+  const homeSoundLabel = document.getElementById("homeSoundLabel");
+  const homeSoundIcon = document.getElementById("homeSoundIcon");
+  const popularTagsStrip = document.getElementById("popularTagsStrip");
 
   const statsModalBackdrop = document.getElementById("statsModalBackdrop");
   const btnOpenStats = document.getElementById("btnOpenStats");
   const btnCloseStats = document.getElementById("btnCloseStats");
+  const statsXpBanner = document.getElementById("statsXpBanner");
   const statsModalKpis = document.getElementById("statsModalKpis");
+  const statsBadgesHeading = document.getElementById("statsBadgesHeading");
+  const statsBadgesGrid = document.getElementById("statsBadgesGrid");
   const statsWeekStrip = document.getElementById("statsWeekStrip");
   const statsGenreList = document.getElementById("statsGenreList");
   const statsRatedList = document.getElementById("statsRatedList");
@@ -115,25 +123,69 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   }
 
+  function updateSoundButtonUI() {
+    if (!btnToggleSound || !window.AppState) return;
+    const enabled = AppState.isSoundEnabled();
+    btnToggleSound.classList.toggle("is-muted", !enabled);
+    btnToggleSound.setAttribute("aria-pressed", String(enabled));
+    if (homeSoundLabel) {
+      homeSoundLabel.textContent = enabled ? "SFX On" : "Muted";
+    }
+    if (homeSoundIcon) {
+      homeSoundIcon.innerHTML = enabled
+        ? `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>`
+        : `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>`;
+    }
+  }
+
+  function getBadgeIconSvg(iconName) {
+    switch (iconName) {
+      case "rocket":
+        return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path></svg>`;
+      case "flame":
+        return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>`;
+      case "crown":
+        return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"></path></svg>`;
+      case "star":
+        return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`;
+      case "heart":
+        return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`;
+      case "bolt":
+        return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>`;
+      case "trophy":
+        return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>`;
+      default:
+        return `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>`;
+    }
+  }
+
   // 2. Render Player Progress Strip & Daily Challenge Spotlight
   function renderEngagementUI() {
     if (!window.AppState) return;
     const stats = AppState.getEngagementStats();
     const daily = AppState.getDailyChallenge();
 
+    if (statLevelValue && stats.levelInfo) {
+      statLevelValue.textContent = `Lv. ${stats.levelInfo.level} · ${stats.levelInfo.xp} XP`;
+      statLevelValue.classList.toggle("is-complete", stats.levelInfo.level >= 2);
+    }
+
     if (statStreakValue) {
       statStreakValue.textContent = `${stats.currentStreak} ${stats.currentStreak === 1 ? "day" : "days"}`;
       statStreakValue.classList.toggle("is-complete", stats.currentStreak > 0);
     }
 
-    if (statExploredValue) {
-      statExploredValue.textContent = `${stats.exploredCount}/${stats.totalGames}`;
+    if (statBadgesValue) {
+      statBadgesValue.textContent = `${stats.unlockedCount}/${stats.totalAchievements}`;
+      statBadgesValue.classList.toggle("is-complete", stats.unlockedCount > 0);
     }
 
     if (statDailyValue) {
       statDailyValue.textContent = stats.dailyCompleted ? "Completed Today" : "Pending";
       statDailyValue.classList.toggle("is-complete", stats.dailyCompleted);
     }
+
+    updateSoundButtonUI();
 
     if (dailyChallengeSpotlight && daily && daily.game) {
       const g = daily.game;
@@ -172,12 +224,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // 3. Render My Stats Modal / Bottom Sheet Content
+  // 3. Render My Stats & Badges Modal / Bottom Sheet Content
   function renderStatsModal() {
     if (!window.AppState || !statsModalKpis || !statsWeekStrip || !statsGenreList || !statsRatedList) return;
     const stats = AppState.getEngagementStats();
+    const badges = AppState.getAchievements();
     const last7 = AppState.getLast7Days();
     const playedSet = new Set(stats.playedSlugs);
+    const lvl = stats.levelInfo;
+
+    if (statsXpBanner && lvl) {
+      statsXpBanner.innerHTML = `
+        <div class="stats-xp-top">
+          <span class="stats-xp-rank">Level ${lvl.level} · ${lvl.rankTitle}</span>
+          <span class="stats-xp-total tabular-nums">${lvl.xp} XP</span>
+        </div>
+        <div class="stats-xp-track" role="progressbar" aria-valuenow="${lvl.progressPct}" aria-valuemin="0" aria-valuemax="100">
+          <div class="stats-xp-fill" style="width:${lvl.progressPct}%"></div>
+        </div>
+        <span class="stats-xp-sub tabular-nums">${lvl.xpToNext} XP to Level ${lvl.level + 1} · Earned automatically as you play, rate &amp; unlock badges</span>
+      `;
+    }
 
     statsModalKpis.innerHTML = `
       <div class="stats-kpi-item">
@@ -197,6 +264,23 @@ document.addEventListener("DOMContentLoaded", () => {
         <span class="stats-kpi-value">${stats.dailyChallengesWon}</span>
       </div>
     `;
+
+    if (statsBadgesHeading) {
+      const unlockedNum = badges.filter(b => b.unlocked).length;
+      statsBadgesHeading.textContent = `Achievements & Badges (${unlockedNum}/${badges.length})`;
+    }
+    if (statsBadgesGrid) {
+      statsBadgesGrid.innerHTML = badges.map(badge => `
+        <div class="badge-card ${badge.unlocked ? "is-unlocked" : ""}">
+          <div class="badge-icon-box">${getBadgeIconSvg(badge.icon)}</div>
+          <div class="badge-meta">
+            <span class="badge-title">${badge.title}</span>
+            <span class="badge-desc">${badge.description}</span>
+            <span class="badge-status-label tabular-nums">${badge.unlocked ? `Unlocked · +${badge.xp} XP` : `Locked · +${badge.xp} XP`}</span>
+          </div>
+        </div>
+      `).join("");
+    }
 
     statsWeekStrip.innerHTML = last7.map(day => `
       <div class="stats-day-cell ${day.played ? "played" : ""}" aria-label="${day.dayShort} ${day.dayNumber}: ${day.played ? "Played" : "Not played"}">
@@ -247,6 +331,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function openStatsModal() {
     if (!statsModalBackdrop) return;
+    if (window.ArcadeAudio) ArcadeAudio.playClick();
     renderStatsModal();
     statsModalBackdrop.classList.remove("hidden");
     document.body.style.overflow = "hidden";
@@ -255,11 +340,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function closeStatsModal() {
     if (!statsModalBackdrop) return;
+    if (window.ArcadeAudio) ArcadeAudio.playClick();
     statsModalBackdrop.classList.add("hidden");
     document.body.style.overflow = "";
     if (btnOpenStats) btnOpenStats.focus();
   }
 
+  if (btnToggleSound && window.AppState) {
+    btnToggleSound.addEventListener("click", () => {
+      const enabled = AppState.toggleSound();
+      showToast(enabled ? "Arcade sound effects enabled" : "Sound effects muted");
+    });
+  }
   if (btnOpenStats) {
     btnOpenStats.addEventListener("click", openStatsModal);
   }
@@ -384,6 +476,19 @@ document.addEventListener("DOMContentLoaded", () => {
               </div>
             </div>
           </article>
+        `;
+      }).join("");
+    }
+
+    if (popularTagsStrip && GamesRegistry.getTags) {
+      const tags = GamesRegistry.getTags();
+      popularTagsStrip.innerHTML = tags.map(tag => {
+        const count = GamesRegistry.getByTag(tag.slug).length;
+        return `
+          <a href="/tags/${tag.slug}" class="tag-hub-link">
+            <span>#${tag.name}</span>
+            <span class="tag-hub-count tabular-nums">${count}</span>
+          </a>
         `;
       }).join("");
     }
@@ -519,6 +624,7 @@ document.addEventListener("DOMContentLoaded", () => {
     sortControlBar.addEventListener("click", (e) => {
       const sortBtn = e.target.closest("[data-sort]");
       if (!sortBtn) return;
+      if (window.ArcadeAudio) ArcadeAudio.playClick();
       const mode = sortBtn.getAttribute("data-sort") || "featured";
       applyFilter(activeCategory, searchInput ? searchInput.value : "", mode);
     });
@@ -536,6 +642,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (searchClear) {
     searchClear.addEventListener("click", () => {
+      if (window.ArcadeAudio) ArcadeAudio.playClick();
       searchInput.value = "";
       searchClear.classList.remove("active");
       applyFilter(activeCategory, "", activeSort);
@@ -548,6 +655,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const cat = filterBtn.getAttribute("data-category");
       if (cat) {
         e.preventDefault();
+        if (window.ArcadeAudio) ArcadeAudio.playClick();
         applyFilter(cat, searchInput ? searchInput.value : "", activeSort);
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
@@ -555,6 +663,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   window.addEventListener("recent-updated", updateRecentShelf);
+  window.addEventListener("sound-updated", updateSoundButtonUI);
   window.addEventListener("engagement-updated", () => {
     renderEngagementUI();
     if (statsModalBackdrop && !statsModalBackdrop.classList.contains("hidden")) {

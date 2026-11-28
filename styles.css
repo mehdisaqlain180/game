@@ -1437,7 +1437,7 @@ body.immersive-fullscreen .stage-exit-fs-btn {
   }
   .control-actions-group {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
   }
   .control-actions-group .control-btn {
@@ -2474,6 +2474,38 @@ input, textarea, select, button {
   color: var(--text-muted);
 }
 
+.progress-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-sound-toggle {
+  padding: 8px 12px;
+  min-height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface-elevated);
+  border: var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.btn-sound-toggle:hover {
+  background: var(--bg-surface-hover);
+  color: #FFFFFF;
+}
+
+.btn-sound-toggle.is-muted {
+  color: var(--text-muted);
+}
+
 .btn-stats-trigger {
   padding: 8px 14px;
   min-height: 40px;
@@ -2502,9 +2534,15 @@ input, textarea, select, button {
     font-size: 0.78rem;
     gap: 6px 10px;
   }
+  .progress-actions-group {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px;
+  }
+  .btn-sound-toggle,
   .btn-stats-trigger {
     min-height: 44px;
-    width: 100%;
     justify-content: center;
   }
 }
@@ -3069,6 +3107,225 @@ input, textarea, select, button {
   .genre-faq-section {
     padding: 18px 14px;
   }
+}
+
+/* XP Banner & Achievements Badges Grid inside My Stats */
+.stats-xp-banner {
+  background: linear-gradient(135deg, rgba(115, 87, 255, 0.16) 0%, rgba(184, 255, 54, 0.08) 100%);
+  border: var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stats-xp-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.stats-xp-rank {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.stats-xp-total {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-action);
+}
+
+.stats-xp-track {
+  width: 100%;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.stats-xp-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-action) 100%);
+  transition: width 0.35s var(--transition-smooth);
+}
+
+.stats-xp-sub {
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+}
+
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.badge-card {
+  background: var(--bg-surface-elevated);
+  border: var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  opacity: 0.65;
+}
+
+.badge-card.is-unlocked {
+  opacity: 1;
+  border-color: rgba(184, 255, 54, 0.45);
+  background: rgba(184, 255, 54, 0.06);
+}
+
+.badge-icon-box {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: var(--border-subtle);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.badge-card.is-unlocked .badge-icon-box {
+  background: rgba(184, 255, 54, 0.14);
+  border-color: rgba(184, 255, 54, 0.4);
+  color: var(--accent-action);
+}
+
+.badge-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.badge-title {
+  font-family: var(--font-heading);
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.25;
+}
+
+.badge-desc {
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+  line-height: 1.35;
+}
+
+.badge-status-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.badge-card.is-unlocked .badge-status-label {
+  color: var(--accent-action);
+}
+
+@media (max-width: 520px) {
+  .badges-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Homepage Popular Tags Discovery Strip */
+.tag-hub-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag-hub-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  min-height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  border: var(--border-subtle);
+  color: #FFFFFF;
+  font-size: 0.84rem;
+  font-weight: 600;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.tag-hub-link:hover {
+  background: var(--bg-surface-hover);
+  border-color: rgba(184, 255, 54, 0.45);
+}
+
+.tag-hub-count {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+}
+
+/* Mobile Portrait Rotate Hint Banner (Strictly non-blocking above stage) */
+.mobile-rotate-hint {
+  display: none;
+}
+
+@media (max-width: 768px) and (orientation: portrait) {
+  .mobile-rotate-hint:not(.is-dismissed) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 12px;
+    background: rgba(115, 87, 255, 0.14);
+    border: 1px solid rgba(115, 87, 255, 0.35);
+    border-radius: var(--radius-sm);
+  }
+}
+
+.mobile-rotate-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: #EAECEF;
+  line-height: 1.35;
+}
+
+.mobile-rotate-text svg {
+  flex-shrink: 0;
+  color: var(--accent-action);
+}
+
+.mobile-rotate-dismiss {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 10px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 0.76rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.mobile-rotate-dismiss:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.control-btn.is-muted {
+  color: var(--text-muted);
 }
 
 /* 14. UTILITY CLASSES, ACCESSIBILITY & MOTION */

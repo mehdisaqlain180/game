@@ -8,7 +8,7 @@
   <meta name="keywords" content="free online games, browser games, html5 games, mobile browser games, no download games, gravity games">
   <meta name="theme-color" content="#0E1016">
   <link rel="canonical" href="https://gravitygamez.fun/">
-  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="manifest" href="/manifest.webmanifest">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -26,8 +26,11 @@
   <meta name="twitter:image" content="https://gravitygamez.fun/Images/GravityGamez.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="apple-touch-icon" href="favicon.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png?v=2">
+  <link rel="shortcut icon" href="/favicon.ico?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -166,13 +169,18 @@
         <section class="player-progress-strip" id="playerProgressStrip" aria-label="Your local play progress">
           <div class="progress-metrics-row tabular-nums">
             <span class="progress-metric">
+              <span>Rank:</span>
+              <span class="progress-metric-value" id="statLevelValue">Lv. 1 · 0 XP</span>
+            </span>
+            <span class="progress-sep" aria-hidden="true">·</span>
+            <span class="progress-metric">
               <span>Streak:</span>
               <span class="progress-metric-value" id="statStreakValue">0 days</span>
             </span>
             <span class="progress-sep" aria-hidden="true">·</span>
             <span class="progress-metric">
-              <span>Explored:</span>
-              <span class="progress-metric-value" id="statExploredValue">0/17</span>
+              <span>Badges:</span>
+              <span class="progress-metric-value" id="statBadgesValue">0/12</span>
             </span>
             <span class="progress-sep" aria-hidden="true">·</span>
             <span class="progress-metric">
@@ -180,14 +188,23 @@
               <span class="progress-metric-value" id="statDailyValue">Pending</span>
             </span>
           </div>
-          <button type="button" class="btn-stats-trigger" id="btnOpenStats">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <line x1="18" y1="20" x2="18" y2="10"></line>
-              <line x1="12" y1="20" x2="12" y2="4"></line>
-              <line x1="6" y1="20" x2="6" y2="14"></line>
-            </svg>
-            <span>My Stats</span>
-          </button>
+          <div class="progress-actions-group">
+            <button type="button" class="btn-sound-toggle" id="btnToggleSound" aria-pressed="true" title="Toggle arcade UI sound effects">
+              <svg id="homeSoundIcon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+              </svg>
+              <span id="homeSoundLabel">SFX On</span>
+            </button>
+            <button type="button" class="btn-stats-trigger" id="btnOpenStats">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="8" r="6"></circle>
+                <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
+              </svg>
+              <span>My Stats &amp; Badges</span>
+            </button>
+          </div>
         </section>
 
         <!-- Daily Challenge Spotlight -->
@@ -271,6 +288,31 @@
           <div class="covers-grid" id="puzzleGrid"></div>
         </section>
 
+        <!-- Explore by Popular Tag (SSR Tag Hubs) -->
+        <section aria-label="Explore games by popular tag">
+          <div class="section-header">
+            <div class="section-title-group">
+              <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                <line x1="7" y1="7" x2="7.01" y2="7"></line>
+              </svg>
+              <h2 class="section-title">Explore by Popular Tag</h2>
+            </div>
+          </div>
+          <nav class="tag-hub-strip" id="popularTagsStrip" aria-label="Curated game tag hubs">
+            <a href="/tags/platformer" class="tag-hub-link"><span>#Platformer</span></a>
+            <a href="/tags/rage" class="tag-hub-link"><span>#Rage</span></a>
+            <a href="/tags/3d" class="tag-hub-link"><span>#3D &amp; WebGL</span></a>
+            <a href="/tags/physics" class="tag-hub-link"><span>#Physics</span></a>
+            <a href="/tags/multiplayer" class="tag-hub-link"><span>#2-Player &amp; Local</span></a>
+            <a href="/tags/one-button" class="tag-hub-link"><span>#One Button</span></a>
+            <a href="/tags/strategy" class="tag-hub-link"><span>#Chess &amp; Strategy</span></a>
+            <a href="/tags/troll" class="tag-hub-link"><span>#Troll &amp; Deceptive</span></a>
+            <a href="/tags/gravity" class="tag-hub-link"><span>#Gravity &amp; Runner</span></a>
+            <a href="/tags/casual" class="tag-hub-link"><span>#Casual &amp; Sandbox</span></a>
+          </nav>
+        </section>
+
         <!-- Featured Guides & Walkthroughs -->
         <section aria-label="Gaming guides and comparisons">
           <div class="section-header">
@@ -307,7 +349,14 @@
         </button>
       </div>
 
+      <div class="stats-xp-banner" id="statsXpBanner"></div>
+
       <div class="stats-kpi-grid tabular-nums" id="statsModalKpis"></div>
+
+      <div>
+        <h3 class="stats-section-heading" id="statsBadgesHeading">Achievements &amp; Badges</h3>
+        <div class="badges-grid" id="statsBadgesGrid"></div>
+      </div>
 
       <div>
         <h3 class="stats-section-heading">Last 7 Days Activity</h3>
